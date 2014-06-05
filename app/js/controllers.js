@@ -3,11 +3,12 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-.controller('TimerCtrl', function($scope, $http) {
+.controller('TimerCtrl', function($scope) {
 	$scope.startTest = function(){
-		$scope.$broadcast('timer-start');
-		$http.get("www.facebook.com").fail(function(){
+		$.get("http://www.engadget.com", function(response) {
 			console.log($('timer span')[0].innerText);
 		});
+
+		$scope.$broadcast('timer-start');
 	}
 });

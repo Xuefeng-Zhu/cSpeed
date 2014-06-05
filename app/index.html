@@ -29,7 +29,7 @@
 
   <div class="segment">
     <div class="container">
-      <h3><timer autostart="false"/></h3>
+      <h3><timer autostart="false"/>{{millis}} ms</h3>
       <div class="fluid ui teal button" ng-click="startTest()">Start Test</div>
     </div>
   </div>
@@ -39,6 +39,8 @@
 -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="lib/semantic.min.js"></script>
+<script src="lib/jquery.xdomainajax.js"></script>
+
 
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-route.js"></script>
