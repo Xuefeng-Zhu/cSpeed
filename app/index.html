@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>SpeedTest</title>
   <link rel="stylesheet" href="css/semantic.css"/>
+  <link rel="stylesheet" href="css/pacer-theme.css"/>
   <link rel="stylesheet" href="css/app.css"/>
 
 </head>
@@ -29,6 +30,7 @@
 
   <div class="segment">
     <div class="container">
+      <div class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
       <h3><timer autostart="false"/>{{millis}} ms</h3>
       <div class="fluid ui teal button" ng-click="startTest()">Start Test</div>
     </div>
@@ -40,7 +42,6 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="lib/semantic.min.js"></script>
 <script src="lib/jquery.xdomainajax.js"></script>
-
 
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-route.js"></script>
