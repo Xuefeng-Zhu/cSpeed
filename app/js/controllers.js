@@ -29,6 +29,7 @@ angular.module('myApp.controllers', [])
 		$scope.finishedTest = [];
 
 		$scope.$broadcast('timer-start');
+		$scope.finishedTest.push($scope.currentTest);
 
 		loadPage($scope.currentTest["link"]);
 		$scope.status = "Test is running"
@@ -36,8 +37,6 @@ angular.module('myApp.controllers', [])
 
 	function loadPage(link){
 		$.get(link, function(response) {
-			console.log($('timer span')[0].innerText);
-			$scope.currentTest.time = $('timer span')[0].innerText;
 
 			index++;
 			if (index == $scope.tests.length){
@@ -50,12 +49,15 @@ angular.module('myApp.controllers', [])
 				return;
 			}
 
-			$scope.finishedTest.push($scope.currentTest);
 			$scope.currentTest = $scope.tests[index];
-
+			$scope.finishedTest.push($scope.currentTest);
 			$scope.$broadcast('timer-start');
 			$scope.$digest();
 			loadPage($scope.currentTest["link"]);
 		});
 	}
+
+	$scope.$on('timer-tick', function (event, args) {
+		$scope.currentTest.time = args.millis;
+	});
 });
