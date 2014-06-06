@@ -30,29 +30,11 @@
 
   <div class="segment">
     <div class="container">
-      <div class="ui message">
-        <i class="close icon"></i>
-        <div class="header">
-          Welcome!
-        </div>
-        <p>This Website will test your connection speed to 10 of the most popular websites listed below!</p>
-      </div>
-
-      <div class="ui compact menu">
-        <div class="ui simple dropdown item">
-          <span id="currentTest" style="min-width:200px"></span> <i class="dropdown icon"></i>
-          <div class="menu">
-            <div class="item" ng-repeat="test in tests">{{test.name}}</div>
-          </div>
-        </div>
-      </div>
-      <h3 ng-show="currentTest"><timer autostart="false"/>{{millis}} ms</h3>
-      <div class="fluid ui teal button" ng-click="startTest()" ng-hide="currentTest">Start Test</div>
+      <div class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
+      <h3><timer autostart="false"/>{{millis}} ms</h3>
+      <div class="fluid ui teal button" ng-click="startTest()">Start Test</div>
     </div>
   </div>
-
-  <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
-
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
