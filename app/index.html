@@ -30,11 +30,43 @@
 
   <div class="segment">
     <div class="container">
-      <div class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
-      <h3><timer autostart="false"/>{{millis}} ms</h3>
-      <div class="fluid ui teal button" ng-click="startTest()">Start Test</div>
+      <div class="ui message">
+        <i class="close icon"></i>
+        <div class="header">
+          Welcome!
+        </div>
+        <p>This Website will test your connection speed to 10 of the most popular websites listed below!</p>
+      </div>
+      <p>{{index}}</p>
+      <div class="ui compact menu">
+        <div class="ui simple dropdown item">
+          {{currentTest.name}} <span ng-hide="currentTest">Test Websites</span><i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item" ng-repeat="test in tests">{{test.name}}</div>
+          </div>
+        </div>
+      </div>
+      <span ng-show="currentTest" style="float:right">
+        <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
+        <h3 style="display:inline"><timer autostart="false"/>{{millis}}</h3> <span>ms</span>
+      </span>
+
+      <div class="fluid ui teal button" ng-click="startTest()" style="margin-top:1rem">{{status}}</div>
     </div>
   </div>
+
+  <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
+
+  <div class="container">
+    <div class="ui segment" ng-repeat="test in finishedTest">
+      <span><b>{{test.name}}</b></span>
+      <span style="float:right"><b>{{test.time}}ms</b></span>
+      <div class="ui successful progress">
+        <div class="bar" style="width:{{test.time / 20}}%"></div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
