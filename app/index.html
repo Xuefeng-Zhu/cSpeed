@@ -58,7 +58,7 @@
   <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
 
   <div class="container">
-    <div class="ui segment" ng-repeat="test in finishedTest">
+    <div class="ui segment fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
       <span><b>{{test.name}}</b></span>
       <span style="float:right"><b>{{test.time}}ms</b></span>
       <div class="ui successful progress">
@@ -74,11 +74,17 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="lib/semantic.min.js"></script>
 <script src="lib/jquery.xdomainajax.js"></script>
+<script src="lib/TweenMax.min.js"></script>
+
 
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-route.js"></script>
+<script src="lib/angular/angular-animate.js"></script>
+
 
 <script src="lib/timer.js"></script>
+<script src="lib/ng-Fx.min.js"></script>
+
 
 <script src="js/app.js"></script>
 <script src="js/services.js"></script>
