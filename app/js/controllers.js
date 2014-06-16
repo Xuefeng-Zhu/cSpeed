@@ -19,7 +19,7 @@ angular.module('myApp.controllers', [])
 	$('.message .close').on('click', function() {
 		$(this).closest('.message').fadeOut();
 	});
-
+	
 	var index = 0;
 	$scope.status = "Start Test"
 
