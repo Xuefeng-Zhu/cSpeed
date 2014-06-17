@@ -8,7 +8,6 @@ angular.module('myApp.controllers', [])
 	$scope.tests = [{"name": "Facebook", "link": "https://www.facebook.com"},
 	{"name": "Google", "link": "https://www.google.com"},
 	{"name": "Engadget", "link": "https://www.engadget.com"},
-	{"name": "Reddit", "link": "https://www.reddit.com"},
 	{"name": "Github", "link": "https://www.github.com"},
 	{"name": "Linkedin", "link": "https://www.linkedin.com"},
 	{"name": "Youtube", "link": "https://www.youtube.com"},
