@@ -44,6 +44,9 @@ angular.module('myApp.controllers', [])
 				$("#currentTest").text("Finish");
 				$scope.$broadcast('timer-stop');
 				$scope.status = "Run Again";
+
+				var fb = new Firebase("https://speedtest.firebaseio.com/indivisuals/");
+				fb.push(angular.copy($scope.finishedTest));
 				$scope.$digest();
 				return;
 			}
