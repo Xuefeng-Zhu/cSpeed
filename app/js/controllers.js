@@ -4,6 +4,15 @@
 
 angular.module('myApp.controllers', [])
 .controller('TimerCtrl', function($scope) {
+	var fb = new Firebase("https://speedtest.firebaseio.com/");
+	$scope.total = {};
+
+	fb.child("total").on("child_added", function(dataSnapshot){
+					var name = dataSnapshot.name();
+					var value = dataSnapshot.val();
+					$scope.total[name] = value;
+					console.log($scope.total)
+	})
 
 	$scope.tests = [{"name": "Facebook", "link": "https://www.facebook.com"},
 	{"name": "Google", "link": "https://www.google.com"},
@@ -44,9 +53,8 @@ angular.module('myApp.controllers', [])
 				$("#currentTest").text("Finish");
 				$scope.$broadcast('timer-stop');
 				$scope.status = "Run Again";
-
-				var fb = new Firebase("https://speedtest.firebaseio.com/indivisuals/");
-				fb.push(angular.copy($scope.finishedTest));
+				fb.child("individuals").push(angular.toJson($scope.finishedTest));
+				
 				$scope.$digest();
 				return;
 			}
