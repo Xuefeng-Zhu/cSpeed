@@ -5,6 +5,15 @@
 angular.module('myApp.controllers', [])
 .controller('TimerCtrl', function($scope, $timeout, $http) {
 	var fb = new Firebase("https://speedtest.firebaseio.com");
+ 	
+ 	fb.child("total").on("value", function(dataSnapshot){
+ 					console.log(name)
+ 					var name = dataSnapshot.name();
+ 					var value = dataSnapshot.val();
+
+ 					$scope.total = value;
+ 					console.log($scope.total);
+ 	})
 
 	$scope.tests = [{"name": "Facebook", "link": "https://www.facebook.com"},
 	{"name": "Google", "link": "https://www.google.com"},
@@ -63,10 +72,16 @@ angular.module('myApp.controllers', [])
 	function finalizeTest(){
 		var temp = performance.getEntries();
 		temp.splice(0,4);
-		$scope.upData = {}
+		$scope.upData = {};
+		
 		for (var i in $scope.tests){
 			$scope.upData[$scope.tests[i].name] = temp[i];
+			calTotal($scope.tests[i].name, temp[i].duration);
 		}
+
+		$scope.total["count"] = $scope.total["count"]? $scope.total["count"] + 1 : 1;
+		fb.child('total').set($scope.total);
+
 		$scope.upData.user_info ={};
 		$scope.upData.user_info.browser = navigator.appVersion;
 
@@ -74,6 +89,12 @@ angular.module('myApp.controllers', [])
 			$scope.upData.user_info.ip = response
 			fb.child('individuals').push(angular.copy($scope.upData));
 		})
+	}
 
+	function calTotal(name, time){
+		if (!$scope.total){
+			$scope.total = {};
+		}
+		$scope.total[name] = $scope.total[name]? $scope.total[name] + time : time; 
 	}
 });
