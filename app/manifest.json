@@ -19,5 +19,7 @@
 
 
   "options_page": "index.html",
-  "permissions": ["tabs", "http://*/*", "https://*/*"]
-}
+  "permissions": ["tabs", "http://*/*", "https://*/*"],
+  "content_security_policy": "script-src 'self' https://*.firebaseio.com; object-src 'self'"
+
+  }

@@ -3,16 +3,8 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-.controller('TimerCtrl', function($scope) {
-	var fb = new Firebase("https://speedtest.firebaseio.com/");
-	$scope.total = {};
-
-	fb.child("total").on("child_added", function(dataSnapshot){
-					var name = dataSnapshot.name();
-					var value = dataSnapshot.val();
-					$scope.total[name] = value;
-					console.log($scope.total)
-	})
+.controller('TimerCtrl', function($scope, $timeout, $http) {
+	var fb = new Firebase("https://speedtest.firebaseio.com");
 
 	$scope.tests = [{"name": "Facebook", "link": "https://www.facebook.com"},
 	{"name": "Google", "link": "https://www.google.com"},
@@ -44,8 +36,7 @@ angular.module('myApp.controllers', [])
 	}
 
 	function loadPage(link){
-		$.get(link, function(response) {
-
+		$http.get(link).success(function(response) {
 			index++;
 			if (index == $scope.tests.length){
 				$scope.currentTest = undefined;
@@ -53,16 +44,14 @@ angular.module('myApp.controllers', [])
 				$("#currentTest").text("Finish");
 				$scope.$broadcast('timer-stop');
 				$scope.status = "Run Again";
-				fb.child("individuals").push(angular.toJson($scope.finishedTest));
-				
-				$scope.$digest();
+
+				$timeout(finalizeTest, 10);
 				return;
 			}
 
 			$scope.currentTest = $scope.tests[index];
 			$scope.finishedTest.push($scope.currentTest);
 			$scope.$broadcast('timer-start');
-			$scope.$digest();
 			loadPage($scope.currentTest["link"]);
 		});
 	}
@@ -70,4 +59,21 @@ angular.module('myApp.controllers', [])
 	$scope.$on('timer-tick', function (event, args) {
 		$scope.currentTest.time = args.millis;
 	});
+
+	function finalizeTest(){
+		var temp = performance.getEntries();
+		temp.splice(0,4);
+		$scope.upData = {}
+		for (var i in $scope.tests){
+			$scope.upData[$scope.tests[i].name] = temp[i];
+		}
+		$scope.upData.user_info ={};
+		$scope.upData.user_info.browser = navigator.appVersion;
+
+		$http.get('http://ip-api.com/json').success(function(response){
+			$scope.upData.user_info.ip = response
+			fb.child('individuals').push(angular.copy($scope.upData));
+		})
+
+	}
 });
