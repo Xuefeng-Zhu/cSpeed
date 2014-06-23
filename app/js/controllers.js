@@ -5,35 +5,35 @@
 angular.module('myApp.controllers', [])
 .controller('TimerCtrl', function($scope, $timeout, $http) {
 	var fb = new Firebase("https://speedtest.firebaseio.com");
- 	
- 	fb.child("total").on("value", function(dataSnapshot){
- 					console.log(name)
- 					var name = dataSnapshot.name();
- 					var value = dataSnapshot.val();
-
- 					$scope.total = value;
- 					console.log($scope.total);
- 	})
-
-	$scope.tests = [{"name": "Facebook", "link": "https://www.facebook.com"},
-	{"name": "Google", "link": "https://www.google.com"},
-	{"name": "Engadget", "link": "https://www.engadget.com"},
-	{"name": "Github", "link": "https://www.github.com"},
-	{"name": "Linkedin", "link": "https://www.linkedin.com"},
-	{"name": "Youtube", "link": "https://www.youtube.com"},
-	{"name": "Yahoo", "link": "https://www.yahoo.com"},
-	{"name": "Wikipedia", "link": "https://www.wikipedia.org"},
-	{"name": "Twitter", "link": "https://www.twitter.com"}];
-
-	$('.message .close').on('click', function() {
-		$(this).closest('.message').fadeOut();
-	});
-	
 	var index = 0;
-	$scope.status = "Start Test"
+
+	$scope.tests = [
+	{"name": "Engadget", "link": "https://www.engadget.com"},
+	{"name": "Facebook", "link": "https://www.facebook.com"},
+	{"name": "Github", "link": "https://www.github.com"},
+	{"name": "Google", "link": "https://www.google.com"},
+	{"name": "Linkedin", "link": "https://www.linkedin.com"},
+	{"name": "Twitter", "link": "https://www.twitter.com"},
+	{"name": "Wikipedia", "link": "https://www.wikipedia.org"},
+	{"name": "Yahoo", "link": "https://www.yahoo.com"},
+	{"name": "Youtube", "link": "https://www.youtube.com"}];
+	$scope.upData = {};
+	$scope.total = null;
+	$scope.status = "Start Test";
+
+	fb.child("total").on("value", function(dataSnapshot){
+		var name = dataSnapshot.name();
+		var value = dataSnapshot.val();
+
+		$scope.total = value;
+	})
+	
 
 	$scope.startTest = function(){
 		index = 0;
+
+		$scope.report = {};
+
 		$scope.currentTest = $scope.tests[index];
 		$scope.finishedTest = [];
 
@@ -72,22 +72,23 @@ angular.module('myApp.controllers', [])
 	function finalizeTest(){
 		var temp = performance.getEntries();
 		temp.splice(0,4);
-		$scope.upData = {};
 		
 		for (var i in $scope.tests){
 			$scope.upData[$scope.tests[i].name] = temp[i];
 			calTotal($scope.tests[i].name, temp[i].duration);
 		}
+		var userRef = fb.child('individuals').push(angular.copy($scope.upData));
 
 		$scope.total["count"] = $scope.total["count"]? $scope.total["count"] + 1 : 1;
 		fb.child('total').set($scope.total);
 
-		$scope.upData.user_info ={};
-		$scope.upData.user_info.browser = navigator.appVersion;
+		generateReport();
 
 		$http.get('http://ip-api.com/json').success(function(response){
-			$scope.upData.user_info.ip = response
-			fb.child('individuals').push(angular.copy($scope.upData));
+			var user_info ={};
+			user_info.browser = navigator.appVersion;
+			user_info.ip = response
+			userRef.child('user_info').set(user_info);
 		})
 	}
 
@@ -96,5 +97,49 @@ angular.module('myApp.controllers', [])
 			$scope.total = {};
 		}
 		$scope.total[name] = $scope.total[name]? $scope.total[name] + time : time; 
+	}
+
+	function generateReport(){
+		var uTotal = 0;
+		var oTotal = 0;
+		angular.forEach($scope.upData, function(value, key){
+			var avg = $scope.total[key] / $scope.total.count;
+
+			uTotal += value.duration;
+			oTotal += avg;
+			var temp = (value.duration - avg) / avg * 100;
+			temp = Math.round(temp);
+
+			if (temp >= 0){
+				$scope.report[key] = {
+					"value": temp,
+					"up": false
+				}
+			}
+			else{
+				$scope.report[key] = {
+					"value": - temp,
+					"up": true
+				}
+			}
+		});
+
+		var temp = (uTotal - oTotal) / oTotal * 100;
+		temp = Math.round(temp);
+
+		var comparation = temp >= 0 ? {
+			"key": "slower",
+			"value": temp 
+		}:{
+			"key": "faster",
+			"value": -temp
+		} 
+		$scope.report["summary"] = {
+			"uTotal" : Math.round(uTotal),
+			"oTotal" : Math.round(oTotal),
+			"comparation": comparation
+		}
+
+		console.log($scope.report);
 	}
 });
