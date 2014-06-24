@@ -30,6 +30,7 @@ angular.module('myApp.controllers', [])
 
 	$scope.startTest = function(){
 		index = 0;
+		performance.webkitClearResourceTimings();
 
 		$scope.upData = {};
 		$scope.report = {};
@@ -76,7 +77,7 @@ angular.module('myApp.controllers', [])
 		loadHelper(index).then(function(status){
 			console.log(status);
 		},function(status){
-			alert("fail, test result will be reloaded. Please report the error in console to zhuxuefeng1994@126.com");
+			console.log("fail, test result will be reloaded. Please report the error in console to zhuxuefeng1994@126.com");
 			loadResult(status);
 		});
 	}
@@ -86,10 +87,10 @@ angular.module('myApp.controllers', [])
 
 		$timeout(function(){
 			var temp = performance.getEntries();
-			if (temp.length > 4 + index)
+			if (temp.length > index)
 			{
-				$scope.upData[$scope.tests[index]["name"]] = temp[4+index];
-				$scope.finishedTest[index].time = temp[4+index].duration;
+				$scope.upData[$scope.tests[index]["name"]] = temp[index];
+				$scope.finishedTest[index].time = temp[index].duration;
 				deferred.resolve(index);
 			}
 			else{
