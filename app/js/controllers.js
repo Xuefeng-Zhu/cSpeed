@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-.controller('TimerCtrl', function($scope, $timeout, $http) {
+.controller('TimerCtrl', function($scope, $timeout, $http, $q) {
 	var fb = new Firebase("https://speedtest.firebaseio.com");
 	var index = 0;
 
@@ -17,7 +17,6 @@ angular.module('myApp.controllers', [])
 	{"name": "Wikipedia", "link": "https://www.wikipedia.org"},
 	{"name": "Yahoo", "link": "https://www.yahoo.com"},
 	{"name": "Youtube", "link": "https://www.youtube.com"}];
-	$scope.upData = {};
 	$scope.total = null;
 	$scope.status = "Start Test";
 
@@ -26,12 +25,13 @@ angular.module('myApp.controllers', [])
 		var value = dataSnapshot.val();
 
 		$scope.total = value;
-	})
+	});
 	
 
 	$scope.startTest = function(){
 		index = 0;
 
+		$scope.upData = {};
 		$scope.report = {};
 
 		$scope.currentTest = $scope.tests[index];
@@ -46,6 +46,7 @@ angular.module('myApp.controllers', [])
 
 	function loadPage(link){
 		$http.get(link).success(function(response) {
+			loadResult(index);
 			index++;
 			if (index == $scope.tests.length){
 				$scope.currentTest = undefined;
@@ -54,7 +55,7 @@ angular.module('myApp.controllers', [])
 				$scope.$broadcast('timer-stop');
 				$scope.status = "Run Again";
 
-				$timeout(finalizeTest, 10);
+				$timeout(finalizeTest, 1000);
 				return;
 			}
 
@@ -90,6 +91,33 @@ angular.module('myApp.controllers', [])
 			user_info.ip = response
 			userRef.child('user_info').set(user_info);
 		})
+	}
+
+	function loadResult(index){
+		loadHelper(index).then(function(status){
+			console.log(status);
+		},function(status){
+			alert("fail,"+status);
+			loadResult(status);
+		});
+	}
+
+	function loadHelper(index){
+		var deferred = $q.defer();
+
+		$timeout(function(){
+			var temp = performance.getEntries();
+			if (temp.length > 4 + index)
+			{
+				$scope.upData[$scope.tests[index]["name"]] = temp[4+index];
+				deferred.resolve(index);
+			}
+			else{
+				deferred.reject(index);
+			}
+		},100);
+
+		return deferred.promise;
 	}
 
 	function calTotal(name, time){
