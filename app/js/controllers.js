@@ -33,10 +33,9 @@ angular.module('myApp.controllers', [])
 
 		$scope.upData = {};
 		$scope.report = {};
-
-		$scope.currentTest = $scope.tests[index];
 		$scope.finishedTest = [];
 
+		$scope.currentTest = $scope.tests[index];
 		$scope.$broadcast('timer-start');
 		$scope.finishedTest.push($scope.currentTest);
 
@@ -46,6 +45,7 @@ angular.module('myApp.controllers', [])
 
 	function loadPage(link){
 		$http.get(link).success(function(response) {
+			$scope.upData[$scope.currentTest.name] = {duration:0}
 			loadResult(index);
 			index++;
 			if (index == $scope.tests.length){
@@ -58,7 +58,6 @@ angular.module('myApp.controllers', [])
 				$timeout(finalizeTest, 1000);
 				return;
 			}
-
 			$scope.currentTest = $scope.tests[index];
 			$scope.finishedTest.push($scope.currentTest);
 			$scope.$broadcast('timer-start');
@@ -110,6 +109,7 @@ angular.module('myApp.controllers', [])
 			if (temp.length > 4 + index)
 			{
 				$scope.upData[$scope.tests[index]["name"]] = temp[4+index];
+				$scope.finishedTest[index].time = temp[4+index].duration;
 				deferred.resolve(index);
 			}
 			else{
