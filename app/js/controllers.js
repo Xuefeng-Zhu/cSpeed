@@ -107,6 +107,7 @@ angular.module('myApp.controllers', [])
 			var user_info ={};
 			user_info.browser = navigator.appVersion;
 			user_info.ip = response
+			user_info.date = Date();
 			userRef.child('user_info').set(user_info);
 		})
 
