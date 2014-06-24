@@ -43,11 +43,17 @@ angular.module('myApp.controllers', [])
 		$scope.status = "Test is running"
 	}
 
+	$scope.$on('timer-tick', function (event, args) {
+		$scope.currentTest.time = args.millis;
+	});
+
 	function loadPage(link){
 		$http.get(link).success(function(response) {
-			$scope.upData[$scope.currentTest.name] = {duration:0}
+			//load individual test result 
 			loadResult(index);
+
 			index++;
+			//check if the test is at the end 
 			if (index == $scope.tests.length){
 				$scope.currentTest = undefined;
 
@@ -55,9 +61,10 @@ angular.module('myApp.controllers', [])
 				$scope.$broadcast('timer-stop');
 				$scope.status = "Run Again";
 
-				$timeout(finalizeTest, 1000);
+				$timeout(finalizeTest, 200);
 				return;
 			}
+
 			$scope.currentTest = $scope.tests[index];
 			$scope.finishedTest.push($scope.currentTest);
 			$scope.$broadcast('timer-start');
@@ -65,38 +72,11 @@ angular.module('myApp.controllers', [])
 		});
 	}
 
-	$scope.$on('timer-tick', function (event, args) {
-		$scope.currentTest.time = args.millis;
-	});
-
-	function finalizeTest(){
-		var temp = performance.getEntries();
-		temp.splice(0,4);
-		
-		for (var i in $scope.tests){
-			$scope.upData[$scope.tests[i].name] = temp[i];
-			calTotal($scope.tests[i].name, temp[i].duration);
-		}
-		var userRef = fb.child('individuals').push(angular.copy($scope.upData));
-
-		$scope.total["count"] = $scope.total["count"]? $scope.total["count"] + 1 : 1;
-		fb.child('total').set($scope.total);
-
-		generateReport();
-
-		$http.get('http://ip-api.com/json').success(function(response){
-			var user_info ={};
-			user_info.browser = navigator.appVersion;
-			user_info.ip = response
-			userRef.child('user_info').set(user_info);
-		})
-	}
-
 	function loadResult(index){
 		loadHelper(index).then(function(status){
 			console.log(status);
 		},function(status){
-			alert("fail,"+status);
+			alert("fail, test result will be reloaded. Please report the error in console to zhuxuefeng1994@126.com");
 			loadResult(status);
 		});
 	}
@@ -118,6 +98,25 @@ angular.module('myApp.controllers', [])
 		},100);
 
 		return deferred.promise;
+	}
+
+	function finalizeTest(){
+		
+		var userRef = fb.child('individuals').push(angular.copy($scope.upData));
+		$http.get('http://ip-api.com/json').success(function(response){
+			var user_info ={};
+			user_info.browser = navigator.appVersion;
+			user_info.ip = response
+			userRef.child('user_info').set(user_info);
+		})
+
+		for (var i in $scope.tests){
+			calTotal($scope.tests[i].name, $scope.upData[$scope.tests[i].name].duration);
+		}
+		$scope.total["count"] = $scope.total["count"]? $scope.total["count"] + 1 : 1;
+		fb.child('total').set($scope.total);
+
+		generateReport();
 	}
 
 	function calTotal(name, time){
