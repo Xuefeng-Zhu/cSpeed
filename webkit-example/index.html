@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>Hello World!</title>
+</head>
+<body>
+	<form>
+		<input	type="text" id="site" placeholder="Type website">
+		<input type="button" id="enter" value="enter">
+	</form>
+	<div id="result"></div>
+	<script type="text/javascript" scr="./jquery-1.11.1.min.js"></script>
+
+	<script>
+		var enter = document.getElementById('enter')
+		enter.onclick = function(){
+			var result = document.getElementById("result");
+			while (result.hasChildNodes()) {
+				result.removeChild(result.lastChild);
+			}
+			traceroute = require('traceroute');
+			traceroute.trace(document.getElementById("site").value, function (err,hops) {
+				if (!err) console.log(hops);
+				for (var i in hops){
+					for (var j in hops[i]){
+						var para = document.createElement("p");
+						var txt = document.createTextNode(j);
+						para.appendChild(txt);
+						result.appendChild(para)
+					}
+				}
+			});
+		}
+
+	</script>.
+</body>
+</html>
