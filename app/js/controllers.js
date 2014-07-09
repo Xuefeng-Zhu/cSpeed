@@ -7,6 +7,12 @@ angular.module('myApp.controllers', [])
 	var fb = new Firebase("https://speedtest.firebaseio.com");
 	var index = 0;
 
+	$scope.resourceColor = {
+		"link": "blue",
+		"script": "warning",
+		"css": "green",
+		"img": "purple"
+	}
 	$scope.tests = [
 	{"name": "Engadget", "link": "https://www.engadget.com"},
 	{"name": "Facebook", "link": "https://www.facebook.com"},
@@ -45,6 +51,10 @@ angular.module('myApp.controllers', [])
 		$scope.status = "Test is running"
 	}
 
+	$scope.toggleResource = function(test){
+			test.focus = test.focus? false:true;
+	}
+
 	$scope.$on('timer-tick', function (event, args) {
 		$scope.currentTest.time = args.millis;
 	});
@@ -53,7 +63,7 @@ angular.module('myApp.controllers', [])
 		function(request, sender, sendResponse) {
 			console.log(request)
 			chrome.tabs.remove(sender.tab.id);
-			loadResult(index, request.time);
+			loadResult(index, request);
 			
 			index++;
 			//check if the test is at the end 
@@ -76,9 +86,10 @@ angular.module('myApp.controllers', [])
 			$scope.$digest()
     });
 
-	function loadResult(index, time){
-		$scope.upData[$scope.tests[index]["name"]] = time;
-		$scope.finishedTest[index].time = time.loadEventEnd - time.navigationStart;
+	function loadResult(index, data){
+		$scope.upData[$scope.tests[index]["name"]] = data.time;
+		$scope.finishedTest[index].time = data.time.loadEventEnd - data.time.navigationStart;
+		$scope.finishedTest[index].resource = data.resource;
 	}
 
 
@@ -96,10 +107,11 @@ angular.module('myApp.controllers', [])
 			calTotal($scope.finishedTest[i].name, $scope.finishedTest[i].time);
 		}
 		$scope.total["count"] = $scope.total["count"]? $scope.total["count"] + 1 : 1;
-		console.log($scope.total)
 		fb.child('total').set($scope.total);
 
 		generateReport();
+		$('.ui.successful.progress').popup({content : 'Click me to show more infomation' });
+
 	}
 
 	function calTotal(name, time){
@@ -150,7 +162,6 @@ angular.module('myApp.controllers', [])
 			"comparation": comparation
 		}
 
-		console.log($scope.report);
 	}
 
 });

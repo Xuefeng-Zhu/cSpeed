@@ -64,65 +64,74 @@
     <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
       <div class="item">
         <div class="ui header"> <i class="large signal icon"></i>
-Report</div>
-        <div class="content">
-          <p>It takes you <b>{{report.summary.uTotal}}ms</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal}}ms</b>. You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
-          <table class="ui large table segment">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Your Speed</th>
-                <th>Others' Speed</th>
-                <th>Comparation</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="test in finishedTest">
-                <td>{{test.name}}</td>
-                <td>{{test.time|number: 0}}</td>
-                <td>{{total[test.name]/total.count|number: 0}}</td>
-                <td>
-                  <i ng-show="report[test.name].up" class="green up arrow icon"></i>
-                  <i ng-hide="report[test.name].up" class="red down arrow icon"></i>
-                  {{report[test.name].value}}%
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          Report</div>
+          <div class="content">
+            <p>It takes you <b>{{report.summary.uTotal}}ms</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal}}ms</b>. You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
+            <table class="ui large table segment">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Your Speed</th>
+                  <th>Others' Speed</th>
+                  <th>Comparation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="test in finishedTest">
+                  <td>{{test.name}}</td>
+                  <td>{{test.time|number: 0}}</td>
+                  <td>{{total[test.name]/total.count|number: 0}}</td>
+                  <td>
+                    <i ng-show="report[test.name].up" class="green up arrow icon"></i>
+                    <i ng-hide="report[test.name].up" class="red down arrow icon"></i>
+                    {{report[test.name].value}}%
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="ui segment fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
-      <span><b>{{test.name}}</b></span>
-      <span style="float:right"><b>Others's Speed:{{total[test.name]/total["count"]|number: 0}}ms    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
+      <div class="ui segment fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
+        <span><b>{{test.name}}</b></span>
+        <span style="float:right"><b>Others's Speed:{{total[test.name]/total["count"]|number: 0}}ms    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
 
-      <div class="ui successful progress">
-        <div class="bar" style="width:{{test.time / 20}}%"></div>
+        <div class="ui successful progress">
+          <div class="bar" style="width:{{test.time / 20}}%" ng-click="toggleResource(test)"></div>
+        </div>
+        <div class="fx-fade-down fx-easing-sine fx-speed-500" ng-show="test.focus">
+         <div ng-repeat="item in test.resource">
+          <span><b>{{item.name | limitTo: 100}}</b></span>
+          <span style="float:right"><b>{{item.duration}}</b></span>
+          <div class="ui {{resourceColor[item.initiatorType]}} progress" >
+            <div class="bar" style="width:{{item.duration / 20}}%"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
 
-<script src="lib/jquery-1.11.1.min.js"></script>
-<script src="lib/semantic.min.js"></script>
-<script src="lib/TweenMax.min.js"></script>
-<script src="lib/firebase.js"></script>
+  <script src="lib/jquery-1.11.1.min.js"></script>
+  <script src="lib/semantic.min.js"></script>
+  <script src="lib/TweenMax.min.js"></script>
+  <script src="lib/firebase.js"></script>
 
 
-<script src="lib/angular/angular.js"></script>
-<script src="lib/angular/angular-route.js"></script>
-<script src="lib/angular/angular-animate.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-route.js"></script>
+  <script src="lib/angular/angular-animate.js"></script>
 
 
-<script src="lib/timer.js"></script>
-<script src="lib/ng-Fx.min.js"></script>
+  <script src="lib/timer.js"></script>
+  <script src="lib/ng-Fx.min.js"></script>
 
 
-<script src="js/app.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
 </body>
 </html>
