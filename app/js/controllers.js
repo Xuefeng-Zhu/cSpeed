@@ -39,43 +39,15 @@ angular.module('myApp.controllers', [])
 		$scope.currentTest = $scope.tests[index];
 		$scope.$broadcast('timer-start');
 		$scope.finishedTest.push($scope.currentTest);
-
 		chrome.tabs.create({url: $scope.currentTest.link, active:false},function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "js/helper.js"})
 		});
-
-	//	loadPage($scope.currentTest["link"]);
 		$scope.status = "Test is running"
 	}
 
 	$scope.$on('timer-tick', function (event, args) {
 		$scope.currentTest.time = args.millis;
 	});
-
-	function loadPage(link){
-		$http.get(link).success(function(response) {
-			//load individual test result 
-			loadResult(index);
-
-			index++;
-			//check if the test is at the end 
-			if (index == $scope.tests.length){
-				$scope.currentTest = undefined;
-
-				$("#currentTest").text("Finish");
-				$scope.$broadcast('timer-stop');
-				$scope.status = "Run Again";
-
-				$timeout(finalizeTest, 200);
-				return;
-			}
-
-			$scope.currentTest = $scope.tests[index];
-			$scope.finishedTest.push($scope.currentTest);
-			$scope.$broadcast('timer-start');
-			loadPage($scope.currentTest["link"]);
-		});
-	};
 
 	chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
@@ -87,12 +59,11 @@ angular.module('myApp.controllers', [])
 			//check if the test is at the end 
 			if (index == $scope.tests.length){
 				$scope.currentTest = undefined;
-
 				$("#currentTest").text("Finish");
 				$scope.$broadcast('timer-stop');
 				$scope.status = "Run Again";
 
-				$timeout(finalizeTest, 200);
+				finalizeTest();
 				return;
 			}
 
@@ -112,7 +83,6 @@ angular.module('myApp.controllers', [])
 
 
 	function finalizeTest(){
-		
 		var userRef = fb.child('individuals').push(angular.copy($scope.upData));
 		$http.get('http://ip-api.com/json').success(function(response){
 			var user_info ={};
@@ -122,10 +92,11 @@ angular.module('myApp.controllers', [])
 			userRef.child('user_info').set(user_info);
 		})
 
-		for (var i in $scope.tests){
-			calTotal($scope.tests[i].name, $scope.upData[$scope.tests[i].name].duration);
+		for (var i in $scope.finishedTest){ 
+			calTotal($scope.finishedTest[i].name, $scope.finishedTest[i].time);
 		}
 		$scope.total["count"] = $scope.total["count"]? $scope.total["count"] + 1 : 1;
+		console.log($scope.total)
 		fb.child('total').set($scope.total);
 
 		generateReport();
@@ -141,22 +112,22 @@ angular.module('myApp.controllers', [])
 	function generateReport(){
 		var uTotal = 0;
 		var oTotal = 0;
-		angular.forEach($scope.upData, function(value, key){
-			var avg = $scope.total[key] / $scope.total.count;
+		angular.forEach($scope.finishedTest, function(value, key){
+			var avg = $scope.total[value.name] / $scope.total.count;
 
-			uTotal += value.duration;
+			uTotal += value.time;
 			oTotal += avg;
-			var temp = (value.duration - avg) / avg * 100;
+			var temp = (value.time - avg) / avg * 100;
 			temp = Math.round(temp);
 
 			if (temp >= 0){
-				$scope.report[key] = {
+				$scope.report[value.name] = {
 					"value": temp,
 					"up": false
 				}
 			}
 			else{
-				$scope.report[key] = {
+				$scope.report[value.name] = {
 					"value": - temp,
 					"up": true
 				}
