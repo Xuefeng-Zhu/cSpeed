@@ -40,13 +40,17 @@ angular.module('myApp.controllers', [])
 		$scope.$broadcast('timer-start');
 		$scope.finishedTest.push($scope.currentTest);
 
-		loadPage($scope.currentTest["link"]);
+		chrome.tabs.create({url: $scope.currentTest.link, active:false},function(tab){
+			chrome.tabs.executeScript(tab.id, {file: "js/helper.js"})
+		});
+
+	//	loadPage($scope.currentTest["link"]);
 		$scope.status = "Test is running"
 	}
 
-	$scope.$on('timer-tick', function (event, args) {
-		$scope.currentTest.time = args.millis;
-	});
+	// $scope.$on('timer-tick', function (event, args) {
+	// 	$scope.currentTest.time = args.millis;
+	// });
 
 	function loadPage(link){
 		$http.get(link).success(function(response) {
@@ -67,9 +71,6 @@ angular.module('myApp.controllers', [])
 			}
 
 			$scope.currentTest = $scope.tests[index];
-			chrome.tabs.create({url: $scope.currentTest.link, active:false},function(tab){
-				chrome.tabs.executeScript(tab.id, {file: "js/helper.js"})
-			});
 			$scope.finishedTest.push($scope.currentTest);
 			$scope.$broadcast('timer-start');
 			loadPage($scope.currentTest["link"]);
@@ -78,8 +79,14 @@ angular.module('myApp.controllers', [])
 
 	chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
-        // This cache stores page load time for each tab, so they don't interfere
-        console.log(request.resource)
+			console.log(request.resource)
+			chrome.tabs.remove(sender.tab.id);
+			index++;
+			console.log(index)
+			$scope.currentTest = $scope.tests[index];
+			chrome.tabs.create( {url: $scope.currentTest.link, active:false},function(tab){
+				chrome.tabs.executeScript(tab.id, {file: "js/helper.js"})
+			});
     });
 
 	function loadResult(index){

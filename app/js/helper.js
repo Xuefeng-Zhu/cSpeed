@@ -7,5 +7,3 @@ function measure() {
 }
 
 measure();
-
-
