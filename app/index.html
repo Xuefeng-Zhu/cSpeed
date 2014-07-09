@@ -102,12 +102,13 @@
         </div>
         <div class="fx-fade-down fx-easing-sine fx-speed-500" ng-show="test.focus">
          <div ng-repeat="item in test.resource">
-          <span><b>{{item.name | limitTo: 100}}</b></span>
-          <span style="float:right"><b>{{item.duration}}</b></span>
+          <span><b>{{item.initiatorType}}:{{item.name | limitTo: 100}}</b></span>
+          <span style="float:right"><b>{{item.duration}}ms</b></span>
           <div class="ui {{resourceColor[item.initiatorType]}} progress" >
             <div class="bar" style="width:{{item.duration / 20}}%"></div>
           </div>
         </div>
+        <div class="fluid ui black button" ng-click="toggleResource(test)" style="margin-top:1rem">Hide Details</div>
       </div>
     </div>
   </div>
