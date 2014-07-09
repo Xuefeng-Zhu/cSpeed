@@ -1,5 +1,5 @@
 function measure() {
-    if (performance.getEntries().length < 2){
+    if (performance.timing.loadEventEnd == 0){
         setTimeout(measure, 1000);
         return;
     }

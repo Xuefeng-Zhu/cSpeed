@@ -48,9 +48,9 @@ angular.module('myApp.controllers', [])
 		$scope.status = "Test is running"
 	}
 
-	// $scope.$on('timer-tick', function (event, args) {
-	// 	$scope.currentTest.time = args.millis;
-	// });
+	$scope.$on('timer-tick', function (event, args) {
+		$scope.currentTest.time = args.millis;
+	});
 
 	function loadPage(link){
 		$http.get(link).success(function(response) {
@@ -79,43 +79,37 @@ angular.module('myApp.controllers', [])
 
 	chrome.runtime.onMessage.addListener(
 		function(request, sender, sendResponse) {
-			console.log(request.resource)
+			console.log(request)
 			chrome.tabs.remove(sender.tab.id);
+			loadResult(index, request.time);
+			
 			index++;
-			console.log(index)
+			//check if the test is at the end 
+			if (index == $scope.tests.length){
+				$scope.currentTest = undefined;
+
+				$("#currentTest").text("Finish");
+				$scope.$broadcast('timer-stop');
+				$scope.status = "Run Again";
+
+				$timeout(finalizeTest, 200);
+				return;
+			}
+
 			$scope.currentTest = $scope.tests[index];
+			$scope.finishedTest.push($scope.currentTest);
+			$scope.$broadcast('timer-start');
 			chrome.tabs.create( {url: $scope.currentTest.link, active:false},function(tab){
 				chrome.tabs.executeScript(tab.id, {file: "js/helper.js"})
 			});
+			$scope.$digest()
     });
 
-	function loadResult(index){
-		loadHelper(index).then(function(status){
-			console.log(status);
-		},function(status){
-			console.log("fail, test result will be reloaded. Please report the error in console to zhuxuefeng1994@126.com");
-			loadResult(status);
-		});
+	function loadResult(index, time){
+		$scope.upData[$scope.tests[index]["name"]] = time;
+		$scope.finishedTest[index].time = time.loadEventEnd - time.navigationStart;
 	}
 
-	function loadHelper(index){
-		var deferred = $q.defer();
-
-		$timeout(function(){
-			var temp = performance.getEntries();
-			if (temp.length > index)
-			{
-				$scope.upData[$scope.tests[index]["name"]] = temp[index];
-				$scope.finishedTest[index].time = temp[index].duration;
-				deferred.resolve(index);
-			}
-			else{
-				deferred.reject(index);
-			}
-		},100);
-
-		return deferred.promise;
-	}
 
 	function finalizeTest(){
 		
