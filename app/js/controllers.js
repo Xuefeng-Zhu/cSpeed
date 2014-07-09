@@ -9,13 +9,13 @@ angular.module('myApp.controllers', [])
 
 	$scope.tests = [
 	{"name": "Engadget", "link": "https://www.engadget.com"},
-	// {"name": "Facebook", "link": "https://www.facebook.com"},
-	// {"name": "Github", "link": "https://www.github.com"},
-	// {"name": "Google", "link": "https://www.google.com"},
-	// {"name": "Linkedin", "link": "https://www.linkedin.com"},
-	// {"name": "Twitter", "link": "https://www.twitter.com"},
-	// {"name": "Wikipedia", "link": "https://www.wikipedia.org"},
-	// {"name": "Yahoo", "link": "https://www.yahoo.com"},
+	{"name": "Facebook", "link": "https://www.facebook.com"},
+	{"name": "Github", "link": "https://www.github.com"},
+	{"name": "Google", "link": "https://www.google.com"},
+	{"name": "Linkedin", "link": "https://www.linkedin.com"},
+	{"name": "Twitter", "link": "https://www.twitter.com"},
+	{"name": "Wikipedia", "link": "https://www.wikipedia.org"},
+	{"name": "Yahoo", "link": "https://www.yahoo.com"},
 	{"name": "Youtube", "link": "https://www.youtube.com"}];
 	$scope.total = null;
 	$scope.status = "Start Test";
@@ -67,14 +67,20 @@ angular.module('myApp.controllers', [])
 			}
 
 			$scope.currentTest = $scope.tests[index];
-			chrome.tabs.create({url: $scope.currentTest.link},function(tab){
+			chrome.tabs.create({url: $scope.currentTest.link, active:false},function(tab){
 				chrome.tabs.executeScript(tab.id, {file: "js/helper.js"})
 			});
 			$scope.finishedTest.push($scope.currentTest);
 			$scope.$broadcast('timer-start');
 			loadPage($scope.currentTest["link"]);
 		});
-	}
+	};
+
+	chrome.runtime.onMessage.addListener(
+		function(request, sender, sendResponse) {
+        // This cache stores page load time for each tab, so they don't interfere
+        console.log(request.resource)
+    });
 
 	function loadResult(index){
 		loadHelper(index).then(function(status){
@@ -174,11 +180,5 @@ angular.module('myApp.controllers', [])
 
 		console.log($scope.report);
 	}
-	var roe = chrome.runtime && chrome.runtime.sendMessage ? 'runtime' : 'extension';
-	chrome[roe].onMessage.addListener(
-		function(request, sender, sendResponse) {
-        // This cache stores page load time for each tab, so they don't interfere
-        console.log(request.time)
-    }
-    );
+
 });
