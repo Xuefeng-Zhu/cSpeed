@@ -15,14 +15,15 @@ angular.module('myApp.controllers', [])
 	}
 	$scope.tests = [
 	{"name": "Engadget", "link": "https://www.engadget.com"},
-	{"name": "Facebook", "link": "https://www.facebook.com"},
-	{"name": "Github", "link": "https://www.github.com"},
-	{"name": "Google", "link": "https://www.google.com"},
-	{"name": "Linkedin", "link": "https://www.linkedin.com"},
-	{"name": "Twitter", "link": "https://www.twitter.com"},
-	{"name": "Wikipedia", "link": "https://www.wikipedia.org"},
-	{"name": "Yahoo", "link": "https://www.yahoo.com"},
-	{"name": "Youtube", "link": "https://www.youtube.com"}];
+	// {"name": "Facebook", "link": "https://www.facebook.com"},
+	// {"name": "Github", "link": "https://www.github.com"},
+	// {"name": "Google", "link": "https://www.google.com"},
+	// {"name": "Linkedin", "link": "https://www.linkedin.com"},
+	// {"name": "Twitter", "link": "https://www.twitter.com"},
+	// {"name": "Wikipedia", "link": "https://www.wikipedia.org"},
+	// {"name": "Yahoo", "link": "https://www.yahoo.com"},
+	//{"name": "Youtube", "link": "https://www.youtube.com"}
+	];
 	$scope.total = null;
 	$scope.status = "Start Test";
 
@@ -90,7 +91,32 @@ angular.module('myApp.controllers', [])
 		$scope.upData[$scope.tests[index]["name"]] = data.time;
 		$scope.finishedTest[index].time = data.time.loadEventEnd - data.time.navigationStart;
 		$scope.finishedTest[index].resource = data.resource;
+		$scope.finishedTest[index].data = []
+		var resource = data.resource;
+		for (var i in resource){
+			var temp = resource[i].name.split("/")
+			var data = {"label": temp[temp.length-1],
+				 		"times": [{"starting_time": resource[i].fetchStart, "ending_time": resource[i].responseEnd}]}
+			$scope.finishedTest[index].data.push(data);
+		}
+		console.log($scope.finishedTest[index].data);
+		var width = 500;
+		 var formatTime = d3.time.format("%S"),
+           formatMinutes = function(d) { return formatTime(new Date(d)); };   //The intervals are in millis
+       var chart = d3.timeline()
+         .relativeTime()
+         .stack()
+         .margin({left:200, right:30, top:0, bottom:0})
+         .tickFormat({
+           format: formatMinutes,
+           tickTime: d3.time.second,
+           tickInterval: 30,
+           tickSize: 15,
+         });
+       var svg = d3.select("#test").append("svg").attr("width", width)
+         .datum($scope.finishedTest[index].data).call(chart);
 	}
+
 
 
 	function finalizeTest(){
