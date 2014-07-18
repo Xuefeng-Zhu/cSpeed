@@ -91,29 +91,6 @@ angular.module('myApp.controllers', [])
 		$scope.upData[$scope.tests[index]["name"]] = data.time;
 		$scope.finishedTest[index].time = data.time.loadEventEnd - data.time.navigationStart;
 		$scope.finishedTest[index].resource = data.resource;
-
-		$scope.finishedTest[index].data = []
- 		var resource = data.resource;
- 		for (var i in resource){
- 			var temp = resource[i].name.split("/")
- 			var data = {"content": temp[temp.length-1],
- 						"start": new Date(resource[i].fetchStart),
- 						"end": new Date(resource[i].responseEnd),
- 						//"type": "floatingRange"
- 						}
- 			$scope.finishedTest[index].data.push(data);
- 		}
- 		 var options = {
-                //'editable': true
-                minHeight: 10,
-                zoomable: false
-            };
-
-            // Instantiate our table object.
-            var timeline = new links.Timeline(document.getElementById('test'), options);
-
-            // Draw our table with the data we created locally.
-            timeline.draw($scope.finishedTest[index].data);
 	}
 
 	function finalizeTest(){
