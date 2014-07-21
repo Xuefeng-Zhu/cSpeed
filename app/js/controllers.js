@@ -81,14 +81,10 @@ angular.module('myApp.controllers', [])
                 }];
                 var resource = test.data.resource;
                 for (var i in resource) {
-                    var temp = resource[i].name.split("/")
-                    if (temp[temp.length - 1].length > 30) {
-                        temp = resource[i].initiatorType;
-                    } else {
-                        temp = temp[temp.length - 1];
-                    }
+                    var temp = purl(resource[i].name);
+
                     var data = {
-                        "label": temp,
+                        "label": temp.attr('file') == "" ? temp.attr("path") : temp.attr('file'),
                         "start": Math.round(resource[i].fetchStart),
                         "end": Math.round(resource[i].responseEnd),
                         "className": resource[i].initiatorType,
@@ -98,7 +94,6 @@ angular.module('myApp.controllers', [])
                 }
                 $timeout(function() {
                     chrome.tabs.sendMessage(tab.id, message);
-                    console.log("test")
                 }, 100);
             });
         }
