@@ -71,7 +71,7 @@ angular.module('myApp.controllers', [])
         $scope.showResource = function(test) {
             chrome.tabs.create({
                 url: "timeline.html",
-                active: false
+                active: true
             }, function(tab) {
                 var message = [{
                     "label": "Network Requests",
