@@ -24,7 +24,7 @@
 
 .timetree-view .link, .timetree-brush-view .link {
   fill: none;
-  stroke: #b3b3b3;
+  /*stroke: #b3b3b3;*/
   stroke-width: 1px;
 }
 
