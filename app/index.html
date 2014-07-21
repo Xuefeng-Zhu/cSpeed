@@ -100,18 +100,8 @@
         <span style="float:right"><b>Others's Speed:{{total[test.name]/total["count"]|number: 0}}ms    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
 
         <div class="ui successful progress">
-          <div class="bar" style="width:{{test.time / 20}}%" ng-click="toggleResource(test)"></div>
+          <div class="bar" style="width:{{test.time / 20}}%" ng-click="showResource(test)"></div>
         </div>
-        <div class="fx-fade-down fx-easing-sine fx-speed-500" ng-show="test.focus">
-         <div ng-repeat="item in test.resource">
-          <span><b>{{item.initiatorType}}:{{item.name | limitTo: 100}}</b></span>
-          <span style="float:right"><b>{{item.duration}}ms</b></span>
-          <div class="ui {{resourceColor[item.initiatorType]}} progress" >
-            <div class="bar" style="width:{{item.duration / 20}}%"></div>
-          </div>
-        </div>
-        <div class="fluid ui black button" ng-click="toggleResource(test)" style="margin-top:1rem">Hide Details</div>
-      </div>
     </div>
   </div>
 

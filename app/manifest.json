@@ -1,7 +1,7 @@
 {
   "name": "SpeedTest",
   "version": "1.0",
-  "manifest_version":2,
+  "manifest_version": 2,
   
   "description": "This extension will test your connection time to popularwebsite",
   "icons": {
