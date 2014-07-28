@@ -55,7 +55,7 @@ angular.module('myApp.controllers', [])
             fb.child("isp/" + response.isp).once("value", function(dataSnapshot) {
                 $scope.isp = dataSnapshot.val();
             });
-            fb.child("region" + response.region).once("value", function(dataSnapshot) {
+            fb.child("region/" + response.region).once("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
             });
 
@@ -198,7 +198,7 @@ angular.module('myApp.controllers', [])
             fb.child('isp/' + user_info.ip.isp).set($scope.isp);
             fb.child('region/' + user_info.ip.region).set($scope.region);
 
-            generateReport();
+            $scope.generateReport($scope.total, "Total");
 
             $('.ui.successful.progress').popup({
                 content: 'Click me to show more infomation'
@@ -212,11 +212,11 @@ angular.module('myApp.controllers', [])
             $scope.region[name] = $scope.region[name] ? $scope.region[name] + time : time;
         }
 
-        function generateReport() {
+        $scope.generateReport = function(data, tab) {
             var uTotal = 0;
             var oTotal = 0;
             angular.forEach($scope.finishedTest, function(value, key) {
-                var avg = $scope.total[value.name] / $scope.total.count;
+                var avg = data[value.name] / data.count;
 
                 uTotal += value.time;
                 oTotal += avg;
@@ -249,9 +249,10 @@ angular.module('myApp.controllers', [])
             $scope.report["summary"] = {
                 "uTotal": Math.round(uTotal),
                 "oTotal": Math.round(oTotal),
-                "comparation": comparation
+                "comparation": comparation,
             }
-
+            $scope.report.tab = tab;
+            $scope.report.data = data;
         }
 
     });

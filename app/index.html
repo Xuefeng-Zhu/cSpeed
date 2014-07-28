@@ -53,21 +53,22 @@
     </div>
     <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
     <div class="container">
-      <div class="ui tabular menu">
-        <a class="active item">
+
+      <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
+            <div class="ui tabular menu">
+        <a class="item" ng-class="{active:report.tab=='Total'}" ng-click="generateReport(total, 'Total')">
           Total
         </a>
-        <a class="item">
+        <a class="item" ng-class="{active:report.tab=='ISP'}" ng-click="generateReport(isp, 'ISP')">
           ISP
         </a>
-        <a class="item">
+        <a class="item" ng-class="{active:report.tab=='Region'}" ng-click="generateReport(region, 'Region')">
           Region
         </a>
       </div>
-      <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
         <div class="item">
           <div class="ui header"> <i class="large signal icon"></i>
-          Report</div>
+          Report for {{report.tab}}</div>
           <div class="content">
             <p>It takes you <b>{{report.summary.uTotal}}ms</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal}}ms</b>. You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
             <table class="ui large table segment">
@@ -83,7 +84,7 @@
                 <tr ng-repeat="test in finishedTest">
                   <td>{{test.name}}</td>
                   <td>{{test.time|number: 0}}</td>
-                  <td>{{total[test.name]/total.count|number: 0}}</td>
+                  <td>{{report.data[test.name]/report.data.count|number: 0}}</td>
                   <td>
                     <i ng-show="report[test.name].up" class="green up arrow icon"></i>
                     <i ng-hide="report[test.name].up" class="red down arrow icon"></i>
