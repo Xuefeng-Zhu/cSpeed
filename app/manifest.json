@@ -17,7 +17,7 @@
         "default_popup": "background.html"
     },
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["js/background.js"]
     },
 
 

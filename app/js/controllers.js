@@ -105,6 +105,10 @@ angular.module('myApp.controllers', [])
         });
 
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+            if (request.details) {
+                $scope.currentTest.ip = request.details.ip;
+                return;
+            }
             // chrome.tabs.remove(sender.tab.id);
             loadResult(index, request);
 
@@ -135,7 +139,10 @@ angular.module('myApp.controllers', [])
         });
 
         function loadResult(index, data) {
-            $scope.upData[$scope.tests[index]["name"]] = data.time;
+            $scope.upData[$scope.tests[index]["name"]] = {
+                time: data.time,
+                ip: $scope.finishedTest[index].ip
+            };
             $scope.finishedTest[index].time = data.time.loadEventEnd - data.time.navigationStart;
             //$scope.finishedTest[index].resource = data.resource;
             $scope.finishedTest[index].data = data;
