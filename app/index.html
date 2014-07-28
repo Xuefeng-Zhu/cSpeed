@@ -53,19 +53,18 @@
     </div>
     <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
     <div class="container">
-
       <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
-            <div class="ui tabular menu">
-        <a class="item" ng-class="{active:report.tab=='Total'}" ng-click="generateReport(total, 'Total')">
-          Total
-        </a>
-        <a class="item" ng-class="{active:report.tab=='ISP'}" ng-click="generateReport(isp, 'ISP')">
-          ISP
-        </a>
-        <a class="item" ng-class="{active:report.tab=='Region'}" ng-click="generateReport(region, 'Region')">
-          Region
-        </a>
-      </div>
+        <div class="ui tabular menu">
+          <a class="item" ng-class="{active:report.tab=='Total'}" ng-click="generateReport(total, 'Total')">
+            Total
+          </a>
+          <a class="item" ng-class="{active:report.tab=='ISP'}" ng-click="generateReport(isp, 'ISP')">
+            ISP
+          </a>
+          <a class="item" ng-class="{active:report.tab=='Region'}" ng-click="generateReport(region, 'Region')">
+            Region
+          </a>
+        </div>
         <div class="item">
           <div class="ui header"> <i class="large signal icon"></i>
           Report for {{report.tab}}</div>

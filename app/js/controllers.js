@@ -9,35 +9,33 @@ angular.module('myApp.controllers', [])
         var index = 0;
         var user_info = {};
         $scope.tests = [{
-                "name": "Engadget",
-                "link": "https://www.engadget.com"
-            }
-            // , {
-            //     "name": "Facebook",
-            //     "link": "https://www.facebook.com"
-            // }, {
-            //     "name": "Github",
-            //     "link": "https://www.github.com"
-            // }, {
-            //     "name": "Google",
-            //     "link": "https://www.google.com"
-            // }, {
-            //     "name": "Linkedin",
-            //     "link": "https://www.linkedin.com"
-            // }, {
-            //     "name": "Twitter",
-            //     "link": "https://www.twitter.com"
-            // }, {
-            //     "name": "Wikipedia",
-            //     "link": "https://www.wikipedia.org"
-            // }, {
-            //     "name": "Yahoo",
-            //     "link": "https://www.yahoo.com"
-            // }, {
-            //     "name": "Youtube",
-            //     "link": "https://www.youtube.com"
-            // }
-        ];
+            "name": "Engadget",
+            "link": "https://www.engadget.com"
+        }, {
+            "name": "Facebook",
+            "link": "https://www.facebook.com"
+        }, {
+            "name": "Github",
+            "link": "https://www.github.com"
+        }, {
+            "name": "Google",
+            "link": "https://www.google.com"
+        }, {
+            "name": "Linkedin",
+            "link": "https://www.linkedin.com"
+        }, {
+            "name": "Twitter",
+            "link": "https://www.twitter.com"
+        }, {
+            "name": "Wikipedia",
+            "link": "https://www.wikipedia.org"
+        }, {
+            "name": "Yahoo",
+            "link": "https://www.yahoo.com"
+        }, {
+            "name": "Youtube",
+            "link": "https://www.youtube.com"
+        }];
         $scope.total = null;
         $scope.isp = null;
         $scope.region = null;
