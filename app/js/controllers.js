@@ -5,6 +5,7 @@
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q) {
         var fb = new Firebase("https://speedtest.firebaseio.com");
+        var user_info = null;
         var index = 0;
 
         $scope.tests = [{
@@ -36,6 +37,8 @@ angular.module('myApp.controllers', [])
             "link": "https://www.youtube.com"
         }];
         $scope.total = null;
+        $scope.isp = null;
+        $scope.region = null;
         $scope.status = "Start Test";
 
         fb.child("total").on("value", function(dataSnapshot) {
@@ -44,6 +47,25 @@ angular.module('myApp.controllers', [])
 
             $scope.total = value;
         });
+
+        $http.get('http://ip-api.com/json').success(function(response) {
+            user_info = {};
+            user_info.browser = navigator.appVersion;
+            user_info.ip = response
+            user_info.date = Date();
+            // fb.child("isp/" + response.isp).once("value", function(dataSnapshot) {
+            //     var name = dataSnapshot.name();
+            //     var value = dataSnapshot.val();
+
+            //     $scope.isp = value;
+            // });
+            // fb.child("region" + response.region).once("value", function(dataSnapshot) {
+            //     var name = dataSnapshot.name();
+            //     var value = dataSnapshot.val();
+
+            //     $scope.region = value;
+            // });
+        })
 
 
         $scope.startTest = function() {
@@ -119,7 +141,7 @@ angular.module('myApp.controllers', [])
                 $scope.currentTest.ip = request.details.ip;
                 return;
             }
-            // chrome.tabs.remove(sender.tab.id);
+            chrome.tabs.remove(sender.tab.id);
             loadResult(index, request);
 
             index++;
@@ -159,14 +181,11 @@ angular.module('myApp.controllers', [])
         }
 
         function finalizeTest() {
+            //upload test timing data 
             var userRef = fb.child('individuals').push(angular.copy($scope.upData));
-            $http.get('http://ip-api.com/json').success(function(response) {
-                var user_info = {};
-                user_info.browser = navigator.appVersion;
-                user_info.ip = response
-                user_info.date = Date();
-                userRef.child('user_info').set(user_info);
-            })
+
+            //upload user info
+            userRef.child('user_info').set(user_info);
 
             for (var i in $scope.finishedTest) {
                 calTotal($scope.finishedTest[i].name, $scope.finishedTest[i].time);

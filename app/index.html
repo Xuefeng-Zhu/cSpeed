@@ -1,71 +1,72 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
-<head>
-  <meta charset="utf-8">
-  <title>SpeedTest</title>
-  <link rel="stylesheet" href="css/semantic.css"/>
-  <link rel="stylesheet" href="css/pacer-theme.css"/>
-  <link rel="stylesheet" href="css/app.css"/>
-
-
-</head>
-<body id="example" ng-controller="TimerCtrl">
-  <div class="ui fixed green  main menu">
-    <div class="">
-      <div class=" title item">
-        <b>SpeedTest</b>
-      </div>
-
-      <a class="active item">
-        <i class="home icon"></i> Home
-      </a>
-      <a class="item">
-        <i class="info icon"></i> About
-      </a>
-      <a class="item">
-        <i class="users icon"></i> People
-      </a>
-
-    </div>
-  </div>
-  <div id="test"></div>
-
-  <div class="segment">
-    <div class="container">
-      <div class="ui message">
-        <i class="close icon"></i>
-        <div class="header">
-          Welcome!
+  <head>
+    <meta charset="utf-8">
+    <title>SpeedTest</title>
+    <link rel="stylesheet" href="css/semantic.css"/>
+    <link rel="stylesheet" href="css/pacer-theme.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+  </head>
+  <body id="example" ng-controller="TimerCtrl">
+    <div class="ui fixed green  main menu">
+      <div class="">
+        <div class=" title item">
+          <b>SpeedTest</b>
         </div>
-        <p>This Website will test your connection speed to 10 of the most popular websites listed below!</p>
-        <b>Note: Your IP information will be logged for research purpose!</b>
+        <a class="active item">
+          <i class="home icon"></i> Home
+        </a>
+        <a class="item">
+          <i class="info icon"></i> About
+        </a>
+        <a class="item">
+          <i class="users icon"></i> People
+        </a>
       </div>
-      <p>{{index}}</p>
-      <div class="ui compact menu">
-        <div class="ui simple dropdown item">
-          {{currentTest.name}} <span ng-hide="currentTest">Test Websites</span><i class="dropdown icon"></i>
-          <div class="menu">
-            <div class="item" ng-repeat="test in tests">{{test.name}}</div>
+    </div>
+    <div id="test"></div>
+    <div class="segment">
+      <div class="container">
+        <div class="ui message">
+          <i class="close icon"></i>
+          <div class="header">
+            Welcome!
+          </div>
+          <p>This Website will test your connection speed to 10 of the most popular websites listed below!</p>
+          <b>Note: Your IP information will be logged for research purpose!</b>
+        </div>
+        <p>{{index}}</p>
+        <div class="ui compact menu">
+          <div class="ui simple dropdown item">
+            {{currentTest.name}} <span ng-hide="currentTest">Test Websites</span><i class="dropdown icon"></i>
+            <div class="menu">
+              <div class="item" ng-repeat="test in tests">{{test.name}}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <span ng-show="currentTest" style="float:right">
+        <span ng-show="currentTest" style="float:right">
         <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
         <h3 style="display:inline"><timer autostart="false" interval="1000"/>{{millis}}</h3> <span>ms</span>
-      </span>
-
-      <div class="fluid ui teal button" ng-click="startTest()" style="margin-top:1rem">{{status}}</div>
+        </span>
+        <div class="fluid ui teal button" ng-click="startTest()" style="margin-top:1rem">{{status}}</div>
+      </div>
     </div>
-  </div>
-
-
-  <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
-
-  <div class="container">
-
-    <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
-      <div class="item">
-        <div class="ui header"> <i class="large signal icon"></i>
+    <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
+    <div class="container">
+      <div class="ui tabular menu">
+        <a class="active item">
+          Total
+        </a>
+        <a class="item">
+          ISP
+        </a>
+        <a class="item">
+          Region
+        </a>
+      </div>
+      <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
+        <div class="item">
+          <div class="ui header"> <i class="large signal icon"></i>
           Report</div>
           <div class="content">
             <p>It takes you <b>{{report.summary.uTotal}}ms</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal}}ms</b>. You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
@@ -94,39 +95,28 @@
           </div>
         </div>
       </div>
-
       <div class="ui segment fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
         <span><b>{{test.name}}</b></span>
         <span style="float:right"><b>Others's Speed:{{total[test.name]/total["count"]|number: 0}}ms    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
-
         <div class="ui successful progress">
-          <div class="bar" style="width:{{test.time / 50}}%" ng-click="showResource(test)"></div>
+          <div class="bar" style="width:{{test.time / 80}}%" ng-click="showResource(test)"></div>
         </div>
+      </div>
     </div>
-  </div>
-
-
-  <script src="lib/jquery-1.11.1.min.js"></script>
-  <script src="lib/semantic.min.js"></script>
-  <script src="lib/TweenMax.min.js"></script>
-  <script src="lib/firebase.js"></script>
-  <script src="lib/purl.js"></script>
-
-
-
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular/angular-route.js"></script>
-  <script src="lib/angular/angular-animate.js"></script>
-
-
-  <script src="lib/timer.js"></script>
-  <script src="lib/ng-Fx.min.js"></script>
-
-
-  <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
-</body>
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/semantic.min.js"></script>
+    <script src="lib/TweenMax.min.js"></script>
+    <script src="lib/firebase.js"></script>
+    <script src="lib/purl.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/timer.js"></script>
+    <script src="lib/ng-Fx.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+  </body>
 </html>
