@@ -51,7 +51,7 @@
       </div>
       <span ng-show="currentTest" style="float:right">
         <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
-        <h3 style="display:inline"><timer autostart="false"/>{{millis}}</h3> <span>ms</span>
+        <h3 style="display:inline"><timer autostart="false" interval="1000"/>{{millis}}</h3> <span>ms</span>
       </span>
 
       <div class="fluid ui teal button" ng-click="startTest()" style="margin-top:1rem">{{status}}</div>

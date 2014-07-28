@@ -8,35 +8,33 @@ angular.module('myApp.controllers', [])
         var index = 0;
 
         $scope.tests = [{
-                "name": "Engadget",
-                "link": "https://www.engadget.com"
-            }
-            // , {
-            //     "name": "Facebook",
-            //     "link": "https://www.facebook.com"
-            // }, {
-            //     "name": "Github",
-            //     "link": "https://www.github.com"
-            // }, {
-            //     "name": "Google",
-            //     "link": "https://www.google.com"
-            // }, {
-            //     "name": "Linkedin",
-            //     "link": "https://www.linkedin.com"
-            // }, {
-            //     "name": "Twitter",
-            //     "link": "https://www.twitter.com"
-            // }, {
-            //     "name": "Wikipedia",
-            //     "link": "https://www.wikipedia.org"
-            // }, {
-            //     "name": "Yahoo",
-            //     "link": "https://www.yahoo.com"
-            // }, {
-            //     "name": "Youtube",
-            //     "link": "https://www.youtube.com"
-            // }
-        ];
+            "name": "Engadget",
+            "link": "https://www.engadget.com"
+        }, {
+            "name": "Facebook",
+            "link": "https://www.facebook.com"
+        }, {
+            "name": "Github",
+            "link": "https://www.github.com"
+        }, {
+            "name": "Google",
+            "link": "https://www.google.com"
+        }, {
+            "name": "Linkedin",
+            "link": "https://www.linkedin.com"
+        }, {
+            "name": "Twitter",
+            "link": "https://www.twitter.com"
+        }, {
+            "name": "Wikipedia",
+            "link": "https://www.wikipedia.org"
+        }, {
+            "name": "Yahoo",
+            "link": "https://www.yahoo.com"
+        }, {
+            "name": "Youtube",
+            "link": "https://www.youtube.com"
+        }];
         $scope.total = null;
         $scope.status = "Start Test";
 
@@ -51,7 +49,6 @@ angular.module('myApp.controllers', [])
         $scope.startTest = function() {
             index = 0;
             performance.webkitClearResourceTimings();
-
             $scope.upData = {};
             $scope.report = {};
             $scope.finishedTest = [];
@@ -67,6 +64,7 @@ angular.module('myApp.controllers', [])
                 $scope.currentTest = $scope.tests[index];
                 $scope.$broadcast('timer-start');
                 $scope.finishedTest.push($scope.currentTest);
+                $scope.$digest();
                 chrome.tabs.create({
                     url: $scope.currentTest.link,
                     active: false
@@ -113,6 +111,7 @@ angular.module('myApp.controllers', [])
 
         $scope.$on('timer-tick', function(event, args) {
             $scope.currentTest.time = args.millis;
+            $scope.$digest()
         });
 
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
