@@ -56,18 +56,29 @@ angular.module('myApp.controllers', [])
             $scope.report = {};
             $scope.finishedTest = [];
 
-            $scope.currentTest = $scope.tests[index];
-            $scope.$broadcast('timer-start');
-            $scope.finishedTest.push($scope.currentTest);
-            chrome.tabs.create({
-                url: $scope.currentTest.link,
-                active: false
-            }, function(tab) {
-                chrome.tabs.executeScript(tab.id, {
-                    file: "js/helper.js"
-                })
+            var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
+            var oneWeekAgo = (new Date()).getTime() - millisecondsPerWeek;
+            chrome.browsingData.removeCache({
+                "since": oneWeekAgo,
+                "originTypes": {
+                    "protectedWeb": true
+                }
+            }, function() {
+                $scope.currentTest = $scope.tests[index];
+                $scope.$broadcast('timer-start');
+                $scope.finishedTest.push($scope.currentTest);
+                chrome.tabs.create({
+                    url: $scope.currentTest.link,
+                    active: false
+                }, function(tab) {
+                    chrome.tabs.executeScript(tab.id, {
+                        file: "js/helper.js"
+                    })
+                });
+                $scope.status = "Test is running"
             });
-            $scope.status = "Test is running"
+
+
         }
 
         $scope.showResource = function(test) {
