@@ -1,3 +1,4 @@
+//Listener for getting page ip address
 chrome.webRequest.onResponseStarted.addListener(
     function(details) {
         if (details.type == "main_frame") {
