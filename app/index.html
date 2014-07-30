@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/app.css"/>
   </head>
   <body id="example" ng-controller="TimerCtrl">
+  <!-- Nav bar -->
     <div class="ui fixed green  main menu">
       <div class="">
         <div class=" title item">
@@ -24,7 +25,9 @@
         </a>
       </div>
     </div>
-    <div id="test"></div>
+  <!-- End of Nav bar -->
+
+  <!-- Information about test -->
     <div class="segment">
       <div class="container">
         <div class="ui message">
@@ -51,8 +54,14 @@
         <div class="fluid ui teal button" ng-click="startTest()" style="margin-top:1rem">{{status}}</div>
       </div>
     </div>
+    <!-- End of Info -->
+
+    <!-- Loading icon -->
     <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
+    <!-- End of Loading icon -->
+
     <div class="container">
+      <!-- Test report -->
       <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
         <div class="ui tabular menu">
           <a class="item" ng-class="{active:report.tab=='Total'}" ng-click="generateReport(total, 'Total')">
@@ -95,6 +104,9 @@
           </div>
         </div>
       </div>
+      <!-- End of test Report -->
+
+      <!-- Individual result -->
       <div class="ui segment fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
         <span><b>{{test.name}}</b></span>
         <span style="float:right"><b>Others's Speed:{{total[test.name]/total["count"]|number: 0}}ms    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
@@ -102,6 +114,7 @@
           <div class="bar" style="width:{{test.time / 80}}%" ng-click="showResource(test)"></div>
         </div>
       </div>
+      <!-- End of Individual result -->
     </div>
     <script src="lib/jquery-1.11.1.min.js"></script>
     <script src="lib/semantic.min.js"></script>
