@@ -5,10 +5,11 @@
 
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q) {
-        var fb = new Firebase("https://speedtest.firebaseio.com");
-        var index = 0;
-        var user_info = {};
-        $scope.tests = [{
+        var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference 
+        var index = 0; //index for test
+        var user_info = {}; //user information like ip address, web browser, and date 
+
+        $scope.tests = [{ //list of tests 
             "name": "Engadget",
             "link": "https://www.engadget.com"
         }, {
@@ -36,15 +37,16 @@ angular.module('myApp.controllers', [])
             "name": "Youtube",
             "link": "https://www.youtube.com"
         }];
-        $scope.total = null;
-        $scope.isp = null;
-        $scope.region = null;
+        $scope.total = null; //total speed statics  
+        $scope.isp = null; //speed statics for same isp
+        $scope.region = null; //speed statics in same region 
         $scope.status = "Start Test";
 
+        //load statics to total
         fb.child("total").once("value", function(dataSnapshot) {
             $scope.total = dataSnapshot.val();
         });
-
+        //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             user_info.browser = navigator.appVersion;
             user_info.ip = response
@@ -58,13 +60,15 @@ angular.module('myApp.controllers', [])
             });
 
         })
+
         $scope.startTest = function() {
             index = 0;
-            performance.webkitClearResourceTimings();
+            performance.webkitClearResourceTimings(); //clear perfomance statics 
             $scope.upData = {};
             $scope.report = {};
             $scope.finishedTest = [];
 
+            //clear cache and open new tab for test site
             var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
             var oneWeekAgo = (new Date()).getTime() - millisecondsPerWeek;
             chrome.browsingData.removeCache({
@@ -91,6 +95,7 @@ angular.module('myApp.controllers', [])
 
         }
 
+        //show timeline for individual test result 
         $scope.showResource = function(test) {
             chrome.tabs.create({
                 url: "timeline.html",
@@ -121,11 +126,14 @@ angular.module('myApp.controllers', [])
             });
         }
 
+        //update individual timer in real time 
         $scope.$on('timer-tick', function(event, args) {
             $scope.currentTest.time = args.millis;
             $scope.$digest()
         });
 
+        //get message including ip, timing and resource data
+        //when receive timing data, the current test site has been fullly loaded, and move to next test
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             if (request.details) {
                 $scope.currentTest.ip = request.details.ip;
@@ -160,13 +168,16 @@ angular.module('myApp.controllers', [])
             $scope.$digest();
         });
 
+        //format individual test result 
+        //para:
+        //  index: index for test 
+        //  data: object containing timing and resource
         function loadResult(index, data) {
             $scope.upData[$scope.tests[index]["name"]] = {
                 time: data.time,
                 ip: $scope.finishedTest[index].ip
             };
             $scope.finishedTest[index].time = data.time.loadEventEnd - data.time.navigationStart;
-            //$scope.finishedTest[index].resource = data.resource;
             $scope.finishedTest[index].data = data;
         }
 
@@ -185,6 +196,7 @@ angular.module('myApp.controllers', [])
             if (!$scope.isp) $scope.isp = {};
             if (!$scope.region) $scope.region = {};
 
+            //upload total, isp, region statics to firebase 
             for (var i in $scope.finishedTest) {
                 calTotal($scope.finishedTest[i].name, $scope.finishedTest[i].time);
             }
