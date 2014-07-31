@@ -168,10 +168,12 @@ angular.module('myApp.controllers', [])
             $scope.$digest();
         });
 
-        //format individual test result 
-        //para:
-        //  index: index for test 
-        //  data: object containing timing and resource
+        /*        
+        format individual test result 
+        para:
+          index: index for test 
+          data: object containing timing and resource
+        */
         function loadResult(index, data) {
             $scope.upData[$scope.tests[index]["name"]] = {
                 time: data.time,
@@ -222,6 +224,12 @@ angular.module('myApp.controllers', [])
             $scope.region[name] = $scope.region[name] ? $scope.region[name] + time : time;
         }
 
+        /*
+        generate report based on your test result and others' result
+        para:
+            data: statics of others
+            tab: which tab the user click
+        */
         $scope.generateReport = function(data, tab) {
             var uTotal = 0;
             var oTotal = 0;
