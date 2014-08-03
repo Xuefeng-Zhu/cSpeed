@@ -1,7 +1,9 @@
 'use strict';
 
 /* Controllers */
-
+google.load("visualization", "1", {
+    packages: ["corechart"]
+});
 
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q) {
@@ -10,41 +12,43 @@ angular.module('myApp.controllers', [])
         var user_info = {}; //user information like ip address, web browser, and date 
 
         $scope.tests = [{ //list of tests 
-            "name": "Engadget",
-            "link": "https://www.engadget.com"
-        }, {
-            "name": "Facebook",
-            "link": "https://www.facebook.com"
-        }, {
-            "name": "Github",
-            "link": "https://www.github.com"
-        }, {
-            "name": "Google",
-            "link": "https://www.google.com"
-        }, {
-            "name": "Linkedin",
-            "link": "https://www.linkedin.com"
-        }, {
-            "name": "Twitter",
-            "link": "https://www.twitter.com"
-        }, {
-            "name": "Wikipedia",
-            "link": "https://www.wikipedia.org"
-        }, {
-            "name": "Yahoo",
-            "link": "https://www.yahoo.com"
-        }, {
-            "name": "Youtube",
-            "link": "https://www.youtube.com"
-        }];
+                "name": "Engadget",
+                "link": "https://www.engadget.com"
+            }
+            // , {
+            //     "name": "Facebook",
+            //     "link": "https://www.facebook.com"
+            // }, {
+            //     "name": "Github",
+            //     "link": "https://www.github.com"
+            // }, {
+            //     "name": "Google",
+            //     "link": "https://www.google.com"
+            // }, {
+            //     "name": "Linkedin",
+            //     "link": "https://www.linkedin.com"
+            // }, {
+            //     "name": "Twitter",
+            //     "link": "https://www.twitter.com"
+            // }, {
+            //     "name": "Wikipedia",
+            //     "link": "https://www.wikipedia.org"
+            // }, {
+            //     "name": "Yahoo",
+            //     "link": "https://www.yahoo.com"
+            // }, {
+            //     "name": "Youtube",
+            //     "link": "https://www.youtube.com"
+            // }
+        ];
         $scope.total = null; //total speed statics  
-        $scope.isp = null; //speed statics for same isp
         $scope.region = null; //speed statics in same region 
         $scope.status = "Start Test";
 
         //load statics to total
-        fb.child("total").once("value", function(dataSnapshot) {
+        fb.child("total").on("value", function(dataSnapshot) {
             $scope.total = dataSnapshot.val();
+            $scope.$digest();
         });
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
@@ -52,11 +56,9 @@ angular.module('myApp.controllers', [])
             user_info.ip = response
             user_info.date = Date();
 
-            fb.child("isp/" + response.isp).once("value", function(dataSnapshot) {
-                $scope.isp = dataSnapshot.val();
-            });
-            fb.child("region/" + response.region).once("value", function(dataSnapshot) {
+            fb.child("region/" + response.region).on("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
+                $scope.$digest();
             });
 
         })
@@ -195,22 +197,21 @@ angular.module('myApp.controllers', [])
             });
 
             if (!$scope.total) $scope.total = {};
-            if (!$scope.isp) $scope.isp = {};
             if (!$scope.region) $scope.region = {};
+            if (!$scope.region[user_info.ip.isp]) $scope.region[user_info.ip.isp] = {};
 
             //upload total, isp, region statics to firebase 
             for (var i in $scope.finishedTest) {
                 calTotal($scope.finishedTest[i].name, $scope.finishedTest[i].time);
             }
             $scope.total["count"] = $scope.total["count"] ? $scope.total["count"] + 1 : 1;
-            $scope.isp["count"] = $scope.isp["count"] ? $scope.isp["count"] + 1 : 1;
             $scope.region["count"] = $scope.region["count"] ? $scope.region["count"] + 1 : 1;
+            $scope.region[user_info.ip.isp]["count"] = $scope.region[user_info.ip.isp]["count"] ? $scope.region[user_info.ip.isp]["count"] + 1 : 1;
 
             fb.child('total').set($scope.total);
-            fb.child('isp/' + user_info.ip.isp).set($scope.isp);
             fb.child('region/' + user_info.ip.region).set($scope.region);
 
-            $scope.generateReport($scope.total, "Total");
+            $scope.generateReport();
 
             $('.ui.successful.progress').popup({
                 content: 'Click me to show more infomation'
@@ -220,57 +221,94 @@ angular.module('myApp.controllers', [])
 
         function calTotal(name, time) {
             $scope.total[name] = $scope.total[name] ? $scope.total[name] + time : time;
-            $scope.isp[name] = $scope.isp[name] ? $scope.isp[name] + time : time;
-            $scope.region[name] = $scope.region[name] ? $scope.region[name] + time : time;
+            $scope.region[user_info.ip.isp][name] = $scope.region[user_info.ip.isp][name] ? $scope.region[user_info.ip.isp][name] + time : time;
         }
 
         /*
         generate report based on your test result and others' result
-        para:
-            data: statics of others
-            tab: which tab the user click
         */
-        $scope.generateReport = function(data, tab) {
+        $scope.generateReport = function() {
             var uTotal = 0;
             var oTotal = 0;
             angular.forEach($scope.finishedTest, function(value, key) {
-                var avg = data[value.name] / data.count;
+                var avg = $scope.total[value.name] / $scope.total.count;
 
                 uTotal += value.time;
                 oTotal += avg;
-                var temp = (value.time - avg) / avg * 100;
-                temp = Math.round(temp);
-
-                if (temp >= 0) {
-                    $scope.report[value.name] = {
-                        "value": temp,
-                        "up": false
-                    }
-                } else {
-                    $scope.report[value.name] = {
-                        "value": -temp,
-                        "up": true
-                    }
-                }
             });
 
-            var temp = (uTotal - oTotal) / oTotal * 100;
-            temp = Math.round(temp);
-
-            var comparation = temp >= 0 ? {
-                "key": "slower",
-                "value": temp
-            } : {
-                "key": "faster",
-                "value": -temp
+            function compare(a, b) {
+                var temp = (a - b) / b * 100;
+                temp = Math.round(temp);
+                return temp >= 0 ? {
+                    "key": "slower",
+                    "value": temp
+                } : {
+                    "key": "faster",
+                    "value": -temp
+                }
             }
+
+            var comparation = compare(uTotal, oTotal);
+
             $scope.report["summary"] = {
-                "uTotal": Math.round(uTotal),
-                "oTotal": Math.round(oTotal),
+                "uTotal": Math.round(uTotal) / 1000,
+                "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
-            $scope.report.tab = tab;
-            $scope.report.data = data;
+            var data = [
+                ['ISP', 'Seconds', {
+                    role: 'style'
+                }]
+            ];
+            oTotal = 0;
+
+            angular.forEach($scope.region, function(value, key) {
+                if (key != "count") {
+                    var temp = 0;
+                    for (var i in value) {
+                        if (i != "count") {
+                            temp += value[i]
+                        }
+                    }
+                    oTotal += temp;
+                    data.push([key, Math.round(temp / value.count) / 1000, user_info.ip.isp == key ? "green" : "grey"])
+                }
+            });
+            oTotal /= $scope.region.count;
+            comparation = compare(uTotal, oTotal);
+            $scope.report["region"] = {
+                "uTotal": Math.round(uTotal) / 1000,
+                "oTotal": Math.round(oTotal) / 1000,
+                "comparation": comparation,
+            }
+            console.log(uTotal);
+            drawChart(data);
         }
 
+        function drawChart(d) {
+            var data = google.visualization.arrayToDataTable(d);
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1, {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2
+            ]);
+            var options = {
+                title: 'ISP in your region',
+                legend: {
+                    position: "none"
+                },
+                hAxis: {
+                    title: "seconds"
+                },
+                width: 900
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(view, options);
+        }
     });

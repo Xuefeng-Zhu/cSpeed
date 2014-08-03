@@ -25,3 +25,20 @@ body >.segment {
   border-bottom: 1px solid #DDDDDD;
 }
 
+.button-border {
+    cursor: pointer;
+    color: rgb(102, 102, 102);
+    display: inline-block;
+    height: 40px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 40%;
+    perspective-origin: 55.59375px 18px;
+    transform-origin: 55.59375px 18px;
+    border: 2px solid rgb(102, 102, 102);
+    font: normal normal 300 normal 20px/35px 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+    outline: rgb(102, 102, 102) none 0px;
+    padding: 0px 25.6000003814697px;
+    transition: all 0.3s ease 0s;
+}

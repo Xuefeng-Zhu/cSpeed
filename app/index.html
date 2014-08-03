@@ -8,104 +8,73 @@
     <link rel="stylesheet" href="css/app.css"/>
   </head>
   <body id="example" ng-controller="TimerCtrl">
-  <!-- Nav bar -->
+    <!-- Nav bar -->
     <div class="ui fixed green  main menu">
       <div class="">
         <div class=" title item">
           <b>SpeedTest</b>
         </div>
-        <a class="active item">
-          <i class="home icon"></i> Home
-        </a>
-        <a class="item">
-          <i class="info icon"></i> About
-        </a>
-        <a class="item">
-          <i class="users icon"></i> People
-        </a>
+        
       </div>
     </div>
-  <!-- End of Nav bar -->
 
-  <!-- Information about test -->
+    <!-- End of Nav bar -->
+    <!-- Information about test -->
     <div class="segment">
       <div class="container">
-        <div class="ui message">
+        <div class="ui large message">
           <i class="close icon"></i>
           <div class="header">
             Welcome!
           </div>
           <p>This Website will test your connection speed to 10 of the most popular websites listed below!</p>
+          <p><b>{{total.count||0}} </b>Tests run so far.</p>
+          <p><b>{{region.count||0}} </b>Tests from your region.</p>
           <b>Note: Your IP information will be logged for research purpose!</b>
         </div>
         <p>{{index}}</p>
-        <div class="ui compact menu">
-          <div class="ui simple dropdown item">
-            {{currentTest.name}} <span ng-hide="currentTest">Test Websites</span><i class="dropdown icon"></i>
-            <div class="menu">
-              <div class="item" ng-repeat="test in tests">{{test.name}}</div>
-            </div>
+        <div class="fluid ui teal animated button" ng-click="startTest()" style="margin:1rem 0">
+          <div class="visible content">{{status}}</div>
+          <div class="hidden content">
+            Go!
           </div>
         </div>
-        <span ng-show="currentTest" style="float:right">
-        <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
-        <h3 style="display:inline"><timer autostart="false" interval="1000"/>{{millis}}</h3> <span>ms</span>
-        </span>
-        <div class="fluid ui teal button" ng-click="startTest()" style="margin-top:1rem">{{status}}</div>
+        <div ng-show="currentTest" style="margin-bottom:1rem; text-align:center">
+          <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
+          <h3 style="display:inline"><timer autostart="false" interval="1000"/>{{millis}}</h3> <span>ms</span>
+        </div>
+        <a class="button-border" style="margin-left:2%;margin-right:5%;border-color:#7db500">About Test</a>
+        <a class="button-border">About us</a>
       </div>
     </div>
     <!-- End of Info -->
-
     <!-- Loading icon -->
     <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="50" data-progress-text="50%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
     <!-- End of Loading icon -->
-
     <div class="container">
       <!-- Test report -->
       <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
-        <div class="ui tabular menu">
-          <a class="item" ng-class="{active:report.tab=='Total'}" ng-click="generateReport(total, 'Total')">
-            Total
-          </a>
-          <a class="item" ng-class="{active:report.tab=='ISP'}" ng-click="generateReport(isp, 'ISP')">
-            ISP
-          </a>
-          <a class="item" ng-class="{active:report.tab=='Region'}" ng-click="generateReport(region, 'Region')">
-            Region
-          </a>
-        </div>
         <div class="item">
           <div class="ui header"> <i class="large signal icon"></i>
-          Report for {{report.tab}}</div>
+          Report</div>
           <div class="content">
-            <p>It takes you <b>{{report.summary.uTotal}}ms</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal}}ms</b>. You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
-            <table class="ui large table segment">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Your Speed</th>
-                  <th>Others' Speed</th>
-                  <th>Comparation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="test in finishedTest">
-                  <td>{{test.name}}</td>
-                  <td>{{test.time|number: 0}}</td>
-                  <td>{{report.data[test.name]/report.data.count|number: 0}}</td>
-                  <td>
-                    <i ng-show="report[test.name].up" class="green up arrow icon"></i>
-                    <i ng-hide="report[test.name].up" class="red down arrow icon"></i>
-                    {{report[test.name].value}}%
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div style="text-align:center">
+              <div class="ui huge message">
+                <p>It takes you <b>{{report.summary.uTotal}}s</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal}}s</b>.</p>
+                <p>You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
+              </div>
+            </div>
+
+            <div id="chart_div"></div>
+             <div style="text-align:center">
+              <div class="ui huge message">
+                <p>You are <b>{{report.region.comparation.value}}%</b> {{report.region.comparation.key}} than people in your region!</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <!-- End of test Report -->
-
       <!-- Individual result -->
       <div class="ui segment fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
         <span><b>{{test.name}}</b></span>
@@ -117,6 +86,8 @@
       <!-- End of Individual result -->
     </div>
     <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/jsapi.js"></script>
+
     <script src="lib/semantic.min.js"></script>
     <script src="lib/TweenMax.min.js"></script>
     <script src="lib/firebase.js"></script>
@@ -128,5 +99,6 @@
     <script src="lib/ng-Fx.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+
   </body>
 </html>

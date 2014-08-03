@@ -23,6 +23,6 @@
 
     "options_page": "index.html",
     "permissions": ["tabs", "webRequest", "browsingData", "http://*/*", "https://*/*"],
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://*.firebaseio.com; object-src 'self'"
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://*.firebaseio.com https://www.google.com; object-src 'self'"
 
 }
