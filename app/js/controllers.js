@@ -303,7 +303,10 @@ angular.module('myApp.controllers', [])
                 hAxis: {
                     title: "seconds"
                 },
-                width: 900
+                width: 900,
+                chartArea: {
+                    left: 200,
+                }
             };
 
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
