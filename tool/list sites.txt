@@ -1,10 +1,8 @@
-https://aws.amazon.com/
+https://www.aws.amazon.com/
 https://www.adcash.com/en/index.php
 https://www.addthis.com/
 https://www.adf.ly/
 https://www.adobe.com/
-https://www.alibaba.com/
-https://www.ask.com/
 https://www.badoo.com/
 https://www.bankofamerica.com/
 https://www.chase.com/
@@ -17,7 +15,7 @@ https://www.hootsuite.com/
 https://www.hostgator.com/
 https://www.instagram.com/
 https://www.mailchimp.com/
-https://www.microsoft.com/en-us/default.aspx
+https://www.microsoft.com/
 https://www.mozilla.org/
 https://www.netflix.com
 https://www.outbrain.com/
