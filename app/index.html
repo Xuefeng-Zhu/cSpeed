@@ -8,17 +8,6 @@
     <link rel="stylesheet" href="css/app.css"/>
   </head>
   <body id="example" ng-controller="TimerCtrl">
-    <!-- Nav bar -->
-    <div class="ui fixed green  main menu">
-      <div class="">
-        <div class=" title item">
-          <b>SpeedTest</b>
-        </div>
-        
-      </div>
-    </div>
-
-    <!-- End of Nav bar -->
     <!-- Information about test -->
     <div class="segment">
       <div class="container">
@@ -27,7 +16,7 @@
           <div class="header">
             Welcome!
           </div>
-          <p>This Website will test your connection speed to 10 of the most popular websites listed below!</p>
+          <p>How fast is your Internet connection really? Find out with <i style="font-size:1.5em">HowFast</i></p>
           <p><b>{{total.count||0}} </b>Tests run so far.</p>
           <p><b>{{region.count||0}} </b>Tests from your region.</p>
         </div>
@@ -54,8 +43,6 @@
       <!-- Test report -->
       <div class="ui teal segment fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
         <div class="item">
-          <div class="ui header"> <i class="large signal icon"></i>
-          Report</div>
           <div class="content">
             <div style="text-align:center">
               <div class="ui huge message">
