@@ -11,34 +11,40 @@ angular.module('myApp.controllers', [])
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date 
 
-        $scope.tests = [{ //list of tests 
-            "name": "Engadget",
-            "link": "https://www.engadget.com"
-        }, {
-            "name": "Facebook",
-            "link": "https://www.facebook.com"
-        }, {
-            "name": "Github",
-            "link": "https://www.github.com"
-        }, {
-            "name": "Google",
-            "link": "https://www.google.com"
-        }, {
-            "name": "Linkedin",
-            "link": "https://www.linkedin.com"
-        }, {
-            "name": "Twitter",
-            "link": "https://www.twitter.com"
-        }, {
-            "name": "Wikipedia",
-            "link": "https://www.wikipedia.org"
-        }, {
-            "name": "Yahoo",
-            "link": "https://www.yahoo.com"
-        }, {
-            "name": "Youtube",
-            "link": "https://www.youtube.com"
-        }];
+        $scope.tests = [{
+            'link': 'http://www.aws.amazon.com/',
+            'name': 'Aws'
+        }
+        // , {
+        //     'link': 'http://www.adcash.com/en/index.php',
+        //     'name': 'Adcash'
+        // }, {
+        //     'link': 'http://www.addthis.com/',
+        //     'name': 'Addthis'
+        // }, {
+        //     'link': 'http://www.adf.ly/',
+        //     'name': 'Adf'
+        // }, {
+        //     'link': 'http://www.adobe.com/',
+        //     'name': 'Adobe'
+        // }, {
+        //     'link': 'http://www.badoo.com/',
+        //     'name': 'Badoo'
+        // }, {
+        //     'link': 'http://www.bankofamerica.com/',
+        //     'name': 'Bankofamerica'
+        // }, {
+        //     'link': 'http://www.chase.com/',
+        //     'name': 'Chase'
+        // }, {
+        //     'link': 'http://www.conduit.com/',
+        //     'name': 'Conduit'
+        // }, {
+        //     'link': 'http://www.flickr.com',
+        //     'name': 'Flickr'
+        // }
+        ];
+
         $scope.total = null; //total speed statics  
         $scope.region = null; //speed statics in same region 
         $scope.status = "Start Test";
@@ -51,9 +57,12 @@ angular.module('myApp.controllers', [])
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             user_info.browser = navigator.appVersion;
-            user_info.ip = response
+            user_info.ip = response;
             user_info.date = Date();
-
+            user_info.windowSize = {
+                height: window.outerHeight,
+                width: window.outerWidth
+            };
             fb.child("region/" + response.region).on("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
@@ -189,7 +198,6 @@ angular.module('myApp.controllers', [])
 
             //upload user info
             userRef.child('user_info').set(user_info);
-
             $http.get('http://ip-api.com/json').success(function(response) {
                 //somewhere wierd code fails without this call
             });
