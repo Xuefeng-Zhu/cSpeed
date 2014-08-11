@@ -54,6 +54,7 @@ angular.module('myApp.controllers', [])
             $scope.total = dataSnapshot.val();
             $scope.$digest();
         });
+        
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             user_info.browser = navigator.appVersion;
