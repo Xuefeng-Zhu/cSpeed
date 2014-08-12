@@ -64,7 +64,7 @@ angular.module('myApp.controllers', [])
                 height: window.outerHeight,
                 width: window.outerWidth
             };
-            fb.child("region/" + response.region).on("value", function(dataSnapshot) {
+            fb.child("region/" + response.city).on("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
             });
@@ -216,7 +216,7 @@ angular.module('myApp.controllers', [])
             $scope.region[user_info.ip.isp]["count"] = $scope.region[user_info.ip.isp]["count"] ? $scope.region[user_info.ip.isp]["count"] + 1 : 1;
 
             fb.child('total').set($scope.total);
-            fb.child('region/' + user_info.ip.region).set($scope.region);
+            fb.child('region/' + user_info.ip.city).set($scope.region);
 
             //retrieve previous test result from localstorage 
             $scope.history = store.get('history');

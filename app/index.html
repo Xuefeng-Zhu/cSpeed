@@ -51,10 +51,12 @@
               </div>
             </div>
             <div style="text-align:center">
-              <div class="ui huge message">
+              <div class="ui huge message" ng-show="region">
                 <p>You are <b>{{report.region.comparation.value}}%</b> {{report.region.comparation.key}} than people in your region!</p>
                 <div id="chart_div"></div>
-
+              </div>
+              <div class="ui huge message" ng-hide="region">
+               <p>Not enough users in your city</p>
               </div>
             </div>
             <a class="button-border button-fluid" style="border-color:#7db500" ng-show="history" ng-click="showHistory()">View Previous Test Results</a>
@@ -74,7 +76,6 @@
     </div>
     
     <ng-include src="modal" onload="$('.modal').modal('show')"></ng-include>
-
     <script src="lib/jquery-1.11.1.min.js"></script>
     <script src="lib/jsapi.js"></script>
     <script src="lib/store.min.js"></script>
