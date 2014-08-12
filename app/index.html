@@ -51,11 +51,11 @@
               </div>
             </div>
             <div style="text-align:center">
-              <div class="ui huge message" ng-show="region">
+              <div class="ui huge message" ng-show="region.count>1">
                 <p>You are <b>{{report.region.comparation.value}}%</b> {{report.region.comparation.key}} than people in your region!</p>
                 <div id="chart_div"></div>
               </div>
-              <div class="ui huge message" ng-hide="region">
+              <div class="ui huge warning message" ng-hide="region.count>1">
                <p>Not enough users in your city</p>
               </div>
             </div>
