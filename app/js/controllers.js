@@ -12,37 +12,37 @@ angular.module('myApp.controllers', [])
         var user_info = {}; //user information like ip address, web browser, and date 
 
         $scope.tests = [{
-            'link': 'http://www.aws.amazon.com/',
-            'name': 'Aws'
-        }
-        // , {
-        //     'link': 'http://www.adcash.com/en/index.php',
-        //     'name': 'Adcash'
-        // }, {
-        //     'link': 'http://www.addthis.com/',
-        //     'name': 'Addthis'
-        // }, {
-        //     'link': 'http://www.adf.ly/',
-        //     'name': 'Adf'
-        // }, {
-        //     'link': 'http://www.adobe.com/',
-        //     'name': 'Adobe'
-        // }, {
-        //     'link': 'http://www.badoo.com/',
-        //     'name': 'Badoo'
-        // }, {
-        //     'link': 'http://www.bankofamerica.com/',
-        //     'name': 'Bankofamerica'
-        // }, {
-        //     'link': 'http://www.chase.com/',
-        //     'name': 'Chase'
-        // }, {
-        //     'link': 'http://www.conduit.com/',
-        //     'name': 'Conduit'
-        // }, {
-        //     'link': 'http://www.flickr.com',
-        //     'name': 'Flickr'
-        // }
+                'link': 'http://www.aws.amazon.com/',
+                'name': 'Aws'
+            }
+            // , {
+            //     'link': 'http://www.adcash.com/en/index.php',
+            //     'name': 'Adcash'
+            // }, {
+            //     'link': 'http://www.addthis.com/',
+            //     'name': 'Addthis'
+            // }, {
+            //     'link': 'http://www.adf.ly/',
+            //     'name': 'Adf'
+            // }, {
+            //     'link': 'http://www.adobe.com/',
+            //     'name': 'Adobe'
+            // }, {
+            //     'link': 'http://www.badoo.com/',
+            //     'name': 'Badoo'
+            // }, {
+            //     'link': 'http://www.bankofamerica.com/',
+            //     'name': 'Bankofamerica'
+            // }, {
+            //     'link': 'http://www.chase.com/',
+            //     'name': 'Chase'
+            // }, {
+            //     'link': 'http://www.conduit.com/',
+            //     'name': 'Conduit'
+            // }, {
+            //     'link': 'http://www.flickr.com',
+            //     'name': 'Flickr'
+            // }
         ];
 
         $scope.total = null; //total speed statics  
@@ -54,7 +54,7 @@ angular.module('myApp.controllers', [])
             $scope.total = dataSnapshot.val();
             $scope.$digest();
         });
-        
+
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             user_info.browser = navigator.appVersion;
@@ -268,7 +268,7 @@ angular.module('myApp.controllers', [])
 
             //store data into localstorage 
             var temp = angular.copy($scope.history);
-            if (temp == undefined){
+            if (temp == undefined) {
                 temp = [];
             }
             temp.push({
@@ -276,6 +276,7 @@ angular.module('myApp.controllers', [])
                 time: Math.round(uTotal) / 1000
             });
             store.set('history', temp);
+
 
             var data = [
                 ['ISP', 'Seconds', {
@@ -326,13 +327,23 @@ angular.module('myApp.controllers', [])
                 hAxis: {
                     title: "seconds"
                 },
-                width: 900,
+                width: 1000,
                 chartArea: {
                     left: 200,
-                }
+                },
+                backgroundColor: "#EFEFEF"
+
             };
 
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
             chart.draw(view, options);
-        }
+        };
+
+        $scope.showHistory = function() {
+            $scope.modal = "partials/history.html";
+            $timeout(function(){
+               $('.modal').modal('show');
+            }, 10);
+        };
+
     });

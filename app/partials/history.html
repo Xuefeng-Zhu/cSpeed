@@ -1,0 +1,22 @@
+<div class="ui modal">
+	<i class="close icon"></i>
+	<div class="header">
+		Previous Results
+	</div>
+	<div class="content">
+		<div class="ui list">
+			<div class="item" ng-repeat="item in history">
+				<div class="header">
+					{{item.user_info.ip.isp}}
+					<span style="float:right">{{item.user_info.date}}</span>
+				</div>
+				{{item.time}} seconds
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui button">
+			Close
+		</div>
+	</div>
+</div>

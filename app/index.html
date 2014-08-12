@@ -50,13 +50,14 @@
                 <p>You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
               </div>
             </div>
-
-            <div id="chart_div"></div>
-             <div style="text-align:center">
+            <div style="text-align:center">
               <div class="ui huge message">
                 <p>You are <b>{{report.region.comparation.value}}%</b> {{report.region.comparation.key}} than people in your region!</p>
+                <div id="chart_div"></div>
+
               </div>
             </div>
+            <a class="button-border button-fluid" style="border-color:#7db500" ng-show="history" ng-click="showHistory()">View Previous Test Results</a>
           </div>
         </div>
       </div>
@@ -71,11 +72,12 @@
       </div>
       <!-- End of Individual result -->
     </div>
+    
+    <ng-include src="modal" onload="$('.modal').modal('show')"></ng-include>
+
     <script src="lib/jquery-1.11.1.min.js"></script>
     <script src="lib/jsapi.js"></script>
     <script src="lib/store.min.js"></script>
-
-
     <script src="lib/semantic.min.js"></script>
     <script src="lib/TweenMax.min.js"></script>
     <script src="lib/firebase.js"></script>
@@ -87,6 +89,5 @@
     <script src="lib/ng-Fx.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
-
   </body>
 </html>

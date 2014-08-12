@@ -42,3 +42,10 @@ body >.segment {
     padding: 0px 25.6000003814697px;
     transition: all 0.3s ease 0s;
 }
+
+.button-fluid {
+
+    width: 100%;
+    margin-top: 10px;
+    padding: 0;
+}
