@@ -218,6 +218,8 @@ angular.module('myApp.controllers', [])
             fb.child('total').set($scope.total);
             fb.child('region/' + user_info.ip.region).set($scope.region);
 
+            //retrieve previous test result from localstorage 
+            $scope.history = store.get('history');
             $scope.generateReport();
 
             $('.ui.successful.progress').popup({
@@ -263,6 +265,18 @@ angular.module('myApp.controllers', [])
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
+
+            //store data into localstorage 
+            var temp = angular.copy($scope.history);
+            if (temp == undefined){
+                temp = [];
+            }
+            temp.push({
+                user_info: user_info,
+                time: Math.round(uTotal) / 1000
+            });
+            store.set('history', temp);
+
             var data = [
                 ['ISP', 'Seconds', {
                     role: 'style'
