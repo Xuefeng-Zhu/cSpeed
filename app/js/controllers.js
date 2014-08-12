@@ -15,34 +15,34 @@ angular.module('myApp.controllers', [])
                 'link': 'http://www.aws.amazon.com/',
                 'name': 'Aws'
             }
-            // , {
-            //     'link': 'http://www.adcash.com/en/index.php',
-            //     'name': 'Adcash'
-            // }, {
-            //     'link': 'http://www.addthis.com/',
-            //     'name': 'Addthis'
-            // }, {
-            //     'link': 'http://www.adf.ly/',
-            //     'name': 'Adf'
-            // }, {
-            //     'link': 'http://www.adobe.com/',
-            //     'name': 'Adobe'
-            // }, {
-            //     'link': 'http://www.badoo.com/',
-            //     'name': 'Badoo'
-            // }, {
-            //     'link': 'http://www.bankofamerica.com/',
-            //     'name': 'Bankofamerica'
-            // }, {
-            //     'link': 'http://www.chase.com/',
-            //     'name': 'Chase'
-            // }, {
-            //     'link': 'http://www.conduit.com/',
-            //     'name': 'Conduit'
-            // }, {
-            //     'link': 'http://www.flickr.com',
-            //     'name': 'Flickr'
-            // }
+            , {
+                'link': 'http://www.adcash.com/en/index.php',
+                'name': 'Adcash'
+            }, {
+                'link': 'http://www.addthis.com/',
+                'name': 'Addthis'
+            }, {
+                'link': 'http://www.adf.ly/',
+                'name': 'Adf'
+            }, {
+                'link': 'http://www.adobe.com/',
+                'name': 'Adobe'
+            }, {
+                'link': 'http://www.badoo.com/',
+                'name': 'Badoo'
+            }, {
+                'link': 'http://www.bankofamerica.com/',
+                'name': 'Bankofamerica'
+            }, {
+                'link': 'http://www.chase.com/',
+                'name': 'Chase'
+            }, {
+                'link': 'http://www.conduit.com/',
+                'name': 'Conduit'
+            }, {
+                'link': 'http://www.flickr.com',
+                'name': 'Flickr'
+            }
         ];
 
         $scope.total = null; //total speed statics  
