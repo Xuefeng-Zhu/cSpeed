@@ -56,7 +56,7 @@
                 <div id="chart_div"></div>
               </div>
               <div class="ui huge warning message" ng-hide="region.count>1">
-               <p>Not enough users in your city</p>
+                <p>Not enough users in your city</p>
               </div>
             </div>
             <a class="button-border button-fluid" style="border-color:#7db500" ng-show="history" ng-click="showHistory()">View Previous Test Results</a>
@@ -65,11 +65,19 @@
       </div>
       <!-- End of test Report -->
       <!-- Individual result -->
+      
       <div class="fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
-        <span><b>{{test.name}}</b></span>
-        <span style="float:right"><b>Others's Speed:{{total[test.name]|number: 0}}ms    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
+       <!--  <span><b>{{test.name}}</b></span>
+        <span style="float:right"><b>Others's Speed:{{total[test.name]/1000|number: 1}}s    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
         <div class="ui successful progress">
           <div class="bar" style="width:{{test.time / 80}}%" ng-click="showResource(test)"></div>
+        </div> -->
+
+         <span style="position:relative; bottom:15px; float: left;"><b>{{test.name}}</b></span>
+        <div class="number-pb">
+          <div class="number-pb-shown" style="width: 1%; left: {{total[test.name] / 100}}%;overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 5px; min-height: 0px; max-height: none; padding-left: 0px;background-color: red;z-index: 100;"></div>
+          <div class="number-pb-shown" style="width: {{test.time / 100}}%; overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 5px; min-height: 0px; max-height: none; padding-left: 0px;"></div>
+          <div class="number-pb-num" style="left: {{test.time / 100}}%; overflow: visible; box-sizing: content-box; width: 20px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;">{{test.time/1000|number: 1}}s</div>
         </div>
       </div>
       <!-- End of Individual result -->
