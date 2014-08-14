@@ -203,21 +203,6 @@ angular.module('myApp.controllers', [])
                 //somewhere wierd code fails without this call
             });
 
-            if (!$scope.total) $scope.total = {};
-            if (!$scope.region) $scope.region = {};
-            if (!$scope.region[user_info.ip.isp]) $scope.region[user_info.ip.isp] = {};
-
-            //upload total, isp, region statics to firebase 
-            for (var i in $scope.finishedTest) {
-                calTotal($scope.finishedTest[i].name, $scope.finishedTest[i].time);
-            }
-            $scope.total["count"] = $scope.total["count"] ? $scope.total["count"] + 1 : 1;
-            $scope.region["count"] = $scope.region["count"] ? $scope.region["count"] + 1 : 1;
-            $scope.region[user_info.ip.isp]["count"] = $scope.region[user_info.ip.isp]["count"] ? $scope.region[user_info.ip.isp]["count"] + 1 : 1;
-
-            fb.child('total').set($scope.total);
-            fb.child('region/' + user_info.ip.city).set($scope.region);
-
             //retrieve previous test result from localstorage 
             $scope.history = store.get('history');
             $scope.generateReport();
@@ -228,22 +213,14 @@ angular.module('myApp.controllers', [])
 
         }
 
-        function calTotal(name, time) {
-            $scope.total[name] = $scope.total[name] ? $scope.total[name] + time : time;
-            $scope.region[user_info.ip.isp][name] = $scope.region[user_info.ip.isp][name] ? $scope.region[user_info.ip.isp][name] + time : time;
-        }
-
         /*
         generate report based on your test result and others' result
         */
         $scope.generateReport = function() {
             var uTotal = 0;
-            var oTotal = 0;
+            var oTotal = $scope.total.median;
             angular.forEach($scope.finishedTest, function(value, key) {
-                var avg = $scope.total[value.name] / $scope.total.count;
-
                 uTotal += value.time;
-                oTotal += avg;
             });
 
             function compare(a, b) {
@@ -283,28 +260,19 @@ angular.module('myApp.controllers', [])
                     role: 'style'
                 }]
             ];
-            oTotal = 0;
+            oTotal = $scope.region.median;
 
             angular.forEach($scope.region, function(value, key) {
-                if (key != "count") {
-                    var temp = 0;
-                    for (var i in value) {
-                        if (i != "count") {
-                            temp += value[i]
-                        }
-                    }
-                    oTotal += temp;
-                    data.push([key, Math.round(temp / value.count) / 1000, user_info.ip.isp == key ? "green" : "grey"])
+                if (key != "count" && key != "median") {
+                    data.push([key, Math.round(value.median) / 1000, user_info.ip.isp == key ? "green" : "grey"])
                 }
             });
-            oTotal /= $scope.region.count;
             comparation = compare(uTotal, oTotal);
             $scope.report["region"] = {
                 "uTotal": Math.round(uTotal) / 1000,
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
-            console.log(uTotal);
             drawChart(data);
         }
 
@@ -343,7 +311,7 @@ angular.module('myApp.controllers', [])
             $scope.modal = "partials/history.html";
             $timeout(function(){
                $('.modal').modal('show');
-            }, 10);
+            }, 100);
         };
 
     });
