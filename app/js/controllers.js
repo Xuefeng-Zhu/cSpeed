@@ -50,7 +50,7 @@ angular.module('myApp.controllers', [])
         $scope.status = "Start Test";
 
         //load statics to total
-        fb.child("total").on("value", function(dataSnapshot) {
+        fb.child("total").once("value", function(dataSnapshot) {
             $scope.total = dataSnapshot.val();
             $scope.$digest();
         });
@@ -64,7 +64,7 @@ angular.module('myApp.controllers', [])
                 height: window.outerHeight,
                 width: window.outerWidth
             };
-            fb.child("region/" + response.city).on("value", function(dataSnapshot) {
+            fb.child("region/" + response.city).once("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
             });
@@ -194,11 +194,10 @@ angular.module('myApp.controllers', [])
         }
 
         function finalizeTest() {
-            //upload test timing data 
-            var userRef = fb.child('individuals').push(angular.copy($scope.upData));
+            //upload test timing data and user info
+            $scope.upData.user_info = user_info;
+            fb.child('individuals').push(angular.copy($scope.upData));
 
-            //upload user info
-            userRef.child('user_info').set(user_info);
             $http.get('http://ip-api.com/json').success(function(response) {
                 //somewhere wierd code fails without this call
             });
