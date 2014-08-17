@@ -13,35 +13,35 @@ angular.module('myApp.controllers', [])
 
         $scope.tests = [{
                 'link': 'http://www.aws.amazon.com/',
-                'name': 'Aws'
+                'name': 'aws'
             }
             , {
                 'link': 'http://www.adcash.com/en/index.php',
-                'name': 'Adcash'
+                'name': 'adcash'
             }, {
                 'link': 'http://www.addthis.com/',
-                'name': 'Addthis'
+                'name': 'addthis'
             }, {
                 'link': 'http://www.adf.ly/',
-                'name': 'Adf'
+                'name': 'adf'
             }, {
                 'link': 'http://www.adobe.com/',
-                'name': 'Adobe'
+                'name': 'adobe'
             }, {
                 'link': 'http://www.badoo.com/',
-                'name': 'Badoo'
+                'name': 'badoo'
             }, {
                 'link': 'http://www.bankofamerica.com/',
-                'name': 'Bankofamerica'
+                'name': 'bankofamerica'
             }, {
                 'link': 'http://www.chase.com/',
-                'name': 'Chase'
+                'name': 'chase'
             }, {
                 'link': 'http://www.conduit.com/',
-                'name': 'Conduit'
+                'name': 'conduit'
             }, {
                 'link': 'http://www.flickr.com',
-                'name': 'Flickr'
+                'name': 'flickr'
             }
         ];
 
@@ -294,7 +294,7 @@ angular.module('myApp.controllers', [])
                 hAxis: {
                     title: "seconds"
                 },
-                width: 1000,
+                width: window.outerWidth - 200 - 2 * parseInt($(".message").css("padding")),
                 chartArea: {
                     left: 200,
                 },
