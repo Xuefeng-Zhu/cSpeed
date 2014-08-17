@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>SpeedTest</title>
+    <link rel="stylesheet" href="css/buttons.css"/>
     <link rel="stylesheet" href="css/semantic.css"/>
     <link rel="stylesheet" href="css/pacer-theme.css"/>
     <link rel="stylesheet" href="css/app.css"/>
+
   </head>
   <body id="example" ng-controller="TimerCtrl">
     <!-- Information about test -->
@@ -31,8 +33,6 @@
           <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
           <h3 style="display:inline"><timer autostart="false" interval="1000"/>{{millis}}</h3> <span>ms</span>
         </div>
-        <a class="button-border" style="margin-left:2%;margin-right:5%;border-color:#7db500">About Test</a>
-        <a class="button-border">About us</a>
       </div>
     </div>
     <!-- End of Info -->
@@ -59,7 +59,7 @@
                 <p>Not enough users in your city</p>
               </div>
             </div>
-            <a class="button-border button-fluid" style="border-color:#7db500" ng-show="history" ng-click="showHistory()">View Previous Test Results</a>
+            <a class="cbutton cbutton-border-action cbutton-block cbutton-large" ng-show="history" ng-click="showHistory()">View Previous Test Results</a>
           </div>
         </div>
       </div>
