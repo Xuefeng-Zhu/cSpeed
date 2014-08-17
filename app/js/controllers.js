@@ -6,7 +6,7 @@ google.load("visualization", "1", {
 });
 
 angular.module('myApp.controllers', [])
-    .controller('TimerCtrl', function($scope, $timeout, $http, $q) {
+    .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
         var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference 
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date 
@@ -263,7 +263,7 @@ angular.module('myApp.controllers', [])
 
             angular.forEach($scope.region, function(value, key) {
                 if (key != "count" && key != "median") {
-                    data.push([key, Math.round(value.median) / 1000, user_info.ip.isp == key ? "green" : "grey"])
+                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey"])
                 }
             });
             comparation = compare(uTotal, oTotal);
