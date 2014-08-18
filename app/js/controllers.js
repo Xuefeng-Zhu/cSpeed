@@ -236,6 +236,18 @@ angular.module('myApp.controllers', [])
                 "comparation": comparation,
             }
 
+            //draw overview graph 
+            var data = [
+                ['Result', 'Seconds', {
+                    role: 'style'
+                }]
+            ];
+            data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "green"]);
+            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey"]);
+            data.push(['Users in Your City', parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey"]);
+
+            drawChart('chart_total', 'Overview', data);
+
             //store data into localstorage 
             var temp = angular.copy($scope.history);
             if (temp == undefined) {
@@ -248,6 +260,7 @@ angular.module('myApp.controllers', [])
             store.set('history', temp);
 
 
+            //draw graph of ISP in same region
             var data = [
                 ['ISP', 'Seconds', {
                     role: 'style'
@@ -266,10 +279,10 @@ angular.module('myApp.controllers', [])
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
-            drawChart('chart_isp', data);
+            drawChart('chart_isp', 'ISP in your region', data);
         }
 
-        function drawChart(id, d) {
+        function drawChart(id, title, d) {
             var data = google.visualization.arrayToDataTable(d);
             var view = new google.visualization.DataView(data);
             view.setColumns([0, 1, {
@@ -281,7 +294,7 @@ angular.module('myApp.controllers', [])
                 2
             ]);
             var options = {
-                title: 'ISP in your region',
+                title: title,
                 legend: {
                     position: "none"
                 },
@@ -338,8 +351,8 @@ angular.module('myApp.controllers', [])
             });
         }
 
-        $scope.absDiff = function(t1, t2){
-            return Math.abs(t1 - t2) > 200 
+        $scope.absDiff = function(t1, t2) {
+            return Math.abs(t1 - t2) > 200
         }
 
     });
