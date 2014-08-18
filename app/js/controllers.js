@@ -279,7 +279,7 @@ angular.module('myApp.controllers', [])
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
-            drawChart('chart_isp', 'ISP in your region', data);
+            drawChart('chart_isp', 'ISP in Your Region', data);
         }
 
         function drawChart(id, title, d) {
