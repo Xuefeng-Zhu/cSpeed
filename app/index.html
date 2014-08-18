@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/semantic.css"/>
     <link rel="stylesheet" href="css/pacer-theme.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-
   </head>
   <body id="example" ng-controller="TimerCtrl">
     <!-- Information about test -->
@@ -48,12 +47,13 @@
               <div class="ui huge message">
                 <p>It takes you <b>{{report.summary.uTotal | number: 1}}s</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal | number: 1}}s</b>.</p>
                 <p>You are <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than Others!</p>
+                 <div id="chart_total"></div>
               </div>
             </div>
             <div style="text-align:center">
               <div class="ui huge message" ng-show="region.count>1">
                 <p>You are <b>{{report.region.comparation.value}}%</b> {{report.region.comparation.key}} than people in your region!</p>
-                <div id="chart_div"></div>
+                <div id="chart_isp"></div>
               </div>
               <div class="ui huge warning message" ng-hide="region.count>1">
                 <p>Not enough users in your city</p>
@@ -66,12 +66,17 @@
       <!-- End of test Report -->
       <!-- Individual result -->
       
-      <div class="test fx-zoom-down fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest" ng-click="showResource(test)">
-         <span style="position:relative; bottom:0.6em; float: left;"><b>{{test.name}}</b></span>
+      <div class="test fx-fade-down fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest" ng-click="showResource(test)">
+        <span style="position:relative; bottom:0.6em; float: left;"><b>{{test.name}}</b></span>
         <div class="number-pb" style="left:4em">
-          <div class="number-pb-shown" style="width: 1%; left: {{total[test.name] / 150}}%;overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 5px; min-height: 0px; max-height: none; padding-left: 0px;background-color: red;z-index: 100;"></div>
+          <!-- User test -->
           <div class="number-pb-shown" style="width: {{test.time / 150}}%; overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 5px; min-height: 0px; max-height: none; padding-left: 0px;"></div>
           <div class="number-pb-num" style="left: {{test.time / 150 - 1.1}}%; overflow: visible; box-sizing: content-box; width: 20px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;">{{test.time/1000|number: 1}}s</div>
+          <!-- End of user test -->
+          <!-- Other test -->
+          <div class="number-pb-shown" style="width: 1%; left: {{total[test.name] / 150}}%;overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 5px; min-height: 0px; max-height: none; padding-left: 0px;background-color: red;z-index: 100;"></div>
+          <div class="number-pb-num" style="left: {{total[test.name] / 150 - 2}}%; overflow: visible; box-sizing: content-box; width: 50px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-show="absDiff(total[test.name], test.time)">avg: {{total[test.name]/1000|number: 1}}s</div>
+          <!-- End of other test -->
         </div>
       </div>
       <!-- End of Individual result -->

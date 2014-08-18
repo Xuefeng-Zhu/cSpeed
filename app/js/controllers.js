@@ -266,7 +266,7 @@ angular.module('myApp.controllers', [])
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
-            drawChart('chart_div', data);
+            drawChart('chart_isp', data);
         }
 
         function drawChart(id, d) {
@@ -336,6 +336,10 @@ angular.module('myApp.controllers', [])
                     chrome.tabs.sendMessage(tab.id, message);
                 }, 100);
             });
+        }
+
+        $scope.absDiff = function(t1, t2){
+            return Math.abs(t1 - t2) > 200 
         }
 
     });
