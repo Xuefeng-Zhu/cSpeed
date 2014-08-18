@@ -48,7 +48,7 @@ body >.segment {
   position: absolute;
   /*background-color: #fff;*/
   left: 0;
-  top: -0.45em;
+  top: -1.1em;
   padding: 0 5px;
   min-width: 20px;
 }
