@@ -66,7 +66,7 @@
       <!-- End of test Report -->
       <!-- Individual result -->
       
-      <div class="fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest">
+      <div class="test fx-zoom-up fx-easing-sine fx-speed-1000" ng-repeat="test in finishedTest" ng-click="showResource(test)">
        <!--  <span><b>{{test.name}}</b></span>
         <span style="float:right"><b>Others's Speed:{{total[test.name]/1000|number: 1}}s    &nbsp&nbsp Your Speed:{{test.time|number: 0}}ms</b></span>
         <div class="ui successful progress">

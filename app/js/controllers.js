@@ -211,7 +211,7 @@ angular.module('myApp.controllers', [])
             $scope.history = store.get('history');
             $scope.generateReport();
 
-            $('.ui.successful.progress').popup({
+            $('.test').popup({
                 content: 'Click me to show more infomation'
             });
 
