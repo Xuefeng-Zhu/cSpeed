@@ -158,7 +158,7 @@ angular.module('myApp.controllers', [])
             }
 
             $scope.currentTest = $scope.tests[index];
-            $scope.finishedTest.push($scope.currentTest);
+            $scope.finishedTest.unshift($scope.currentTest);
             $scope.$broadcast('timer-start');
             chrome.tabs.create({
                 url: $scope.currentTest.link,
