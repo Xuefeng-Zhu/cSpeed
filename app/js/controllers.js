@@ -12,38 +12,36 @@ angular.module('myApp.controllers', [])
         var user_info = {}; //user information like ip address, web browser, and date 
 
         $scope.tests = [{
-                'link': 'http://www.aws.amazon.com/',
-                'name': 'aws'
-            }
-            , {
-                'link': 'http://www.adcash.com/en/index.php',
-                'name': 'adcash'
-            }, {
-                'link': 'http://www.addthis.com/',
-                'name': 'addthis'
-            }, {
-                'link': 'http://www.adf.ly/',
-                'name': 'adf'
-            }, {
-                'link': 'http://www.adobe.com/',
-                'name': 'adobe'
-            }, {
-                'link': 'http://www.badoo.com/',
-                'name': 'badoo'
-            }, {
-                'link': 'http://www.bankofamerica.com/',
-                'name': 'bankofamerica'
-            }, {
-                'link': 'http://www.chase.com/',
-                'name': 'chase'
-            }, {
-                'link': 'http://www.conduit.com/',
-                'name': 'conduit'
-            }, {
-                'link': 'http://www.flickr.com',
-                'name': 'flickr'
-            }
-        ];
+            'link': 'http://www.aws.amazon.com/',
+            'name': 'aws'
+        }, {
+            'link': 'http://www.adcash.com/en/index.php',
+            'name': 'adcash'
+        }, {
+            'link': 'http://www.addthis.com/',
+            'name': 'addthis'
+        }, {
+            'link': 'http://www.adf.ly/',
+            'name': 'adf'
+        }, {
+            'link': 'http://www.adobe.com/',
+            'name': 'adobe'
+        }, {
+            'link': 'http://www.badoo.com/',
+            'name': 'badoo'
+        }, {
+            'link': 'http://www.bankofamerica.com/',
+            'name': 'bankofamerica'
+        }, {
+            'link': 'http://www.chase.com/',
+            'name': 'chase'
+        }, {
+            'link': 'http://www.conduit.com/',
+            'name': 'conduit'
+        }, {
+            'link': 'http://www.flickr.com',
+            'name': 'flickr'
+        }];
 
         $scope.total = null; //total speed statics  
         $scope.region = null; //speed statics in same region 
@@ -58,7 +56,7 @@ angular.module('myApp.controllers', [])
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             //map city 
-            if (sisterCity[response.city]){
+            if (sisterCity[response.city]) {
                 response.city = sisterCity[response.city];
             }
 
@@ -100,6 +98,7 @@ angular.module('myApp.controllers', [])
                     url: $scope.currentTest.link,
                     active: false
                 }, function(tab) {
+                    $scope.currentTest.tab = tab;
                     chrome.tabs.executeScript(tab.id, {
                         file: "js/helper.js"
                     })
@@ -110,45 +109,29 @@ angular.module('myApp.controllers', [])
 
         }
 
-        //show timeline for individual test result 
-        $scope.showResource = function(test) {
-            chrome.tabs.create({
-                url: "timeline.html",
-                active: true
-            }, function(tab) {
-                var message = [{
-                    "label": "Network Requests",
-                    "start": 0,
-                    "end": test.data.time.loadEventEnd - test.data.time.navigationStart,
-                    "className": "network"
-                }];
-                var resource = test.data.resource;
-                for (var i in resource) {
-                    var temp = purl(resource[i].name);
-
-                    var data = {
-                        "label": temp.attr('file') == "" ? temp.attr("path") : temp.attr('file'),
-                        "start": Math.round(resource[i].fetchStart),
-                        "end": Math.round(resource[i].responseEnd),
-                        "className": resource[i].initiatorType,
-                        "parent": 0
-                    }
-                    message.push(data);
-                }
-                $timeout(function() {
-                    chrome.tabs.sendMessage(tab.id, message);
-                }, 100);
-            });
-        }
-
         //update individual timer in real time 
         $scope.$on('timer-tick', function(event, args) {
             $scope.currentTest.time = args.millis;
             $scope.$digest()
+            if (args.millis > 15000) {
+                $scope.upData[$scope.currentTest["name"]] = {
+                    time: {
+                        status: "timeout",
+                        loadEventEnd: 15000,
+                        navigationStart: 0
+                    },
+                    ip: $scope.finishedTest[index].ip
+                };
+
+                chrome.tabs.remove($scope.currentTest.tab.id);
+                loadNextTest();
+            }
         });
 
-        //get message including ip, timing and resource data
-        //when receive timing data, the current test site has been fullly loaded, and move to next test
+        /*        
+        get message including ip, timing and resource data
+        when receive timing data, the current test site has been fullly loaded, and move to next test
+        */
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             if (request.details) {
                 $scope.currentTest.ip = request.details.ip;
@@ -157,6 +140,11 @@ angular.module('myApp.controllers', [])
             chrome.tabs.remove(sender.tab.id);
             loadResult(index, request);
 
+            loadNextTest();
+        });
+
+        //move to next test 
+        function loadNextTest() {
             index++;
             //check if the test is at the end 
             if (index == $scope.tests.length) {
@@ -176,12 +164,13 @@ angular.module('myApp.controllers', [])
                 url: $scope.currentTest.link,
                 active: false
             }, function(tab) {
+                $scope.currentTest.tab = tab;
                 chrome.tabs.executeScript(tab.id, {
                     file: "js/helper.js"
                 })
             });
             $scope.$digest();
-        });
+        }
 
         /*        
         format individual test result 
@@ -218,7 +207,7 @@ angular.module('myApp.controllers', [])
         }
 
         /*
-        generate report based on your test result and others' result
+            generate report based on your test result and others' result
         */
         $scope.generateReport = function() {
             var uTotal = 0;
@@ -313,9 +302,40 @@ angular.module('myApp.controllers', [])
 
         $scope.showHistory = function() {
             $scope.modal = "partials/history.html";
-            $timeout(function(){
-               $('.modal').modal('show');
+            $timeout(function() {
+                $('.modal').modal('show');
             }, 100);
         };
+
+        //show timeline for individual test result 
+        $scope.showResource = function(test) {
+            chrome.tabs.create({
+                url: "timeline.html",
+                active: true
+            }, function(tab) {
+                var message = [{
+                    "label": "Network Requests",
+                    "start": 0,
+                    "end": test.data.time.loadEventEnd - test.data.time.navigationStart,
+                    "className": "network"
+                }];
+                var resource = test.data.resource;
+                for (var i in resource) {
+                    var temp = purl(resource[i].name);
+
+                    var data = {
+                        "label": temp.attr('file') == "" ? temp.attr("path") : temp.attr('file'),
+                        "start": Math.round(resource[i].fetchStart),
+                        "end": Math.round(resource[i].responseEnd),
+                        "className": resource[i].initiatorType,
+                        "parent": 0
+                    }
+                    message.push(data);
+                }
+                $timeout(function() {
+                    chrome.tabs.sendMessage(tab.id, message);
+                }, 100);
+            });
+        }
 
     });
