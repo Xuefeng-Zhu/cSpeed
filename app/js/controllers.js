@@ -57,6 +57,11 @@ angular.module('myApp.controllers', [])
 
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
+            //map city 
+            if (sisterCity[response.city]){
+                response.city = sisterCity[response.city];
+            }
+
             user_info.browser = navigator.appVersion;
             user_info.ip = response;
             user_info.date = Date();

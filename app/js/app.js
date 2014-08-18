@@ -13,3 +13,8 @@ angular.module('myApp', [
 $('.message .close').on('click', function() {
     $(this).closest('.message').fadeOut();
 });
+
+var sisterCity = {
+    "Urbana" : "Champaign-Urbana",
+    "Champaign" : "Champaign-Urbana"
+}
