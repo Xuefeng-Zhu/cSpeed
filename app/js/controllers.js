@@ -30,9 +30,6 @@ angular.module('myApp.controllers', [])
             'link': 'http://www.badoo.com/',
             'name': 'badoo'
         }, {
-            'link': 'http://www.bankofamerica.com/',
-            'name': 'bankofamerica'
-        }, {
             'link': 'http://www.chase.com/',
             'name': 'chase'
         }, {
@@ -41,6 +38,9 @@ angular.module('myApp.controllers', [])
         }, {
             'link': 'http://www.flickr.com',
             'name': 'flickr'
+        }, {
+            'link': 'http://www.go.com/',
+            'name': 'go'
         }];
 
         $scope.total = null; //total speed statics  
@@ -266,10 +266,10 @@ angular.module('myApp.controllers', [])
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
-            drawChart(data);
+            drawChart('chart_div', data);
         }
 
-        function drawChart(d) {
+        function drawChart(id, d) {
             var data = google.visualization.arrayToDataTable(d);
             var view = new google.visualization.DataView(data);
             view.setColumns([0, 1, {
@@ -296,7 +296,7 @@ angular.module('myApp.controllers', [])
 
             };
 
-            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.BarChart(document.getElementById(id));
             chart.draw(view, options);
         };
 
