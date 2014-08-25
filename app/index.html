@@ -71,7 +71,8 @@
         <div class="number-pb" style="left:4em">
           <!-- User test -->
           <div class="number-pb-shown" style="width: {{test.time / 150}}%; overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 5px; min-height: 0px; max-height: none; padding-left: 0px;"></div>
-          <div class="number-pb-num" style="left: {{test.time / 150 - 1.1}}%; overflow: visible; box-sizing: content-box; width: 20px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-hide="test.time > 15000">{{test.time/1000|number: 1}}s</div>
+          <div class="number-pb-num" style="left: {{test.time / 150 - 1.1}}%; overflow: visible; box-sizing: content-box; width: 20px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-hide="test.time >= 15000">{{test.time/1000|number: 1}}s</div>
+          <div class="number-pb-num" style="left: 96%; overflow: visible; box-sizing: content-box; width: 50px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-show="test.time >= 15000">Time out</div>
           <!-- End of user test -->
           <!-- Other test -->
           <div class="number-pb-shown" style="width: 1%; left: {{total[test.name] / 150}}%;overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 5px; min-height: 0px; max-height: none; padding-left: 0px;background-color: red;z-index: 100;"></div>

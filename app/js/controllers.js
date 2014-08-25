@@ -113,7 +113,8 @@ angular.module('myApp.controllers', [])
         $scope.$on('timer-tick', function(event, args) {
             $scope.currentTest.time = args.millis;
             $scope.$digest()
-            if (args.millis > 15000) {
+            if (args.millis >= 15000) {
+                $scope.currentTest.time = 15000;
                 $scope.upData[$scope.currentTest["name"]] = {
                     time: {
                         status: "timeout",
