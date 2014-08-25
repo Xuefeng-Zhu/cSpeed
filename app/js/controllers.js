@@ -179,12 +179,13 @@ angular.module('myApp.controllers', [])
           data: object containing timing and resource
         */
         function loadResult(index, data) {
+            console.log($scope.finishedTest[$scope.finishedTest.length-1])
             $scope.upData[$scope.tests[index]["name"]] = {
                 time: data.time,
                 ip: $scope.finishedTest[index].ip
             };
-            $scope.finishedTest[index].time = data.time.loadEventEnd - data.time.navigationStart;
-            $scope.finishedTest[index].data = data;
+            $scope.finishedTest[0].time = data.time.loadEventEnd - data.time.navigationStart;
+            $scope.finishedTest[0].data = data;
         }
 
         function finalizeTest() {
