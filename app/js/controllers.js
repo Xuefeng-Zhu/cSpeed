@@ -301,7 +301,8 @@ angular.module('myApp.controllers', [])
                     position: "none"
                 },
                 hAxis: {
-                    title: "seconds"
+                    title: "seconds",
+                    baseline: 0
                 },
                 width: window.outerWidth - 200 - 2 * parseInt($(".message").css("padding")),
                 chartArea: {
