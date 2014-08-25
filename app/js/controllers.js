@@ -59,9 +59,8 @@ angular.module('myApp.controllers', [])
             if (sisterCity[response.city]) {
                 response.city = sisterCity[response.city];
             }
-
-            user_info.browser = navigator.appVersion;
             user_info.ip = response;
+            user_info.browser = navigator.appVersion;
             user_info.date = Date();
             user_info.windowSize = {
                 height: window.outerHeight,
@@ -180,7 +179,6 @@ angular.module('myApp.controllers', [])
           data: object containing timing and resource
         */
         function loadResult(index, data) {
-            console.log($scope.finishedTest[$scope.finishedTest.length-1])
             $scope.upData[$scope.tests[index]["name"]] = {
                 time: data.time,
                 ip: $scope.finishedTest[index].ip
@@ -246,7 +244,7 @@ angular.module('myApp.controllers', [])
             ];
             data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "green"]);
             data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey"]);
-            data.push(['Users in Your City', parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey"]);
+            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey"]);
 
             drawChart('chart_total', '', data);
 
