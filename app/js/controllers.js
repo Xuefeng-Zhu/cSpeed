@@ -307,8 +307,10 @@ angular.module('myApp.controllers', [])
                 chartArea: {
                     left: 200,
                 },
-                backgroundColor: "#EFEFEF"
-
+                backgroundColor: "#EFEFEF",
+                tooltip: {
+                    trigger: 'none'
+                }
             };
 
             var chart = new google.visualization.BarChart(document.getElementById(id));
