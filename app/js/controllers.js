@@ -248,7 +248,7 @@ angular.module('myApp.controllers', [])
             data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey"]);
             data.push(['Users in Your City', parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey"]);
 
-            drawChart('chart_total', 'Overview', data);
+            drawChart('chart_total', '', data);
 
             //store data into localstorage 
             var temp = angular.copy($scope.history);
