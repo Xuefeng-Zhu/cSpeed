@@ -153,7 +153,7 @@ angular.module('myApp.controllers', [])
             //check if the test is at the end 
             if (index == $scope.tests.length) {
                 $scope.currentTest = {
-                    'name': 'perf.',
+                    'name': 'perf',
                     'link': 'Perfomance test. Please wait.'
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
@@ -166,7 +166,7 @@ angular.module('myApp.controllers', [])
 
                 jslitmus.on('complete', function(test) {
                     $scope.currentTest.time = test.time * 1000;
-                    user_info.perfomance = test.time * 1000;
+                    user_info.performance = test.time * 1000;
 
                     $scope.currentTest = undefined;
                     $("#currentTest").text("Finish");
