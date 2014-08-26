@@ -272,6 +272,13 @@ angular.module('myApp.controllers', [])
             ];
             oTotal = $scope.region.median;
 
+            if ($scope.region[user_info.ip.isp] == undefined){
+                $scope.region[user_info.ip.isp] = {
+                    "median": uTotal,
+                    "count": 1
+                }
+            }
+
             angular.forEach($scope.region, function(value, key) {
                 if (key != "count" && key != "median") {
                     data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey"])
@@ -359,7 +366,7 @@ angular.module('myApp.controllers', [])
         }
 
         $scope.absDiff = function(t1, t2) {
-            return Math.abs(t1 - t2) > 200
+            return Math.abs(t1 - t2) > 400
         }
 
     });
