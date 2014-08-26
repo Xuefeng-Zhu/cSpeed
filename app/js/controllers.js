@@ -56,7 +56,7 @@ angular.module('myApp.controllers', [])
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             //map city 
-            if (response.city == ""){
+            if (response.city == "") {
                 response.city = prompt("We cannot locate your city. Please input manually");
             }
 
@@ -152,12 +152,34 @@ angular.module('myApp.controllers', [])
             index++;
             //check if the test is at the end 
             if (index == $scope.tests.length) {
-                $scope.currentTest = undefined;
-                $("#currentTest").text("Finish");
-                $scope.$broadcast('timer-stop');
-                $scope.status = "Run Again";
+                $scope.currentTest = {
+                    'name': 'perf.',
+                    'link': 'Perfomance test. Please wait.'
+                };
+                $scope.finishedTest.unshift($scope.currentTest);
+                $scope.$broadcast('timer-start');
 
-                finalizeTest();
+                var a100m = new Array(1e8);
+                jslitmus.test('Join 100M', function() {
+                    a100m.join(' ');
+                });
+
+                jslitmus.on('complete', function(test) {
+                    $scope.currentTest.time = test.time * 1000;
+                    user_info.perfomance = test.time * 1000;
+
+                    $scope.currentTest = undefined;
+                    $("#currentTest").text("Finish");
+                    $scope.$broadcast('timer-stop');
+                    $scope.status = "Run Again";
+
+                    finalizeTest();
+                });
+
+                // Run the tests
+                $timeout(function() {
+                    jslitmus.runAll();
+                }, 100);
                 return;
             }
 
@@ -272,7 +294,7 @@ angular.module('myApp.controllers', [])
             ];
             oTotal = $scope.region.median;
 
-            if ($scope.region[user_info.ip.isp] == undefined){
+            if ($scope.region[user_info.ip.isp] == undefined) {
                 $scope.region[user_info.ip.isp] = {
                     "median": uTotal,
                     "count": 1
