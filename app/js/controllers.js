@@ -78,6 +78,9 @@ angular.module('myApp.controllers', [])
         })
 
         $scope.startTest = function() {
+            if ($scope.currentTest){
+                return;
+            }
             index = 0;
             performance.webkitClearResourceTimings(); //clear perfomance statics 
             $scope.upData = {};
