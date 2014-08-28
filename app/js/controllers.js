@@ -391,7 +391,7 @@ angular.module('myApp.controllers', [])
         }
 
         $scope.absDiff = function(t1, t2) {
-            return Math.abs(t1 - t2) > 400
+            return Math.abs(t1 - t2) > 500
         }
 
     });
