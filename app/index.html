@@ -12,14 +12,30 @@
     <!-- Information about test -->
     <div class="segment" ng-hide="report.summary">
       <div class="container">
-        <div class="ui large message">
-          <i class="close icon"></i>
-          <div class="header">
-            Welcome!
+        <div class="ui two column grid segment">
+          <div class="column">
+            <div class="ui message">
+              <div class="header">
+                Welcome!
+              </div>
+              <p>How fast is your Internet connection really? Find out with <i style="font-size:1.5em">HowFast</i></p>
+              <p><b>{{total.count||0}} </b>Tests run so far.</p>
+              <p><b>{{region.count||0}} </b>Tests from your region.</p>
+            </div>
           </div>
-          <p>How fast is your Internet connection really? Find out with <i style="font-size:1.5em">HowFast</i></p>
-          <p><b>{{total.count||0}} </b>Tests run so far.</p>
-          <p><b>{{region.count||0}} </b>Tests from your region.</p>
+          <div class="ui vertical divider">
+            <i class="info icon"></i>
+          </div>
+          <div class="column" style="margin-top:0">
+            <div class="ui message">
+              <div class="header">
+                About us
+              </div>
+              <p>How fast is your Internet connection really? Find out with <i style="font-size:1.5em">HowFast</i></p>
+              <p><b>{{total.count||0}} </b>Tests run so far.</p>
+              <p><b>{{region.count||0}} </b>Tests from your region.</p>
+            </div>
+          </div>
         </div>
         <p>{{index}}</p>
         <div class="fluid ui teal animated button" ng-click="startTest()" style="margin:1rem 0">
@@ -92,8 +108,6 @@
     <script src="lib/firebase.js"></script>
     <script src="lib/purl.js"></script>
     <script src="lib/jslitmus.js"></script>
-
-
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>
     <script src="lib/angular/angular-animate.js"></script>
