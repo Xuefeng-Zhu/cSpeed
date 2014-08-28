@@ -341,6 +341,7 @@ angular.module('myApp.controllers', [])
                     title: "seconds",
                     baseline: 0
                 },
+                height: d.length * 60,
                 width: window.outerWidth - 200 - 2 * parseInt($(".message").css("padding")),
                 chartArea: {
                     left: 200,
