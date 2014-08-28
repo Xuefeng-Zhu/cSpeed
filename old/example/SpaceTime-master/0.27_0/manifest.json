@@ -1,0 +1,28 @@
+{
+   "background": {
+      "scripts": [ "extension.js" ]
+   },
+   "browser_action": {
+      "default_icon": "mt-icon.png",
+      "icons": [ "mt-icon.png", "mt-icon-active.png", "mt-icon-disabled.png" ],
+      "name": "MonitorTab"
+   },
+   "content_scripts": [ {
+      "js": [ "data_loader.js" ],
+      "matches": [ "http://*/*", "https://*/*", "file:///*" ],
+      "run_at": "document_end"
+   } ],
+   "description": "Get insight into the performance of your web applications.",
+   "icons": {
+      "128": "7271B57BF73ED8DD39E62247C6E55B11.png",
+      "16": "9478EDE0A0F397A1B9CFE9A268895DB7.png",
+      "32": "EAB84AFC4392F30491367F7CE3E8D498.png",
+      "48": "B8D870CF42A2D08DBF33031604F51CC1.png"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDm+jz32G1duFpqC9Gvkx3sxjCapLPeTrLqAxpUfTMUtpE8kmwEYc92LDOPzWooPzLINwqpNJNANQyvrJufzNENBDiDWY5QtHt/vXf25BM71Um+HistVJ35Cxg/wcmBXI/fi5qt7EQUDRW0hd0Bwo2m+mXiv4QGZNVz5Q8SaGG2tQIDAQAB",
+   "manifest_version": 2,
+   "name": "Speed Tracer (by Google)",
+   "permissions": [ "tabs", "http://*/*", "https://*/*", "debugger" ],
+   "update_url": "http://clients2.google.com/service/update2/crx",
+   "version": "0.27"
+}

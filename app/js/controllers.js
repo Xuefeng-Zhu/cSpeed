@@ -239,6 +239,9 @@ angular.module('myApp.controllers', [])
             var uTotal = 0;
             var oTotal = $scope.total.median;
             angular.forEach($scope.finishedTest, function(value, key) {
+                if (value.name == "perf") {
+                    return;
+                }
                 uTotal += value.time;
             });
 
