@@ -16,9 +16,9 @@
           <div class="column">
             <div class="ui message">
               <div class="header">
-                Web-chronograph
+                Chronograph
               </div>
-              <p align="justify">Web-chronograph measures how fast your Internet really is. It does so by directly observing how much
+              <p align="justify">Chronograph measures how fast your Internet really is. It does so by directly observing how much
 	      time it takes to load popular webpages. <font color="red">It does not collect any personal web-browsing information.</font> It
 	      only measures load times for a list of popular sites. We do record your IP address, city, and browser user-agent (which includes
 	      your operating system and browser version). In addition to launching and measuring load times of websites, we also run
@@ -35,7 +35,7 @@
                 About us
               </div>
               <p align="justify">We are computer scientists at <a href=http://cs.illinois.edu/>University of Illinois Urbana-Champaign</a>, working on making the Internet faster. The first step, of course, is to measure how fast the Internet is today.
-	      We developed Web-chronograph with twin objectives: (a) to measure Internet speed from a diverse set of
+	      We developed Chronograph with twin objectives: (a) to measure Internet speed from a diverse set of
 	      locations and ISPs; and (b) to provide you a way of comparing Internet service options in your area. The bandwidth numbers
 	      (Mbps / Gbps) ISPs and other 'speed tests' report are not as meaningful as the actual performance we
 	      measure.</p>
@@ -68,13 +68,14 @@
             <div style="text-align:center; margin-bottom:10px">
               <div class="ui huge message">
                 <!-- p>It takes you <b>{{report.summary.uTotal | number: 1}}s</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal | number: 1}}s</b>.</p -->
-                <p>Your load time is <b>{{report.summary.comparation.value}}%</b> {{report.summary.comparation.key}} than typical users.</p>
+                <p>Your load time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than typical users, and 
+		<b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in your city.</p>
                 <div id="chart_total"></div>
               </div>
             </div>
             <div style="text-align:center">
               <div class="ui huge message" ng-show="region.count>1">
-                <p>Your load time is <b>{{report.region.comparation.value}}%</b> {{report.region.comparation.key}} than the typical user in your city.</p>
+                <p>The fastest ISP in your city is XYZ. The typical XYZ user is X% faster than you.</p>
                 <div id="chart_isp"></div>
               </div>
               <div class="ui huge warning message" ng-hide="region.count>1">
