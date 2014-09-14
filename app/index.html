@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="css/app.css"/>
   </head>
   <body id="example" ng-controller="TimerCtrl" ng-cloak>
+    <!-- Nav bar -->
+    <div class="ui green main menu">
+      <div class="">
+        <div class="active title item">
+          <b><i class="dashboard icon"></i>cSpeed</b>
+        </div>
+      </div>
+    </div>
+    <!-- End of Nav bar -->
+    
     <!-- Information about test -->
     <div class="segment" ng-hide="report.summary">
       <div class="container">
@@ -19,11 +29,11 @@
                 cSpeed
               </div>
               <p align="justify">cSpeed measures how fast your Internet really is. It does so by directly observing how much
-	      time it takes to load popular webpages. <font color="red">It does not collect any personal web-browsing information.</font> It
-	      only measures load times for a list of popular sites. We do record your IP address, city, and browser user-agent (which includes
-	      your operating system and browser version). In addition to launching and measuring load times of websites, we also run
-	      a small javascript test to estimate your computer's computational power.</p>
-<!--               <p><b>{{total.count||0}} </b>Tests run so far; <b>{{region.count||0}} </b> from your region.  -->
+              time it takes to load popular webpages. <font color="red">It does not collect any personal web-browsing information.</font> It
+              only measures load times for a list of popular sites. We do record your IP address, city, and browser user-agent (which includes
+              your operating system and browser version). In addition to launching and measuring load times of websites, we also run
+              a small javascript test to estimate your computer's computational power.</p>
+              <!--               <p><b>{{total.count||0}} </b>Tests run so far; <b>{{region.count||0}} </b> from your region.  -->
             </div>
           </div>
           <div class="ui vertical divider">
@@ -35,10 +45,10 @@
                 About us
               </div>
               <p align="justify">We are computer scientists at <a href=http://cs.illinois.edu/>University of Illinois Urbana-Champaign</a>, working on making the Internet faster. The first step, of course, is to measure how fast the Internet is today.
-	      We developed Chronograph with twin objectives: (a) to measure Internet speed from a diverse set of
-	      locations and ISPs; and (b) to provide you a way of comparing Internet service options in your area. The bandwidth numbers
-	      (Mbps / Gbps) ISPs and other 'speed tests' report are not as meaningful as the actual performance we
-	      measure.</p>
+              We developed Chronograph with twin objectives: (a) to measure Internet speed from a diverse set of
+              locations and ISPs; and (b) to provide you a way of comparing Internet service options in your area. The bandwidth numbers
+              (Mbps / Gbps) ISPs and other 'speed tests' report are not as meaningful as the actual performance we
+              measure.</p>
               <p align="right">Xuefeng Zhu, <a href=http://web.engr.illinois.edu/~singla2/>Ankit Singla</a>, <a href=http://web.engr.illinois.edu/~pbg/>P. Brighten Godfrey</a></p>
             </div>
           </div>
@@ -68,8 +78,8 @@
             <div style="text-align:center; margin-bottom:10px">
               <div class="ui huge message">
                 <!-- p>It takes you <b>{{report.summary.uTotal | number: 1}}s</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal | number: 1}}s</b>.</p -->
-                <p>Your load time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than typical users, and 
-		<b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in your city.</p>
+                <p>Your load time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than typical users, and
+                <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in your city.</p>
                 <div id="chart_total"></div>
               </div>
             </div>
