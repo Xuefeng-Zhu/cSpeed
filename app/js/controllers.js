@@ -230,7 +230,7 @@ angular.module('myApp.controllers', [])
             $scope.generateReport();
 
             $('.test:not(:first)').popup({
-                content: 'Click me to show more infomation'
+                content: 'Right Click to show more infomation'
             });
 
         }
