@@ -229,7 +229,7 @@ angular.module('myApp.controllers', [])
             $scope.history = store.get('history');
             $scope.generateReport();
 
-            $('.test').popup({
+            $('.test:not(:first)').popup({
                 content: 'Click me to show more infomation'
             });
 
@@ -365,6 +365,10 @@ angular.module('myApp.controllers', [])
 
         //show timeline for individual test result 
         $scope.showResource = function(test) {
+            if (test.name == "perf"){
+                return;
+            }
+
             chrome.tabs.create({
                 url: "timeline.html",
                 active: true
