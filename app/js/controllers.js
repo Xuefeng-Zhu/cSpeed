@@ -298,7 +298,7 @@ angular.module('myApp.controllers', [])
                     role: 'style'
                 }]
             ];
-            oTotal = $scope.region.median;
+            var fastest = null;
 
             if ($scope.region[user_info.ip.isp] == undefined) {
                 $scope.region[user_info.ip.isp] = {
@@ -309,14 +309,20 @@ angular.module('myApp.controllers', [])
 
             angular.forEach($scope.region, function(value, key) {
                 if (key != "count" && key != "median") {
+                    if (fastest == null){
+                        fastest = key;
+                    }
+                    else if ($scope.region[fastest].median > value.median){
+                        fastest = key;
+                    }
+
                     data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey"])
                 }
             });
-            comparation = compare(uTotal, oTotal);
+            comparation = compare(uTotal, $scope.region[fastest].median);
             $scope.report["region"] = {
-                "uTotal": Math.round(uTotal) / 1000,
-                "oTotal": Math.round(oTotal) / 1000,
-                "comparation": comparation,
+                'fastest': fastest,
+                "comparation": comparation
             }
             drawChart('chart_isp', 'ISP in Your Region', data);
         }
