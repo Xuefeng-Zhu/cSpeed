@@ -16,9 +16,9 @@
           <div class="column">
             <div class="ui message">
               <div class="header">
-                Chronograph
+                cSpeed
               </div>
-              <p align="justify">Chronograph measures how fast your Internet really is. It does so by directly observing how much
+              <p align="justify">cSpeed measures how fast your Internet really is. It does so by directly observing how much
 	      time it takes to load popular webpages. <font color="red">It does not collect any personal web-browsing information.</font> It
 	      only measures load times for a list of popular sites. We do record your IP address, city, and browser user-agent (which includes
 	      your operating system and browser version). In addition to launching and measuring load times of websites, we also run
@@ -52,7 +52,7 @@
         </div>
         <div ng-show="currentTest" style="margin-bottom:1rem; text-align:center">
           <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
-          <h3 style="display:inline"><timer autostart="false" interval="500"/>{{millis}}</h3> <span>ms</span>
+          <h3 style="display:inline"><timer autostart="false" interval="20"/>{{millis}}</h3> <span>ms</span>
         </div>
       </div>
     </div>
