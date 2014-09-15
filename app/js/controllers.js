@@ -1,16 +1,13 @@
 'use strict';
-
 /* Controllers */
 google.load("visualization", "1", {
     packages: ["corechart"]
 });
-
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference 
+        var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference
         var index = 0; //index for test
-        var user_info = {}; //user information like ip address, web browser, and date 
-
+        var user_info = {}; //user information like ip address, web browser, and date
         $scope.tests = [{
             'link': 'http://www.aws.amazon.com/',
             'name': 'aws'
@@ -42,24 +39,20 @@ angular.module('myApp.controllers', [])
             'link': 'http://www.go.com/',
             'name': 'go'
         }];
-
-        $scope.total = null; //total speed statics  
-        $scope.region = null; //speed statics in same region 
+        $scope.total = null; //total speed statics
+        $scope.region = null; //speed statics in same region
         $scope.status = "Start Test";
-
         //load statics to total
         fb.child("total").once("value", function(dataSnapshot) {
             $scope.total = dataSnapshot.val();
             $scope.$digest();
         });
-
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
-            //map city 
+            //map city
             if (response.city == "") {
                 response.city = prompt("We cannot locate your city. Please input manually");
             }
-
             if (sisterCity[response.city]) {
                 response.city = sisterCity[response.city];
             }
@@ -74,19 +67,16 @@ angular.module('myApp.controllers', [])
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
             });
-
         })
-
         $scope.startTest = function() {
-            if ($scope.currentTest){
+            if ($scope.currentTest) {
                 return;
             }
             index = 0;
-            performance.webkitClearResourceTimings(); //clear perfomance statics 
+            performance.webkitClearResourceTimings(); //clear perfomance statics
             $scope.upData = {};
             $scope.report = {};
             $scope.finishedTest = [];
-
             //clear cache and open new tab for test site
             var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
             var oneWeekAgo = (new Date()).getTime() - millisecondsPerWeek;
@@ -111,11 +101,8 @@ angular.module('myApp.controllers', [])
                 });
                 $scope.status = "Test is running"
             });
-
-
         }
-
-        //update individual timer in real time 
+        //update individual timer in real time
         $scope.$on('timer-tick', function(event, args) {
             $scope.currentTest.time = args.millis;
             $scope.$digest()
@@ -129,16 +116,14 @@ angular.module('myApp.controllers', [])
                     },
                     ip: $scope.finishedTest[index].ip
                 };
-
                 chrome.tabs.remove($scope.currentTest.tab.id);
                 loadNextTest();
             }
         });
-
-        /*        
-        get message including ip, timing and resource data
-        when receive timing data, the current test site has been fullly loaded, and move to next test
-        */
+        /*
+get message including ip, timing and resource data
+when receive timing data, the current test site has been fullly loaded, and move to next test
+*/
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             if (request.details) {
                 $scope.currentTest.ip = request.details.ip;
@@ -146,14 +131,12 @@ angular.module('myApp.controllers', [])
             }
             chrome.tabs.remove(sender.tab.id);
             loadResult(index, request);
-
             loadNextTest();
         });
-
-        //move to next test 
+        //move to next test
         function loadNextTest() {
             index++;
-            //check if the test is at the end 
+            //check if the test is at the end
             if (index == $scope.tests.length) {
                 $scope.currentTest = {
                     'name': 'perf',
@@ -161,31 +144,25 @@ angular.module('myApp.controllers', [])
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
                 $scope.$broadcast('timer-start');
-
                 var a100m = new Array(1e8);
                 jslitmus.test('Join 100M', function() {
                     a100m.join(' ');
                 });
-
                 jslitmus.on('complete', function(test) {
                     $scope.currentTest.time = test.time * 1000;
                     user_info.performance = test.time * 1000;
-
                     $scope.currentTest = undefined;
                     $("#currentTest").text("Finish");
                     $scope.$broadcast('timer-stop');
                     $scope.status = "Run Again";
-
                     finalizeTest();
                 });
-
                 // Run the tests
                 $timeout(function() {
                     jslitmus.runAll();
                 }, 100);
                 return;
             }
-
             $scope.currentTest = $scope.tests[index];
             $scope.finishedTest.unshift($scope.currentTest);
             $scope.$broadcast('timer-start');
@@ -200,13 +177,12 @@ angular.module('myApp.controllers', [])
             });
             $scope.$digest();
         }
-
-        /*        
-        format individual test result 
-        para:
-          index: index for test 
-          data: object containing timing and resource
-        */
+        /*
+format individual test result
+para:
+index: index for test
+data: object containing timing and resource
+*/
         function loadResult(index, data) {
             $scope.upData[$scope.tests[index]["name"]] = {
                 time: data.time,
@@ -220,24 +196,19 @@ angular.module('myApp.controllers', [])
             //upload test timing data and user info
             $scope.upData.user_info = user_info;
             fb.child('individuals').push(angular.copy($scope.upData));
-
             $http.get('http://ip-api.com/json').success(function(response) {
                 //somewhere wierd code fails without this call
             });
-
-            //retrieve previous test result from localstorage 
+            //retrieve previous test result from localstorage
             $scope.history = store.get('history');
             $scope.generateReport();
-
             $('.test:not(:first)').popup({
                 content: 'Right Click to show more infomation'
             });
-
         }
-
         /*
-            generate report based on your test result and others' result
-        */
+generate report based on your test result and others' result
+*/
         $scope.generateReport = function() {
             var uTotal = 0;
             var oTotal = $scope.total.median;
@@ -259,16 +230,13 @@ angular.module('myApp.controllers', [])
                     "value": -temp
                 }
             }
-
             var comparation = compare(uTotal, oTotal);
-
             $scope.report["summary"] = {
                 "uTotal": Math.round(uTotal) / 1000,
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
-
-            //draw overview graph 
+            //draw overview graph
             var data = [
                 ['Result', 'Seconds', {
                     role: 'style'
@@ -277,10 +245,8 @@ angular.module('myApp.controllers', [])
             data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "green"]);
             data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey"]);
             data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey"]);
-
             drawChart('chart_total', '', data);
-
-            //store data into localstorage 
+            //store data into localstorage
             var temp = angular.copy($scope.history);
             if (temp == undefined) {
                 temp = [];
@@ -290,8 +256,6 @@ angular.module('myApp.controllers', [])
                 time: Math.round(uTotal) / 1000
             });
             store.set('history', temp);
-
-
             //draw graph of ISP in same region
             var data = [
                 ['ISP', 'Seconds', {
@@ -299,23 +263,19 @@ angular.module('myApp.controllers', [])
                 }]
             ];
             var fastest = null;
-
             if ($scope.region[user_info.ip.isp] == undefined) {
                 $scope.region[user_info.ip.isp] = {
                     "median": uTotal,
                     "count": 1
                 }
             }
-
             angular.forEach($scope.region, function(value, key) {
                 if (key != "count" && key != "median") {
-                    if (fastest == null){
+                    if (fastest == null) {
+                        fastest = key;
+                    } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
-                    else if ($scope.region[fastest].median > value.median){
-                        fastest = key;
-                    }
-
                     data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey"])
                 }
             });
@@ -357,24 +317,20 @@ angular.module('myApp.controllers', [])
                     trigger: 'none'
                 }
             };
-
             var chart = new google.visualization.BarChart(document.getElementById(id));
             chart.draw(view, options);
         };
-
         $scope.showHistory = function() {
             $scope.modal = "partials/history.html";
             $timeout(function() {
                 $('.modal').modal('show');
             }, 100);
         };
-
-        //show timeline for individual test result 
+        //show timeline for individual test result
         $scope.showResource = function(test) {
-            if (test.name == "perf"){
+            if (test.name == "perf") {
                 return;
             }
-
             chrome.tabs.create({
                 url: "timeline.html",
                 active: true
@@ -388,7 +344,6 @@ angular.module('myApp.controllers', [])
                 var resource = test.data.resource;
                 for (var i in resource) {
                     var temp = purl(resource[i].name);
-
                     var data = {
                         "label": temp.attr('file') == "" ? temp.attr("path") : temp.attr('file'),
                         "start": Math.round(resource[i].fetchStart),
@@ -404,8 +359,11 @@ angular.module('myApp.controllers', [])
             });
         }
 
+        $scope.selectTest = function(test){
+            $scope.selectedTest = $scope.selectedTest==test? null:test; 
+        }
+
         $scope.absDiff = function(t1, t2) {
             return Math.abs(t1 - t2) > 500
         }
-
     });
