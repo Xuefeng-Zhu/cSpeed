@@ -324,6 +324,61 @@ angular.module('myApp.controllers', [])
             $scope.modal = "partials/history.html";
             $timeout(function() {
                 $('.modal').modal('show');
+                var isps = {};
+                angular.forEach($scope.history, function(value, key) {
+                    if (isps[value.user_info.ip.isp]) {
+                        isps[value.user_info.ip.isp].push([value.user_info.date, value.time]);
+                    } else {
+                        isps[value.user_info.ip.isp] = [
+                            [value.user_info.date, value.time]
+                        ]
+                    }
+                });
+                var columns = ["time"];
+                for (var isp in isps) {
+                    columns.push(isp);
+                }
+                var rows = [columns];
+                var count = 0;
+                for (var isp in isps) {
+                    var value = isps[isp];
+                    for (var test in value) {
+                        var temp = new Date(value[test][0]);
+                        var time;
+                        if (temp.getDay() < 10){
+                            time = temp.getMonth()+1 + '.0' + temp.getDay();
+                        }
+                        else
+                        {
+                            time = temp.getMonth()+1 + '.' + temp.getDay();
+                        }
+                        var row = [parseFloat(time)];
+                        for (var i = 0; i < count; i++) {
+                            row.push(null);
+                        }
+                        row.push(value[test][1]);
+                        for (var i = 0; i < columns.length - count - 2; i++) {
+                            row.push(null);
+                        }
+                        rows.push(row);
+                    }
+                    count++;
+                }
+
+                //draw the scatter chart 
+                var data = google.visualization.arrayToDataTable(rows);
+                var options = {
+                    title: 'Previous Test Performance',
+                    hAxis: {
+                        title: 'Date'
+                    },
+                    vAxis: {
+                        title: 'Finish Time'
+                    }
+                };
+
+                var chart = new google.visualization.ScatterChart(document.getElementById('chart_history'));
+                chart.draw(data, options);
             }, 100);
         };
 
