@@ -113,7 +113,7 @@
           <!-- End of other test -->
         </div>
           <div class="ui vertical pointing menu" ng-show="test==selectedTest">
-            <a class="item" href="http://www.flickr.com" target="_blank">
+            <a class="item" href={{test.link}} target="_blank">
               <i class="url icon"></i> Acess Website
             </a>
             <a class="item" ng-click="showResource(test)">
