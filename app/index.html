@@ -112,7 +112,7 @@
           <div class="number-pb-num" style="left: {{total[test.name] / 150 - 2}}%; overflow: visible; box-sizing: content-box; width: 80px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-show="absDiff(total[test.name], test.time)">avg: {{total[test.name]/1000|number: 1}}s</div>
           <!-- End of other test -->
         </div>
-          <div class="ui vertical pointing menu" ng-show="test==selectedTest">
+          <div class="ui compact pointing menu" ng-show="test==selectedTest">
             <a class="item" href={{test.link}} target="_blank">
               <i class="url icon"></i> Acess Website
             </a>
