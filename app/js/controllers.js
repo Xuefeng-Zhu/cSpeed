@@ -1,8 +1,5 @@
 'use strict';
 /* Controllers */
-google.load("visualization", "1", {
-    packages: ["corechart"]
-});
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
         var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference
@@ -121,9 +118,9 @@ angular.module('myApp.controllers', [])
             }
         });
         /*
-get message including ip, timing and resource data
-when receive timing data, the current test site has been fullly loaded, and move to next test
-*/
+        get message including ip, timing and resource data
+        when receive timing data, the current test site has been fullly loaded, and move to next test
+        */
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             if (request.details) {
                 $scope.currentTest.ip = request.details.ip;
@@ -178,11 +175,11 @@ when receive timing data, the current test site has been fullly loaded, and move
             $scope.$digest();
         }
         /*
-format individual test result
-para:
-index: index for test
-data: object containing timing and resource
-*/
+        format individual test result
+            para:
+                index: index for test
+                data: object containing timing and resource
+        */
         function loadResult(index, data) {
             $scope.upData[$scope.tests[index]["name"]] = {
                 time: data.time,
@@ -207,8 +204,8 @@ data: object containing timing and resource
             });
         }
         /*
-generate report based on your test result and others' result
-*/
+        generate report based on your test result and others' result
+        */
         $scope.generateReport = function() {
             var uTotal = 0;
             var oTotal = $scope.total.median;
@@ -287,6 +284,7 @@ generate report based on your test result and others' result
             drawChart('chart_isp', 'ISP in Your Region', data);
         }
 
+        //draw bar graph for speed comparasion 
         function drawChart(id, title, d) {
             var data = google.visualization.arrayToDataTable(d);
             var view = new google.visualization.DataView(data);
@@ -320,12 +318,20 @@ generate report based on your test result and others' result
             var chart = new google.visualization.BarChart(document.getElementById(id));
             chart.draw(view, options);
         };
+
+        //show past results
         $scope.showHistory = function() {
             $scope.modal = "partials/history.html";
             $timeout(function() {
                 $('.modal').modal('show');
             }, 100);
         };
+
+        //select individual test for showing menu 
+        $scope.selectTest = function(test) {
+            $scope.selectedTest = $scope.selectedTest == test ? null : test;
+        }
+
         //show timeline for individual test result
         $scope.showResource = function(test) {
             if (test.name == "perf") {
@@ -357,10 +363,6 @@ generate report based on your test result and others' result
                     chrome.tabs.sendMessage(tab.id, message);
                 }, 100);
             });
-        }
-
-        $scope.selectTest = function(test){
-            $scope.selectedTest = $scope.selectedTest==test? null:test; 
         }
 
         $scope.absDiff = function(t1, t2) {

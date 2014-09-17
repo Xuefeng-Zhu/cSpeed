@@ -18,3 +18,7 @@ var sisterCity = {
     "Urbana" : "Champaign-Urbana",
     "Champaign" : "Champaign-Urbana"
 }
+
+google.load("visualization", "1", {
+    packages: ["corechart"]
+});
