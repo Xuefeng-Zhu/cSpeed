@@ -187,6 +187,29 @@ angular.module('myApp.controllers', [])
             };
             $scope.finishedTest[0].time = data.time.loadEventEnd - data.time.navigationStart;
             $scope.finishedTest[0].data = data;
+
+            var testRef =  $scope.finishedTest[0];
+            $http.get('http://ip-api.com/json/' + testRef.ip).success(function(response) {
+                var distance = distanceOnUnitSphere(response.lat, response.lon, user_info.ip.lat, user_info.ip.lon);
+                var speed = distance / testRef.time * 1000;
+                testRef.speedOfLight = speed / 299792458 * 100;
+                console.log(testRef);
+            });
+        }
+
+        function distanceOnUnitSphere(lat1, long1, lat2, long2){
+            var degreeToRadians = Math.PI / 180.0;
+
+            var phi1 = (90.0 - lat1) * degreeToRadians;
+            var phi2 = (90.0 - lat2) * degreeToRadians;
+
+            var theta1 = long1 * degreeToRadians;
+            var theta2 = long2 * degreeToRadians;
+
+            var cos = (Math.sin(phi1) * Math.sin(phi2) * Math.cos(theta1 - theta2) + Math.cos(phi1) * Math.cos(phi2));
+            var arc = Math.acos(cos);
+
+            return arc * 6373000;
         }
 
         function finalizeTest() {
