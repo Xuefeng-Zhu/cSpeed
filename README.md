@@ -12,6 +12,7 @@ cSpeed measures how fast your Internet really is. It does so by directly observi
 ## Credit
 + [Angular](https://github.com/angular/angular.js)
 + [Angular-timer](https://github.com/siddii/angular-timer)
++ [Chrome-load-timer](https://github.com/alex-vv/chrome-load-timer)
 + [Ember-timetree](https://github.com/CrowdStrike/ember-timetree)
 + [Firebase](https://www.firebase.com/)
 + [Google Chart](https://google-developers.appspot.com/chart/)
