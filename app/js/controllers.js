@@ -79,6 +79,8 @@ angular.module('myApp.controllers', [])
                 height: window.outerHeight,
                 width: window.outerWidth
             };
+
+            $scope.userCity = response.city;
             fb.child("region/" + response.city).once("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
@@ -123,11 +125,11 @@ angular.module('myApp.controllers', [])
             $scope.currentTest.time = args.millis;
             $scope.$digest()
             if (args.millis >= 15000) {
-                $scope.currentTest.time = 15000;
+                $scope.currentTest.time = $scope.total[$scope.currentTest["name"]];
                 $scope.upData[$scope.currentTest["name"]] = {
                     time: {
                         status: "timeout",
-                        loadEventEnd: 15000,
+                        loadEventEnd: $scope.total[$scope.currentTest["name"]],
                         navigationStart: 0
                     },
                     ip: $scope.finishedTest[index].ip
@@ -327,7 +329,7 @@ angular.module('myApp.controllers', [])
 
             //calculate speed letter
             var regionMedian = $scope.region[user_info.ip.isp].median;
-            var weight = (uTotal - oTotal) / oTotal + 2 * (uTotal - regionMedian) / regionMedian;
+            var weight = (oTotal - uTotal) / oTotal + 2 * (regionMedian - uTotal) / regionMedian;
             console.log(weight)
             if (weight > 1.5){
                 $scope.report.grade = 'A';

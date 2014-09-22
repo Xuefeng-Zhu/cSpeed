@@ -48,7 +48,7 @@
               <div class="ui huge message">
                 <!-- p>It takes you <b>{{report.summary.uTotal | number: 1}}s</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal | number: 1}}s</b>.</p -->
                 <p>Your load time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than typical users, and
-                <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in your city.</p>
+                <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in {{userCity}}.</p>
                 <div id="chart_total"></div>
               </div>
             </div>
