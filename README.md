@@ -23,6 +23,7 @@ cSpeed measures how fast your Internet really is. It does so by directly observi
 + [Pace](https://github.com/HubSpot/pace)
 + [Purl](https://github.com/allmarkedup/purl)
 + [Semantic-UI](https://github.com/Semantic-Org/Semantic-UI)
++ [Simple-rest-client](https://github.com/jeremys/Simple-Rest-Client-Chrome-Extension)
 + [Store.js](https://github.com/marcuswestin/store.js)
 
 
