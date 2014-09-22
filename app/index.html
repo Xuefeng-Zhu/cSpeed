@@ -30,6 +30,20 @@
       <div class="fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
         <div class="item">
           <div class="content">
+            <div class="ui grid">
+              <div class="four wide column">
+                <div style="text-align: center; font-size: 9em" ng-style="{
+                color: grades[report.grade].color
+                }">
+                  {{report.grade}}
+                </div>
+              </div>
+              <div class="twelve wide column">
+                <div class="ui segment">
+                  <h2>{{grades[report.grade].comment}}</h2>
+                </div>
+              </div>
+            </div>
             <div style="text-align:center; margin-bottom:10px">
               <div class="ui huge message">
                 <!-- p>It takes you <b>{{report.summary.uTotal | number: 1}}s</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal | number: 1}}s</b>.</p -->
@@ -67,37 +81,36 @@
           <div class="number-pb-num" style="left: {{total[test.name] / 150 - 2}}%; overflow: visible; box-sizing: content-box; width: 80px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-show="absDiff(total[test.name], test.time)">avg: {{total[test.name]/1000|number: 1}}s</div>
           <!-- End of other test -->
         </div>
-          <div class="ui compact pointing menu" ng-show="test==selectedTest">
-            <a class="item" href={{test.link}} target="_blank">
-              <i class="url icon"></i> Acess Website
-            </a>
-            <a class="item" ng-click="showResource(test)">
-              <i class="tasks icon"></i> View Timeline
-            </a>
-            <a class="item" ng-click="showResource(test)">
-              <i class="signal icon"></i> Take <b style="color:red">{{test.speed|number:1}}</b>ms Speed of Light to transmit
-            </a>
-          </div>
+        <div class="ui compact pointing menu" ng-show="test==selectedTest">
+          <a class="item" href={{test.link}} target="_blank">
+            <i class="url icon"></i> Acess Website
+          </a>
+          <a class="item" ng-click="showResource(test)">
+            <i class="tasks icon"></i> View Timeline
+          </a>
+          <a class="item" ng-click="showResource(test)">
+            <i class="signal icon"></i> Take <b style="color:red">{{test.speed|number:1}}</b>ms Speed of Light to transmit
+          </a>
         </div>
-        <!-- End of Individual result -->
       </div>
-      <div ng-include="'partials/introduction.html'" ng-show="report.summary"></div>
-
-      <ng-include src="modal" onload="$('.modal').modal('show')"></ng-include>
-      <script src="lib/jquery-1.11.1.min.js"></script>
-      <script src="lib/jsapi.js"></script>
-      <script src="lib/store.min.js"></script>
-      <script src="lib/semantic.min.js"></script>
-      <script src="lib/TweenMax.min.js"></script>
-      <script src="lib/firebase.js"></script>
-      <script src="lib/purl.js"></script>
-      <script src="lib/jslitmus.js"></script>
-      <script src="lib/angular/angular.js"></script>
-      <script src="lib/angular/angular-route.js"></script>
-      <script src="lib/angular/angular-animate.js"></script>
-      <script src="lib/timer.js"></script>
-      <script src="lib/ng-Fx.min.js"></script>
-      <script src="js/app.js"></script>
-      <script src="js/controllers.js"></script>
-    </body>
-  </html>
+      <!-- End of Individual result -->
+    </div>
+    <div ng-include="'partials/introduction.html'" ng-show="report.summary"></div>
+    <ng-include src="modal" onload="$('.modal').modal('show')"></ng-include>
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/jsapi.js"></script>
+    <script src="lib/store.min.js"></script>
+    <script src="lib/semantic.min.js"></script>
+    <script src="lib/TweenMax.min.js"></script>
+    <script src="lib/firebase.js"></script>
+    <script src="lib/purl.js"></script>
+    <script src="lib/jslitmus.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/timer.js"></script>
+    <script src="lib/ng-Fx.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+  </body>
+</html>

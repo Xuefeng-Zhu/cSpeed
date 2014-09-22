@@ -36,6 +36,25 @@ angular.module('myApp.controllers', [])
             'link': 'http://www.go.com/',
             'name': 'go'
         }];
+
+        $scope.grades = {
+            'A':{
+                'color': 'red',
+                'comment': 'Your network is super fast'
+            },
+            'B':{
+                'color': 'green',
+                'comment': 'Your network is good in your area or grobally'
+            },
+            'C':{
+                'color': 'blue',
+                'comment': 'Your network is average in your area or grobally'
+            },
+            'D':{
+                'color': 'grey',
+                'comment': 'Your network is slower than average'
+            }
+        }
         $scope.total = null; //total speed statics
         $scope.region = null; //speed statics in same region
         $scope.status = "Start Test";
@@ -275,6 +294,7 @@ angular.module('myApp.controllers', [])
                 time: Math.round(uTotal) / 1000
             });
             store.set('history', temp);
+
             //draw graph of ISP in same region
             var data = [
                 ['ISP', 'Seconds', {
@@ -304,6 +324,25 @@ angular.module('myApp.controllers', [])
                 "comparation": comparation
             }
             drawChart('chart_isp', 'ISP in Your Region', data);
+
+            //calculate speed letter
+            var regionMedian = $scope.region[user_info.ip.isp].median;
+            var weight = (uTotal - oTotal) / oTotal + 2 * (uTotal - regionMedian) / regionMedian;
+            console.log(weight)
+            if (weight > 1.5){
+                $scope.report.grade = 'A';
+            }
+            else if (weight > 0.5){
+                $scope.report.grade = 'B';
+            }
+            else if (weight > -0.5){
+                $scope.report.grade = 'C';
+            }
+            else{
+                $scope.report.grade = 'D';
+            }
+
+            console.log($scope.report);
         }
 
         //draw bar graph for speed comparasion 
