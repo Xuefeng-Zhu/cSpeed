@@ -26,6 +26,10 @@ cSpeed measures how fast your Internet really is. It does so by directly observi
 + [Simple-rest-client](https://github.com/jeremys/Simple-Rest-Client-Chrome-Extension)
 + [Store.js](https://github.com/marcuswestin/store.js)
 
+## Other
+Server side code is avaible [here](https://github.com/Xuefeng-Zhu/cSpeed-Server)
+
+
 
 
 
