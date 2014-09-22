@@ -11,10 +11,18 @@ cSpeed measures how fast your Internet really is. It does so by directly observi
 
 ## Credit
 + [Angular](https://github.com/angular/angular.js)
++ [Angular-timer](https://github.com/siddii/angular-timer)
 + [Ember-timetree](https://github.com/CrowdStrike/ember-timetree)
++ [Firebase](https://www.firebase.com/)
++ [Google Chart](https://google-developers.appspot.com/chart/)
++ [jslitmus](https://github.com/broofa/jslitmus)
++ [jquery](http://jquery.com/)
++ [ngFx](https://github.com/Hendrixer/ngFx)
 + [NumberProgressBar](https://github.com/kalasoo/NumberProgressBar)
 + [Pace](https://github.com/HubSpot/pace)
++ [Purl](https://github.com/allmarkedup/purl)
 + [Semantic-UI](https://github.com/Semantic-Org/Semantic-UI)
++ [Store.js](https://github.com/marcuswestin/store.js)
 
 
 
