@@ -19,6 +19,7 @@
       <div class="fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
         <div class="item">
           <div class="content">
+            <!-- Grade  -->
             <div class="ui grid">
               <div class="four wide column">
                 <div style="text-align: center; font-size: 9em" ng-style="{
@@ -33,16 +34,16 @@
                 </div>
               </div>
             </div>
-            <div style="text-align:center; margin-bottom:10px">
-              <div class="ui huge message">
-                <!-- p>It takes you <b>{{report.summary.uTotal | number: 1}}s</b> to Finish the test, while the average speed of others is <b>{{report.summary.oTotal | number: 1}}s</b>.</p -->
+            <!-- End of Grade -->
+            <div style="text-align:center; margin-bottom:10px; font-size:1.5em">
+              <div class="ui segment">
                 <p>Your load time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than typical users, and
                 <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in {{userCity}}.</p>
                 <div id="chart_total"></div>
               </div>
             </div>
-            <div style="text-align:center">
-              <div class="ui huge message" ng-show="region.count>1">
+            <div style="text-align:center; font-size:1.5em">
+              <div class="ui segment" ng-show="region.count>1">
                 <p>The fastest ISP in your city is {{report.region.fastest}}. The typical {{report.region.fastest}} user is {{report.region.fastestComparation.value}}% faster than you.</p>
                 <div id="chart_isp"></div>
               </div>
