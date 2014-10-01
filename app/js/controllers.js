@@ -369,7 +369,7 @@ angular.module('myApp.controllers', [])
                     }
                 },
                 height: d.length * 60,
-                width: window.outerWidth - 200 - 2 * parseInt($(".message").css("padding")),
+                width: window.outerWidth - 200 - 4 * parseInt($(".message").css("padding")),
                 chartArea: {
                     left: 200,
                 },
