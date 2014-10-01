@@ -38,19 +38,19 @@ angular.module('myApp.controllers', [])
         }];
 
         $scope.grades = {
-            'A':{
+            'A': {
                 'color': 'red',
                 'comment': 'Your network is super fast'
             },
-            'B':{
+            'B': {
                 'color': 'green',
                 'comment': 'Your network is good in your area or grobally'
             },
-            'C':{
+            'C': {
                 'color': 'blue',
                 'comment': 'Your network is average in your area or grobally'
             },
-            'D':{
+            'D': {
                 'color': 'grey',
                 'comment': 'Your network is slower than average'
             }
@@ -209,7 +209,7 @@ angular.module('myApp.controllers', [])
             $scope.finishedTest[0].time = data.time.loadEventEnd - data.time.navigationStart;
             $scope.finishedTest[0].data = data;
 
-            var testRef =  $scope.finishedTest[0];
+            var testRef = $scope.finishedTest[0];
             $http.get('http://ip-api.com/json/' + testRef.ip).success(function(response) {
                 var distance = distanceOnUnitSphere(response.lat, response.lon, user_info.ip.lat, user_info.ip.lon);
                 testRef.speed = 2 * distance / 299792458 * 1000;
@@ -217,7 +217,7 @@ angular.module('myApp.controllers', [])
             });
         }
 
-        function distanceOnUnitSphere(lat1, long1, lat2, long2){
+        function distanceOnUnitSphere(lat1, long1, lat2, long2) {
             var degreeToRadians = Math.PI / 180.0;
 
             var phi1 = (90.0 - lat1) * degreeToRadians;
@@ -281,11 +281,13 @@ angular.module('myApp.controllers', [])
             var data = [
                 ['Result', 'Seconds', {
                     role: 'style'
-                },{role: 'annotation'}]
+                }, {
+                    role: 'annotation'
+                }]
             ];
-            data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "green", parseFloat($filter('number')(uTotal / 1000, 1))+"s"]);
-            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey", parseFloat($filter('number')(oTotal / 1000, 1))+"s"]);
-            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey", parseFloat($filter('number')($scope.region.median / 1000, 1))+"s"]);
+            data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "green", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
+            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
+            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
             drawChart('chart_total', '', data);
 
             //store data into localstorage
@@ -303,7 +305,9 @@ angular.module('myApp.controllers', [])
             var data = [
                 ['ISP', 'Seconds', {
                     role: 'style'
-                },{role:'annotation'}]
+                }, {
+                    role: 'annotation'
+                }]
             ];
             var fastest = null;
             if ($scope.region[user_info.ip.isp] == undefined) {
@@ -319,7 +323,7 @@ angular.module('myApp.controllers', [])
                     } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
-                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey", parseFloat($filter('number')(value.median / 1000, 1))+"s"])
+                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey", parseFloat($filter('number')(value.median / 1000, 1)) + "s"])
                 }
             });
             drawChart('chart_isp', 'ISP in Your Region', data);
@@ -337,16 +341,13 @@ angular.module('myApp.controllers', [])
             //calculate speed letter
             var regionMedian = $scope.region.median;
             var weight = (oTotal - uTotal) / oTotal + 2 * (regionMedian - uTotal) / regionMedian;
-            if (weight > 1.5){
+            if (weight > 1.5) {
                 $scope.report.grade = 'A';
-            }
-            else if (weight > 0.5){
+            } else if (weight > 0.5) {
                 $scope.report.grade = 'B';
-            }
-            else if (weight > -0.5){
+            } else if (weight > -0.5) {
                 $scope.report.grade = 'C';
-            }
-            else{
+            } else {
                 $scope.report.grade = 'D';
             }
         }
@@ -362,7 +363,10 @@ angular.module('myApp.controllers', [])
                     position: "none"
                 },
                 hAxis: {
-                    baseline: 0
+                    baseline: 0,
+                    gridlines: {
+                        color: 'transparent'
+                    }
                 },
                 height: d.length * 60,
                 width: window.outerWidth - 200 - 2 * parseInt($(".message").css("padding")),
@@ -404,12 +408,10 @@ angular.module('myApp.controllers', [])
                     for (var test in value) {
                         var temp = new Date(value[test][0]);
                         var time;
-                        if (temp.getDay() < 10){
-                            time = temp.getMonth()+1 + '.0' + temp.getDay();
-                        }
-                        else
-                        {
-                            time = temp.getMonth()+1 + '.' + temp.getDay();
+                        if (temp.getDay() < 10) {
+                            time = temp.getMonth() + 1 + '.0' + temp.getDay();
+                        } else {
+                            time = temp.getMonth() + 1 + '.' + temp.getDay();
                         }
                         var row = [parseFloat(time)];
                         for (var i = 0; i < count; i++) {
