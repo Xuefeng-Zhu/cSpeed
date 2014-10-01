@@ -162,9 +162,9 @@ angular.module('myApp.controllers', [])
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
                 $scope.$broadcast('timer-start');
-                var a100m = new Array(1e8);
-                jslitmus.test('Join 100M', function() {
-                    a100m.join(' ');
+                var a50m = new Array(5e7);
+                jslitmus.test('Join 50M', function() {
+                    a50m.join(' ');
                 });
                 jslitmus.on('complete', function(test) {
                     $scope.currentTest.time = test.time * 1000;
