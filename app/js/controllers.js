@@ -332,9 +332,8 @@ angular.module('myApp.controllers', [])
             drawChart('chart_isp', 'ISP in Your Region', data);
 
             //calculate speed letter
-            var regionMedian = $scope.region[user_info.ip.isp].median;
+            var regionMedian = $scope.region.median;
             var weight = (oTotal - uTotal) / oTotal + 2 * (regionMedian - uTotal) / regionMedian;
-            console.log(weight)
             if (weight > 1.5){
                 $scope.report.grade = 'A';
             }
@@ -347,8 +346,6 @@ angular.module('myApp.controllers', [])
             else{
                 $scope.report.grade = 'D';
             }
-
-            console.log($scope.report);
         }
 
         //draw bar graph for speed comparasion 
