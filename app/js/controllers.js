@@ -286,8 +286,8 @@ angular.module('myApp.controllers', [])
                 }]
             ];
             data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
-            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
-            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
+            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
+            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
             drawChart('chart_total', '', data);
 
             //store data into localstorage
@@ -323,7 +323,7 @@ angular.module('myApp.controllers', [])
                     } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
-                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "grey", parseFloat($filter('number')(value.median / 1000, 1)) + "s"])
+                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s"])
                 }
             });
             drawChart('chart_isp', '', data);
