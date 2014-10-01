@@ -4,7 +4,7 @@
 
 body#example {
   font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif/*rtl:prepend:"Droid Arabic Kufi","Droid Sans", */;
-  background: #FCFCFC url(../images/bg.jpg) repeat;
+  /*background: #FCFCFC url(../images/bg.jpg) repeat;*/
   margin: 0px;
   padding: 0px;
   color: #555555;
