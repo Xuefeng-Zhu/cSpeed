@@ -326,7 +326,7 @@ angular.module('myApp.controllers', [])
                     data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey", parseFloat($filter('number')(value.median / 1000, 1)) + "s"])
                 }
             });
-            drawChart('chart_isp', 'ISP in Your Region', data);
+            drawChart('chart_isp', '', data);
 
             //Get speed comparation value 
             comparation = compare(uTotal, $scope.region.median);
