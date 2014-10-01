@@ -243,7 +243,7 @@ angular.module('myApp.controllers', [])
             $scope.history = store.get('history');
             $scope.generateReport();
             $('.test:not(:first)').popup({
-                content: 'Right Click to show more infomation'
+                content: 'Left Click to show more infomation'
             });
         }
         /*
