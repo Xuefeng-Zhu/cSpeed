@@ -2,7 +2,7 @@
   <h1 class="ui center aligned header">cSpeed</h1>
   <h2 class="ui center aligned header">How fast really is your Internet?</h2>
   <p>cSpeed benchmarks your Web browsing experience by measuring the load time of popular websites. No browsing history or personal information is collected. <a href="">Learn more</a></p>
-  <div class="ui black button" ng-click="startTest()">{{status}}</div>
+  <div class="ui large black button" ng-click="startTest()">{{status}}</div>
   <div ng-show="currentTest">
     <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
     <h3 style="display:inline"><timer autostart="false" interval="20"/>{{millis}}</h3> <span>ms</span>
