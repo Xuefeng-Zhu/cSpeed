@@ -32,12 +32,9 @@
           </div>
         </div>
         <p>{{index}}</p>
-        <div class="fluid ui teal animated button" style="margin:1rem 0" ng-click="startTest()">
-          <div class="visible content">{{status}}</div>
-          <div class="hidden content">
-            Go!
-          </div>
-        </div>
+
+        <div class="fluid ui teal button" ng-click="startTest()" style="margin-top:1rem">{{status}}</div>
+        
         <div ng-show="currentTest" style="margin-bottom:1rem; text-align:center">
           <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
           <h3 style="display:inline"><timer autostart="false" interval="20"/>{{millis}}</h3> <span>ms</span>
