@@ -434,7 +434,7 @@ angular.module('myApp.controllers', [])
                         title: 'Date'
                     },
                     vAxis: {
-                        title: 'Finish Time'
+                        title: 'Finish Time(seconds)'
                     }
                 };
 
