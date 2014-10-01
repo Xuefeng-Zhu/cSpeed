@@ -57,7 +57,7 @@ angular.module('myApp.controllers', [])
         }
         $scope.total = null; //total speed statics
         $scope.region = null; //speed statics in same region
-        $scope.status = "Start Test";
+        $scope.status = "Run cSpeed to find out!";
         //load statics to total
         fb.child("total").once("value", function(dataSnapshot) {
             $scope.total = dataSnapshot.val();

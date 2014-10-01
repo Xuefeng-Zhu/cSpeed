@@ -25,6 +25,34 @@ body >.segment {
   border-bottom: 1px solid #DDDDDD;
 }
 
+#introduction {
+  width: 100%;
+  background: #FCFCFC url('/images/start.jpg') no-repeat center;
+  background-size: 100% 100%;
+
+  color: white;
+  text-align: center;
+
+}
+
+#introduction p {
+  margin: 0;
+  padding: 1% 15%;
+
+  font-size: 1.5em;
+}
+
+#introduction a {
+  color: white;
+}
+
+#introduction h1 {
+  margin-top: 0em;
+  margin-bottom: 1.5em;
+  padding-top: 0.5em;
+  font-size : 5em;
+}
+
 .number-pb {
   position: relative;
   height: 3px;
