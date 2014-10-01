@@ -276,16 +276,18 @@ angular.module('myApp.controllers', [])
                 "oTotal": Math.round(oTotal) / 1000,
                 "comparation": comparation,
             }
+
             //draw overview graph
             var data = [
                 ['Result', 'Seconds', {
                     role: 'style'
-                }]
+                },{role: 'annotation'}]
             ];
-            data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "green"]);
-            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey"]);
-            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey"]);
+            data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "green", parseFloat($filter('number')(uTotal / 1000, 1))+"s"]);
+            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "grey", parseFloat($filter('number')(oTotal / 1000, 1))+"s"]);
+            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "grey", parseFloat($filter('number')($scope.region.median / 1000, 1))+"s"]);
             drawChart('chart_total', '', data);
+
             //store data into localstorage
             var temp = angular.copy($scope.history);
             if (temp == undefined) {
@@ -301,7 +303,7 @@ angular.module('myApp.controllers', [])
             var data = [
                 ['ISP', 'Seconds', {
                     role: 'style'
-                }]
+                },{role:'annotation'}]
             ];
             var fastest = null;
             if ($scope.region[user_info.ip.isp] == undefined) {
@@ -317,10 +319,12 @@ angular.module('myApp.controllers', [])
                     } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
-                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey"])
+                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey", parseFloat($filter('number')(value.median / 1000, 1))+"s"])
                 }
             });
+            drawChart('chart_isp', 'ISP in Your Region', data);
 
+            //Get speed comparation value 
             comparation = compare(uTotal, $scope.region.median);
             var fastestComparation = compare($scope.region[fastest].median, uTotal);
             $scope.report["region"] = {
@@ -329,7 +333,6 @@ angular.module('myApp.controllers', [])
                 "fastestComparation": fastestComparation,
 
             }
-            drawChart('chart_isp', 'ISP in Your Region', data);
 
             //calculate speed letter
             var regionMedian = $scope.region.median;
@@ -352,21 +355,13 @@ angular.module('myApp.controllers', [])
         function drawChart(id, title, d) {
             var data = google.visualization.arrayToDataTable(d);
             var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1, {
-                    calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation"
-                },
-                2
-            ]);
+
             var options = {
                 title: title,
                 legend: {
                     position: "none"
                 },
                 hAxis: {
-                    title: "seconds",
                     baseline: 0
                 },
                 height: d.length * 60,
