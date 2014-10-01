@@ -320,10 +320,14 @@ angular.module('myApp.controllers', [])
                     data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "green" : "grey"])
                 }
             });
-            comparation = compare(uTotal, $scope.region[fastest].median);
+
+            comparation = compare(uTotal, $scope.region.median);
+            var fastestComparation = compare($scope.region[fastest].median, uTotal);
             $scope.report["region"] = {
-                'fastest': fastest,
-                "comparation": comparation
+                "fastest": fastest,
+                "comparation": comparation,
+                "fastestComparation": fastestComparation,
+
             }
             drawChart('chart_isp', 'ISP in Your Region', data);
 
