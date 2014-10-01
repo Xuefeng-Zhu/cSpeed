@@ -62,7 +62,7 @@ body >.segment {
 
 .number-pb .number-pb-shown {
   position: absolute;
-  background-color: #176785;
+  background-color: blueviolet;
   /*background-image: linear-gradient(to right, #176785, #499989);*/
   top: -1px;
   left: 0;
