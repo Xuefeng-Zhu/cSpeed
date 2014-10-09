@@ -1,27 +1,58 @@
 <div class="segment" id="introduction">
-  <h1 class="ui center aligned header">cSpeed</h1>
-  <h2 class="ui center aligned header">How fast really is your Internet?</h2>
-  <p>cSpeed benchmarks your Web browsing experience by measuring the load time of popular websites. No browsing history or personal information is collected. <a href="">Learn more</a></p>
-  <div class="ui large black button" ng-click="startTest()">{{status}}</div>
-  <div ng-show="currentTest">
-    <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
-    <h3 style="display:inline"><timer autostart="false" interval="20"/>{{millis}}</h3> <span>ms</span>
-  </div>
+	<h1 class="ui center aligned header">cSpeed</h1>
+	<h2 class="ui center aligned header">How fast really is your Internet?</h2>
+	<p>cSpeed benchmarks your Web browsing experience by measuring the load time of popular websites. No browsing history or personal information is collected. <a class="link" href="">Learn more</a></p>
+	<div class="ui large black button" ng-click="startTest()">{{status}}</div>
+	<div ng-show="currentTest">
+		<span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
+		<h3 style="display:inline"><timer autostart="false" interval="20"/>{{millis}}</h3> <span>ms</span>
+	</div>
 </div>
-
 <div class="ui introduction modal">
 	<i class="close icon"></i>
 	<div class="header">
 		About us
 	</div>
-	<div id="chart_history"></div>
+	<div class="ui two column grid segment">
+		<div class="column">
+			<div class="ui message">
+				<div class="header">
+					cSpeed
+				</div>
+				<p align="justify">cSpeed measures how fast your Internet really is. It does so by directly observing how much
+				time it takes to load popular webpages. <font color="red">It does not collect any personal web-browsing information.</font> It
+				only measures load times for a list of popular sites. We do record your IP address, city, and browser user-agent (which includes
+				your operating system and browser version). In addition to launching and measuring load times of websites, we also run
+				a small javascript test to estimate your computer's computational power.</p>
+				<!--               <p><b>{{total.count||0}} </b>Tests run so far; <b>{{region.count||0}} </b> from your region.  -->
+			</div>
+		</div>
+		<div class="ui vertical divider">
+			<i class="info icon"></i>
+		</div>
+		<div class="column" style="margin-top:0">
+			<div class="ui message">
+				<div class="header">
+					About us
+				</div>
+				<p align="justify">We are computer scientists at <a href=http://cs.illinois.edu/>University of Illinois Urbana-Champaign</a>, working on making the Internet faster. The first step, of course, is to measure how fast the Internet is today.
+				We developed Chronograph with twin objectives: (a) to measure Internet speed from a diverse set of
+				locations and ISPs; and (b) to provide you a way of comparing Internet service options in your area. The bandwidth numbers
+				(Mbps / Gbps) ISPs and other 'speed tests' report are not as meaningful as the actual performance we
+				measure.</p>
+				<p align="right">Xuefeng Zhu, <a href=http://web.engr.illinois.edu/~singla2/>Ankit Singla</a>, <a href=http://web.engr.illinois.edu/~pbg/>P. Brighten Godfrey</a></p>
+			</div>
+		</div>
+	</div>
 	<div class="actions">
 		<div class="ui button">
 			Close
 		</div>
 	</div>
 </div>
-
 <script type="text/javascript">
-$("#introduction").css("height", window.innerHeight)
+$("#introduction").css("height", window.innerHeight);
+$('.introduction.modal')
+  .modal('attach events', '.link', 'show')
+;
 </script>
