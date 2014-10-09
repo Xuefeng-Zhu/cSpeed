@@ -250,15 +250,20 @@ angular.module('myApp.controllers', [])
         generate report based on your test result and others' result
         */
         $scope.generateReport = function() {
+            //User total loading time
             var uTotal = 0;
+            //Global users loading time
             var oTotal = $scope.total.median;
+            //User speed of light 
             var speedOfLight = 0;
             angular.forEach($scope.finishedTest, function(value, key) {
                 if (value.name == "perf") {
                     return;
                 }
                 uTotal += value.time;
-                speedOfLight += value.speed;
+                if (!isNaN(value.speed)){
+                   speedOfLight += value.speed; 
+                }
             });
 
             function compare(a, b) {
@@ -287,7 +292,7 @@ angular.module('myApp.controllers', [])
                     role: 'annotation'
                 }]
             ];
-            console.log(speedOfLight)
+
             data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
             data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
             data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
@@ -314,6 +319,8 @@ angular.module('myApp.controllers', [])
                     role: 'annotation'
                 }]
             ];
+
+            //the fastest ip in user region
             var fastest = null;
             if ($scope.region[user_info.ip.isp] == undefined) {
                 $scope.region[user_info.ip.isp] = {
@@ -344,7 +351,7 @@ angular.module('myApp.controllers', [])
             }
 
             //calculate speed letter
-            var regionMedian = $scope.region.median;
+            var regionMedian = $scope.region.median; //find the median speed in user region
             var weight = (oTotal - uTotal) / oTotal + 2 * (regionMedian - uTotal) / regionMedian;
             if (weight > 1.5) {
                 $scope.report.grade = 'A';
@@ -369,6 +376,7 @@ angular.module('myApp.controllers', [])
                 },
                 hAxis: {
                     baseline: 0,
+                    maxValue: 60,
                     gridlines: {
                         color: 'transparent'
                     }

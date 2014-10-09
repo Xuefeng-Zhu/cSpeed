@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/pacer-theme.css"/>
     <link rel="stylesheet" href="css/app.css"/>
   </head>
-  <body id="example" ng-controller="TimerCtrl" ng-cloak>    
+  <body id="example" ng-controller="TimerCtrl" ng-cloak>
     <!-- Information about test -->
     <div ng-include="'partials/introduction.html'" ng-hide="report.summary"></div>
     <!-- End of Info -->
@@ -23,8 +23,8 @@
             <div class="ui grid">
               <div class="four wide column">
                 <div style="text-align: center; font-size: 9em" ng-style="{
-                color: grades[report.grade].color
-                }">
+                  color: grades[report.grade].color
+                  }">
                   {{report.grade}}
                 </div>
               </div>
@@ -51,7 +51,10 @@
                 <p>Not enough users in your city</p>
               </div>
             </div>
-            <a class="ui fluid blue button" ng-show="history" ng-click="showHistory()">View Previous Test Results</a>
+            <div class="2 fluid ui buttons">
+              <a class="ui large blue button" ng-show="history" ng-click="showHistory()">View Previous Test Results</a>
+              <div class="ui large black button" ng-click="startTest()">{{status}}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -85,7 +88,6 @@
       </div>
       <!-- End of Individual result -->
     </div>
-    <div ng-include="'partials/introduction.html'" ng-show="report.summary"></div>
     <ng-include src="modal"></ng-include>
     <script src="lib/jquery-1.11.1.min.js"></script>
     <script src="lib/jsapi.js"></script>
