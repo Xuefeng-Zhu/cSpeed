@@ -252,11 +252,13 @@ angular.module('myApp.controllers', [])
         $scope.generateReport = function() {
             var uTotal = 0;
             var oTotal = $scope.total.median;
+            var speedOfLight = 0;
             angular.forEach($scope.finishedTest, function(value, key) {
                 if (value.name == "perf") {
                     return;
                 }
                 uTotal += value.time;
+                speedOfLight += value.speed;
             });
 
             function compare(a, b) {
@@ -285,9 +287,12 @@ angular.module('myApp.controllers', [])
                     role: 'annotation'
                 }]
             ];
+            console.log(speedOfLight)
             data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
             data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
             data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
+            data.push(['Speed Of Light', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
+
             drawChart('chart_total', '', data);
 
             //store data into localstorage
@@ -376,6 +381,9 @@ angular.module('myApp.controllers', [])
                 enableInteractivity: "false",
                 tooltip: {
                     trigger: 'none'
+                },
+                annotations: {
+                    alwaysOutside: true
                 }
             };
             var chart = new google.visualization.BarChart(document.getElementById(id));
