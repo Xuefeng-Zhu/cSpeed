@@ -373,7 +373,7 @@ angular.module('myApp.controllers', [])
                 chartArea: {
                     left: 200,
                 },
-                // backgroundColor: "#EFEFEF",
+                enableInteractivity: "false",
                 tooltip: {
                     trigger: 'none'
                 }
