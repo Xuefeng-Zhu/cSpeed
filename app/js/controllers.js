@@ -386,7 +386,7 @@ angular.module('myApp.controllers', [])
         $scope.showHistory = function() {
             $scope.modal = "partials/history.html";
             $timeout(function() {
-                $('.modal').modal('show');
+                $('.history.modal').modal('show');
                 var isps = {};
                 angular.forEach($scope.history, function(value, key) {
                     if (isps[value.user_info.ip.isp]) {
