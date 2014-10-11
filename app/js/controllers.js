@@ -305,6 +305,9 @@ angular.module('myApp.controllers', [])
             if (temp == undefined) {
                 temp = [];
             }
+            if (temp.length == 10){
+                a.shift();
+            } 
             temp.push({
                 user_info: user_info,
                 time: Math.round(uTotal) / 1000
