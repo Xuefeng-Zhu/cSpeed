@@ -39,20 +39,39 @@ angular.module('myApp.controllers', [])
 
         $scope.grades = {
             'A': {
+                'letter': 'A',
                 'color': 'red',
-                'comment': 'Your network is super fast'
+                'comment': 'Fast! Your browsing experience is fast in comparison to both users globally, and in your region.'
+            },
+	    'A1': {
+                'letter': 'A+',
+                'color': 'red',
+                'comment': 'Super-fast! Your browsing experience is fast in comparison to both users globally, and in your region.'
             },
             'B': {
+                'letter': 'B',
                 'color': 'green',
-                'comment': 'Your network is good in your area or grobally'
+                'comment': 'Satisfactory. While your browsing experience is not spectacularly fast, users in your city may not have much choice.'
+            },
+            'B1': {
+                'letter': 'B',
+                'color': 'green',
+                'comment': 'Satisfactory. You might possibly benefit from checking if other ISPs in your area are faster.'
             },
             'C': {
+                'letter': 'C',
                 'color': 'blue',
-                'comment': 'Your network is average in your area or grobally'
+                'comment': 'Meh. Your browsing experience is not quite fast. Unfortunately, you might not have much choice; this is probably just about your location.'
+            },
+            'C1': {
+                'letter': 'C',
+                'color': 'blue',
+                'comment': 'Meh. Your browsing experience is not quite fast. You might possibly benefit from checking if other ISPs in your area are faster.'
             },
             'D': {
+                'letter': 'D',
                 'color': 'grey',
-                'comment': 'Your network is slower than average'
+                'comment': 'Pretty slow. Your browsing experience is quite slow. Part of it might be due to your location, but you might possibly benefit from checking if other ISPs in your area are faster.'
             }
         }
         $scope.total = null; //total speed statics
@@ -354,7 +373,7 @@ angular.module('myApp.controllers', [])
             }
 
             //calculate speed letter
-            var regionMedian = $scope.region.median; //find the median speed in user region
+            /*var regionMedian = $scope.region.median; //find the median speed in user region
             var weight = (oTotal - uTotal) / oTotal + 2 * (regionMedian - uTotal) / regionMedian;
             if (weight > 1.5) {
                 $scope.report.grade = 'A';
@@ -364,7 +383,27 @@ angular.module('myApp.controllers', [])
                 $scope.report.grade = 'C';
             } else {
                 $scope.report.grade = 'D';
-            }
+            }*/
+            
+	    var fastestISPMedian = $scope.region.median; // use the fastest ISP in the region to compare
+            var regionMedianRatio = uTotal / fastestISPMedian;
+	    var globalMedianRatio = uTotal / oTotal;
+
+            if (regionMedianRatio > 1.5) {
+		if (globalMedianRatio > 1.5) $scope.report.grade = 'D';
+		else $scope.report.grade = 'C1';			// C1 means switching ISP could help (while C => probably not)
+	    } else if (regionMedianRatio > 1.2 && regionMedianRatio <= 1.5) {
+		if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
+		else $scope.report.grade = 'B1';			// B1 means switching ISP could help (while B => probably not)
+	    } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.2) {
+		if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
+		else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
+		else $scope.report.grade = 'A';
+	    } else {
+		if (globalMedianRatio > 1.5) $scope.report.grade = 'B';
+		else if (globalMedianRatio > 1.25) $scope.report.grade = 'A';
+		else $scope.report.grade = 'A1';
+	    }
         }
 
         //draw bar graph for speed comparasion 
