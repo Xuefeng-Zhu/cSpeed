@@ -356,6 +356,7 @@ angular.module('myApp.controllers', [])
                 },
                 hAxis: {
                     baseline: 0,
+                    textPosition: 'none',
                     maxValue: maxRange,
                     gridlines: {
                         color: 'transparent'
