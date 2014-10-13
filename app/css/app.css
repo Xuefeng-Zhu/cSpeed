@@ -26,9 +26,9 @@ body >.segment {
 }
 
 #introduction {
-  width: 100%;
-  background: #FCFCFC url('/images/start.jpg') no-repeat center;
-  background-size: 100% 100%;
+  /*width: 100%;*/
+  background: #000000 url('/images/start.jpg') no-repeat center;
+  /*background-size: 100% 100%;*/
 
   color: white;
   text-align: center;
