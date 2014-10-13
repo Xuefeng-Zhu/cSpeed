@@ -5,8 +5,9 @@ angular.module('myApp.controllers', [])
         var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
-        $scope.tests = tests;
+        var entry_point = null;
 
+        $scope.tests = tests;
         $scope.grades = grades;
         $scope.total = null; //total speed statics
         $scope.region = null; //speed statics in same region
@@ -188,7 +189,7 @@ angular.module('myApp.controllers', [])
         function finalizeTest() {
             //upload test timing data and user info
             $scope.upData.user_info = user_info;
-            fb.child('individuals').push(angular.copy($scope.upData));
+            entry_point = fb.child('individuals').push(angular.copy($scope.upData));
             $http.get('http://ip-api.com/json').success(function(response) {
                 //somewhere wierd code fails without this call
             });
@@ -316,11 +317,18 @@ angular.module('myApp.controllers', [])
             comparation = compare(uTotal, $scope.region.median);
             var fastestComparation = compare($scope.region[fastest].median, uTotal);
             $scope.report["region"] = {
-                "fastest": fastest,
-                "comparation": comparation,
-                "fastestComparation": fastestComparation,
+                fastest: fastest,
+                comparation: comparation,
+                fastestComparation: fastestComparation,
 
             }
+
+            $scope.fb = {
+                city: user_info.ip.city,
+                region: user_info.ip.region,
+                country: user_info.ip.country
+            }
+            $('.selection.dropdown').dropdown();
 
             //Evaluate the grade for network
             var fastestISPMedian = $scope.region.median; // use the fastest ISP in the region to compare
@@ -476,6 +484,12 @@ angular.module('myApp.controllers', [])
                     chrome.tabs.sendMessage(tab.id, message);
                 }, 100);
             });
+        }
+
+        $scope.submitFeedback = function(){
+            $scope.fb.network = $('.selection.dropdown').dropdown('get value');
+            entry_point.child('user_info/feedback').set(angular.copy($scope.fb));
+            alert("Thanks for your feedback");
         }
 
         $scope.absDiff = function(t1, t2) {

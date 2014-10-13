@@ -51,6 +51,52 @@
                 <p>Not enough users in your city</p>
               </div>
             </div>
+            <!-- Feedback -->
+            <div class="ui form segment">
+              <h2 class="ui header">Feedback</h2>
+              <div class="three fields">
+                <div class="field">
+                  <label>City</label>
+                  <input placeholder="City" type="text" ng-model="fb.city">
+                </div>
+                <div class="field">
+                  <label>State</label>
+                  <input placeholder="State" type="text" ng-model="fb.region">
+                </div>
+                <div class="field">
+                  <label>Country</label>
+                  <input placeholder="Country" type="text" ng-model="fb.country">
+                </div>
+              </div>
+              <div class="three fields">
+                <div class="field">
+                  <label>Network</label>
+                  <div class="ui fluid selection dropdown">
+                    <div class="text">Network</div>
+                    <i class="dropdown icon"></i>
+                    <input type="hidden" name="network">
+                    <div class="menu">
+                      <div class="item" data-value="wire">Wire</div>
+                      <div class="item" data-value="wifi">Wifi</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Cost of Data Plan</label>
+                  <input placeholder="Cost of Data Plan" type="text" ng-model="fb.cost">
+                </div>
+                <div class="field">
+                  <label>Advertised Speed</label>
+                  <input placeholder="Advertised Speed" type="text" ng-model="fb.speed">
+                </div>
+              </div>
+              <div class="field">
+                <label>Comments</label>
+                <textarea ng-model="fb.comments"></textarea>
+              </div>
+              <div class="ui large black submit button" ng-click="submitFeedback()">Submit</div>
+            </div>
+            <!-- End of feedback -->
             <div class="">
               <div class="ui large black button" style="width:49%" ng-show="history" ng-click="showHistory()">View Previous Test Results</div>
               <div class="ui large black button" style="width:50%" ng-click="startTest()">{{status}}</div>
