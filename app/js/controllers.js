@@ -199,9 +199,13 @@ angular.module('myApp.controllers', [])
                 content: 'Left Click to show more infomation'
             });
         }
-        /*
-        generate report based on your test result and others' result
-        */
+        /**
+         *generate report based on your test result and others' result
+         *@param
+         *  uTotal: User total loading time
+         *  oTotal: Global users loading time 
+         *  speedOfLight: User speed of light  
+         */
         $scope.generateReport = function() {
             //User total loading time
             var uTotal = 0;
@@ -214,8 +218,8 @@ angular.module('myApp.controllers', [])
                     return;
                 }
                 uTotal += value.time;
-                if (!isNaN(value.speed)){
-                   speedOfLight += value.speed; 
+                if (!isNaN(value.speed)) {
+                    speedOfLight += value.speed;
                 }
             });
 
@@ -238,7 +242,8 @@ angular.module('myApp.controllers', [])
             }
 
             //draw overview graph
-            var data = [
+            var maxRange = 0;
+            var data1 = [
                 ['Result', 'Seconds', {
                     role: 'style'
                 }, {
@@ -246,21 +251,24 @@ angular.module('myApp.controllers', [])
                 }]
             ];
 
-            data.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
-            data.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
-            data.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
-            data.push(['Speed Of Light', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
+            data1.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
+            data1.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
+            data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
+            data1.push(['Speed Of Light', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
 
-            drawChart('chart_total', '', data);
+            //find max data
+            for (var i = 1; i < data1.length; i++){
+                maxRange = Math.max(maxRange, data1[i][1]);
+            }
 
             //store data into localstorage
             var temp = angular.copy($scope.history);
             if (temp == undefined) {
                 temp = [];
             }
-            if (temp.length == 10){
+            if (temp.length == 10) {
                 a.shift();
-            } 
+            }
             temp.push({
                 user_info: user_info,
                 time: Math.round(uTotal) / 1000
@@ -268,7 +276,7 @@ angular.module('myApp.controllers', [])
             store.set('history', temp);
 
             //draw graph of ISP in same region
-            var data = [
+            var data2 = [
                 ['ISP', 'Seconds', {
                     role: 'style'
                 }, {
@@ -291,10 +299,18 @@ angular.module('myApp.controllers', [])
                     } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
-                    data.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s"])
+                    data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s"])
                 }
             });
-            drawChart('chart_isp', '', data);
+
+            //find max data
+            for (var i = 1; i < data2.length; i++){
+                maxRange = Math.max(maxRange, data2[i][1]);
+            }
+            maxRange = Math.ceil(maxRange);
+
+            drawChart('chart_total', '', data1, maxRange);
+            drawChart('chart_isp', '', data2, maxRange);
 
             //Get speed comparation value 
             comparation = compare(uTotal, $scope.region.median);
@@ -306,42 +322,30 @@ angular.module('myApp.controllers', [])
 
             }
 
-            //calculate speed letter
-            /*var regionMedian = $scope.region.median; //find the median speed in user region
-            var weight = (oTotal - uTotal) / oTotal + 2 * (regionMedian - uTotal) / regionMedian;
-            if (weight > 1.5) {
-                $scope.report.grade = 'A';
-            } else if (weight > 0.5) {
-                $scope.report.grade = 'B';
-            } else if (weight > -0.5) {
-                $scope.report.grade = 'C';
-            } else {
-                $scope.report.grade = 'D';
-            }*/
-            
-	    var fastestISPMedian = $scope.region.median; // use the fastest ISP in the region to compare
+            //Evaluate the grade for network
+            var fastestISPMedian = $scope.region.median; // use the fastest ISP in the region to compare
             var regionMedianRatio = uTotal / fastestISPMedian;
-	    var globalMedianRatio = uTotal / oTotal;
+            var globalMedianRatio = uTotal / oTotal;
 
             if (regionMedianRatio > 1.5) {
-		if (globalMedianRatio > 1.5) $scope.report.grade = 'D';
-		else $scope.report.grade = 'C1';			// C1 means switching ISP could help (while C => probably not)
-	    } else if (regionMedianRatio > 1.2 && regionMedianRatio <= 1.5) {
-		if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
-		else $scope.report.grade = 'B1';			// B1 means switching ISP could help (while B => probably not)
-	    } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.2) {
-		if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
-		else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
-		else $scope.report.grade = 'A';
-	    } else {
-		if (globalMedianRatio > 1.5) $scope.report.grade = 'B';
-		else if (globalMedianRatio > 1.25) $scope.report.grade = 'A';
-		else $scope.report.grade = 'A1';
-	    }
+                if (globalMedianRatio > 1.5) $scope.report.grade = 'D';
+                else $scope.report.grade = 'C1'; // C1 means switching ISP could help (while C => probably not)
+            } else if (regionMedianRatio > 1.2 && regionMedianRatio <= 1.5) {
+                if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
+                else $scope.report.grade = 'B1'; // B1 means switching ISP could help (while B => probably not)
+            } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.2) {
+                if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
+                else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
+                else $scope.report.grade = 'A';
+            } else {
+                if (globalMedianRatio > 1.5) $scope.report.grade = 'B';
+                else if (globalMedianRatio > 1.25) $scope.report.grade = 'A';
+                else $scope.report.grade = 'A1';
+            }
         }
 
         //draw bar graph for speed comparasion 
-        function drawChart(id, title, d) {
+        function drawChart(id, title, d, maxRange) {
             var data = google.visualization.arrayToDataTable(d);
             var view = new google.visualization.DataView(data);
 
@@ -352,7 +356,7 @@ angular.module('myApp.controllers', [])
                 },
                 hAxis: {
                     baseline: 0,
-                    maxValue: 60,
+                    maxValue: maxRange,
                     gridlines: {
                         color: 'transparent'
                     }
