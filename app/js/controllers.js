@@ -487,7 +487,8 @@ angular.module('myApp.controllers', [])
         }
 
         $scope.submitFeedback = function(){
-            $scope.fb.network = $('.selection.dropdown').dropdown('get value');
+            $scope.fb.network = $('input[name="network"]:checked').val();
+            $scope.fb.country = $('.selection.dropdown').dropdown('get value');
             entry_point.child('user_info/feedback').set(angular.copy($scope.fb));
             alert("Thanks for your feedback");
         }
