@@ -377,6 +377,8 @@ angular.module('myApp.controllers', [])
                 width: window.outerWidth - 200 - 4 * parseInt($(".message").css("padding")),
                 chartArea: {
                     left: 200,
+                    width: '100%',
+                    height: '80%'
                 },
                 enableInteractivity: "false",
                 tooltip: {
