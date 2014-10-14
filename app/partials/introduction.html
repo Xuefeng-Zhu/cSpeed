@@ -4,10 +4,6 @@
 	<p>cSpeed will benchmark your browsing experience by launching popular websites and measuring their load</p>
 	<p>time. After launching the test, we recommend waiting for it to finish before you resume browsing. <a class="link" href="">Learn more</a></p>
 	<div class="introbutton" ng-click="startTest()">{{status}}</div>
-	<div ng-show="currentTest">
-		<span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
-		<h3 style="display:inline"><timer autostart="false" interval="20"/>{{millis}}</h3> <span>ms</span>
-	</div>
 </div>
 <div class="ui introduction modal">
 	<i class="close icon"></i>
@@ -18,7 +14,7 @@
 	<div id="aboutus">
 	cSpeed tests the quality of your browsing experience by directly measuring how much time it takes to load a list of popular Webpages. <b>cSpeed does not collect any personal Web-browsing information.</b> We do record your IP address, city, and browser user-agent (which includes your operating system and browser version). We also run a small computational test to measure javascript performance.<br><br>
 				
-	We (Xuefeng Zhu, <a href=http://web.engr.illinois.edu/~singla2/>Ankit Singla</a>, <a href=http://web.engr.illinois.edu/~pbg/>P. Brighten Godfrey</a>) are computer scientists at <a href=http://cs.illinois.edu/>University of Illinois Urbana-Champaign</a>, working on making the Internet faster. The first step, of course, is to measure how fast the Internet is today. We developed cSpeed with twin objectives: (a) to measure Internet speed across a diverse set of users; and (b) to provide you a way of comparing Internet service options in your area. The bandwidth numbers (Mbps / Gbps) ISPs and other 'speed tests' report are not as meaningful as the actual performance we measure.
+	We (Xuefeng Zhu, <a href="http://web.engr.illinois.edu/~singla2/">Ankit Singla</a>, <a href="http://web.engr.illinois.edu/~pbg/">P. Brighten Godfrey</a>) are computer scientists at <a href="http://cs.illinois.edu/">University of Illinois Urbana-Champaign</a>, working on making the Internet faster. The first step, of course, is to measure how fast the Internet is today. We developed cSpeed with twin objectives: (a) to measure Internet speed across a diverse set of users; and (b) to provide you a way of comparing Internet service options in your area. The bandwidth numbers (Mbps / Gbps) ISPs and other 'speed tests' report are not as meaningful as the actual performance we measure.
 	</div>
 </div>
 <script type="text/javascript">
