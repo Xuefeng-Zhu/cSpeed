@@ -16,6 +16,7 @@
     <!-- End of Loading icon -->
     <div class="container">
       <!-- Test report -->
+      <div id="headerResults"><h1>cSpeed</h1></div>
       <div class="fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
         <div class="item">
           <div class="content">
@@ -37,7 +38,7 @@
             <!-- End of Grade -->
             <div style="text-align:center; margin-bottom:10px; font-size:1.5em">
               <div class="ui segment">
-                <p>Your load time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than typical users, and
+                <p>Your test time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than the typical user worldwide, and<br>
                 <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in {{userCity}}.</p>
                 <div id="chart_total"></div>
               </div>
