@@ -501,6 +501,12 @@ angular.module('myApp.controllers', [])
             alert("Thanks for your feedback");
         }
 
+        $scope.$watch('fb.comments', function(){
+            if ($scope.fb && $scope.fb.comments.length > 1000){
+                $scope.fb.comments = $scope.fb.comments.slice(0, 1000);
+            }
+        })
+
         $scope.absDiff = function(t1, t2) {
             return Math.abs(t1 - t2) > 500
         }
