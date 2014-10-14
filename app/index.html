@@ -48,13 +48,13 @@
               </div>
             </div>
             <div style="text-align:center; font-size:1.5em">
-              <div class="ui segment" ng-show="region.count>1">
+              <div class="ui segment" ng-show="region.count>3">
                 <p ng-show="user_ip.isp==report.region.fastest">Across the tests our users have run, <b>{{user_ip.isp}}</b> is the fastest ISP. Congratulations on using it!!</p>
                 <p ng-hide="user_ip.isp==report.region.fastest">The fastest ISP in your city is <b>{{report.region.fastest}}</b>. The typical {{report.region.fastest}} user is <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
                 <div id="chart_isp"></div>
               </div>
-              <div class="ui huge warning message" ng-hide="region.count>1">
-                <p>Not enough users in your city</p>
+              <div class="ui huge warning message" ng-hide="region.count>3">
+                <p>In city {{user_ip.city}}, we only have users from {{user_ip.isp}} ISP. Ask your friends to run the test for a comparison</p>
               </div>
             </div>
             <!-- Feedback -->

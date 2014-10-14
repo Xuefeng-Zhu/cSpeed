@@ -285,14 +285,17 @@ angular.module('myApp.controllers', [])
                 }]
             ];
 
-            //the fastest ip in user region
-            var fastest = null;
             if ($scope.region[user_info.ip.isp] == undefined) {
                 $scope.region[user_info.ip.isp] = {
                     "median": uTotal,
                     "count": 1
                 }
             }
+
+            //the fastest ip in user region
+            var fastest = null;
+            $scope.region.count = 0;
+
             angular.forEach($scope.region, function(value, key) {
                 if (key != "count" && key != "median") {
                     if (fastest == null) {
@@ -300,6 +303,7 @@ angular.module('myApp.controllers', [])
                     } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
+                    $scope.region.count += 1;
                     data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s"])
                 }
             });
