@@ -34,7 +34,7 @@ angular.module('myApp.controllers', [])
                 width: window.outerWidth
             };
 
-            $scope.userCity = response.city;
+            $scope.user_ip = response;
             fb.child("region/" + response.city).once("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
