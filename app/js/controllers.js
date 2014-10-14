@@ -332,8 +332,7 @@ angular.module('myApp.controllers', [])
 
             //Evaluate the grade for network
 	
-	    // Create a variable 'isUsingFastestISP' set to 0 or 1.
-
+            var isUsingFastestISP = user_info.ip.isp == fastest;
             var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare TODO: fix this!
             var regionMedianRatio = uTotal / fastestISPMedian;
             var globalMedianRatio = uTotal / oTotal;
