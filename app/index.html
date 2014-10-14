@@ -16,8 +16,8 @@
     <!-- End of Loading icon -->
     <div class="container">
       <!-- Test report -->
-      <div id="headerResults"><h1>cSpeed</h1></div>
       <div class="fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
+      <div id="headerResults"><h1>cSpeed</h1></div>
         <div class="item">
           <div class="content">
             <!-- Grade  -->
@@ -79,16 +79,16 @@
               <div class="three fields">
                 <div class="field">
                   <label>Network</label>
-                    <input type="radio" name="network" value="Wifi"> Wifi
+                    <input type="radio" name="network" value="Wifi"  checked="true"> Wifi
                     <input type="radio" name="network" value="Wire" style="margin-left: 1em"> Wire
                 </div>
                 <div class="field">
-                  <label>Cost of Data Plan</label>
-                  <input placeholder="Cost of Data Plan(Dollar)" type="number" ng-model="fb.cost">
+                  <label>Cost of Data Plan (in USD)</label>
+                  <input placeholder="Cost of Data Plan (in USD)" type="number" ng-model="fb.cost">
                 </div>
                 <div class="field">
-                  <label>Advertised Speed</label>
-                  <input placeholder="Advertised Speed" type="text" ng-model="fb.speed" style="width: 90%"> Mbps
+                  <label>Advertised Speed (in Mbps)</label>
+                  <input placeholder="Advertised Speed (in Mbps)" type="text" ng-model="fb.speed" style="width: 90%">
                 </div>
               </div>
               <div class="field">
