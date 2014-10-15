@@ -228,10 +228,10 @@ angular.module('myApp.controllers', [])
                 var temp = (a - b) / b * 100;
                 temp = Math.round(temp);
                 return temp >= 0 ? {
-                    "key": "slower",
+                    "key": "more time",
                     "value": temp
                 } : {
-                    "key": "faster",
+                    "key": "less time",
                     "value": -temp
                 }
             }
@@ -337,7 +337,7 @@ angular.module('myApp.controllers', [])
             //Evaluate the grade for network
 	
             var isUsingFastestISP = user_info.ip.isp == fastest;
-            var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare TODO: fix this!
+            var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
             var regionMedianRatio = uTotal / fastestISPMedian;
             var globalMedianRatio = uTotal / oTotal;
 

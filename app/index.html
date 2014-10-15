@@ -42,24 +42,24 @@
             <!-- End of Grade -->
             <div style="text-align:center; margin-bottom:10px; font-size:1.5em">
               <div class="ui segment">
-                <p>Your test time is <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> than the typical user worldwide, and<br>
-                <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> than the typical user in {{user_ip.city}}.</p>
+                <p>Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical user worldwide, and<br>
+                <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> to finish than the typical user in {{user_ip.city}}.</p>
                 <div id="chart_total"></div>
               </div>
             </div>
             <div style="text-align:center; font-size:1.5em">
               <div class="ui segment" ng-show="region.count>1">
-                <p ng-show="user_ip.isp==report.region.fastest">Across the tests our users have run, <b>{{user_ip.isp}}</b> is the fastest ISP. Congratulations on using it!!</p>
-                <p ng-hide="user_ip.isp==report.region.fastest">The fastest ISP in your city is <b>{{report.region.fastest}}</b>. The typical {{report.region.fastest}} user is <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
+                <p ng-show="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network (like yourself) finish the test fastest.</p>
+                <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network finish the test fastest, typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
                 <div id="chart_isp"></div>
               </div>
               <div class="ui huge warning message" ng-hide="region.count>1">
-                <p>In city {{user_ip.city}}, we only have users from {{user_ip.isp}} ISP. Ask your friends to run the test for a comparison</p>
+                <p>In {{user_ip.city}}, tests have only been run over the {{user_ip.isp}} network. Ask your friends to run the test for a comparison!!</p>
               </div>
             </div>
             <!-- Feedback -->
             <div class="ui form segment">
-              <h2 class="ui header">Feedback</h2>
+              <h2 class="ui header">Feedback -- help us improve the accuracy of these results!!</h2>
               <div class="three fields">
                 <div class="field">
                   <label>City</label>
@@ -84,8 +84,9 @@
               <div class="three fields">
                 <div class="field">
                   <label>Network</label>
-                  <input type="radio" name="network" value="Wifi"  checked="true"> Wifi
-                  <input type="radio" name="network" value="Wire" style="margin-left: 1em"> Wire
+                  <input type="radio" name="network" value="WiFi"  checked="true"> WiFi
+                  <input type="radio" name="network" value="Wired" style="margin-left: 1em"> Wired
+                  <input type="radio" name="network" value="Mobile" style="margin-left: 1em"> Mobile
                 </div>
                 <div class="field">
                   <label>Cost of Data Plan (in USD)</label>
