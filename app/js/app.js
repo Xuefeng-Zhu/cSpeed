@@ -50,12 +50,12 @@ var grades = {
             'A': {
                 'letter': 'A',
                 'color': 'red',
-                'comment': 'Fast! Your browsing experience is fast in comparison to both users globally, and in your region.'
+                'comment': 'Fast! Your browsing experience is fast in comparison to both users globally, and in your city.'
             },
 	    'A1': {
                 'letter': 'A+',
                 'color': 'red',
-                'comment': 'Super-fast! Your browsing experience is fast in comparison to both users globally, and in your region.'
+                'comment': 'Super-fast! Your browsing experience is fast in comparison to both users globally, and in your city.'
             },
             'B': {
                 'letter': 'B',
@@ -77,10 +77,15 @@ var grades = {
                 'color': 'blue',
                 'comment': 'Meh. Your browsing experience is not quite fast. You might possibly benefit from checking if other ISPs in your area are faster.'
             },
-            'D': {
+            'D1': {
                 'letter': 'D',
                 'color': 'grey',
                 'comment': 'Pretty slow. Your browsing experience is quite slow. Part of it might be due to your location, but you might possibly benefit from checking if other ISPs in your area are faster.'
+            },
+            'D': {
+                'letter': 'D',
+                'color': 'grey',
+                'comment': 'Pretty slow. Your browsing experience is quite slow, possibly just due to your location or your device. There may also be networks in your area with faster test completion times, but we have not seen any so far.'
             }
         }
 

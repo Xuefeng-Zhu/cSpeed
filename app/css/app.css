@@ -48,15 +48,15 @@ body >.segment {
 #introduction p {
   margin: 0;
   padding: 1pt 0%;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight:lighter;
 }
 
 #introduction h1 {
   margin-top: 0em;
   margin-bottom: 1em;
-  padding-top: 0.5em;
-  font-size : 4em;
+  padding-top: 0.8em;
+  font-size : 5em;
   font-weight:normal;
 }
 
