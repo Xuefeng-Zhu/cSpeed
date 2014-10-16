@@ -228,10 +228,10 @@ angular.module('myApp.controllers', [])
                 var temp = (a - b) / b * 100;
                 temp = Math.round(temp);
                 return temp >= 0 ? {
-                    "key": "slower",
+                    "key": "more time",
                     "value": temp
                 } : {
-                    "key": "faster",
+                    "key": "less time",
                     "value": -temp
                 }
             }
@@ -337,25 +337,32 @@ angular.module('myApp.controllers', [])
             //Evaluate the grade for network
 	
             var isUsingFastestISP = user_info.ip.isp == fastest;
-            var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare TODO: fix this!
+            var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
             var regionMedianRatio = uTotal / fastestISPMedian;
             var globalMedianRatio = uTotal / oTotal;
 
-            if (regionMedianRatio > 1.5) {
-                if (globalMedianRatio > 1.5) $scope.report.grade = 'D';
-                else $scope.report.grade = 'C1'; // C1 means switching ISP could help (while C => probably not)
-            } else if (regionMedianRatio > 1.2 && regionMedianRatio <= 1.5) {
-                if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
-                else $scope.report.grade = 'B1'; // B1 means switching ISP could help (while B => probably not)
-            } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.2) {
-                if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
-                else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
-                else $scope.report.grade = 'A';
-            } else {
-                if (globalMedianRatio > 1.5) $scope.report.grade = 'B';
-                else if (globalMedianRatio > 1.25) $scope.report.grade = 'A';
-                else $scope.report.grade = 'A1';
-            }
+	    if (isUsingFastestISP) {
+	    	if (globalMedianRatio > 2) $scope.report.grade = 'D';
+	    	else if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
+	        else if (globalMedianRatio > 1.2) $scope.report.grade = 'B';
+	        else if (globalMedianRatio > 0.9) $scope.report.grade = 'A';
+	        else $scope.report.grade = 'A1';
+	    } else {
+	            if (regionMedianRatio > 1.5) {
+	                if (globalMedianRatio > 1.5) $scope.report.grade = 'D1';
+	                else $scope.report.grade = 'C1'; // C1 means switching ISP could help (while C => probably not)
+	            } else if (regionMedianRatio > 1.15 && regionMedianRatio <= 1.5) {
+	                if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
+	                else $scope.report.grade = 'B1'; // B1 means switching ISP could help (while B => probably not)
+	            } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.15) {
+	                if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
+	                else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
+	                else $scope.report.grade = 'A';
+	            } else {
+	                if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
+	                else $scope.report.grade = 'A';
+	            }
+	    }
         }
 
         //draw bar graph for speed comparasion 

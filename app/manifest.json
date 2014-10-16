@@ -1,9 +1,9 @@
 {
-    "name": "SpeedTest",
+    "name": "cSpeed",
     "version": "1.0",
     "manifest_version": 2,
 
-    "description": "This extension will test your connection time to popularwebsite",
+    "description": "cSpeed tests the quality of your browsing experience by directly measuring how much time it takes to load a list of popular Webpages. cSpeed does not collect any personal Web-browsing information. We do record your IP address, city, and browser user-agent (which includes your operating system and browser version). We also run a small computational test to measure javascript performance.",
     "icons": {
         "16": "icon_16.png",
         "32": "icon_32.png",
@@ -13,7 +13,7 @@
 
     "browser_action": {
         "default_icon": "icon_16.png",
-        "default_title": "SpeedTest",
+        "default_title": "cSpeed",
         "default_popup": "background.html"
     },
     "background": {
