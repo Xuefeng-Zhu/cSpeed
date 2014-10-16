@@ -18,93 +18,93 @@ var tests = [{
     'link': 'http://www.aws.amazon.com/',
     'name': 'aws'
 }, {
-    'link': 'http://www.adcash.com/en/index.php',
+    'link': 'https://www.adcash.com/en/index.php',
     'name': 'adcash'
 }, {
-    'link': 'http://www.addthis.com/',
+    'link': 'https://www.addthis.com/',
     'name': 'addthis'
 }, {
-    'link': 'http://www.adf.ly/',
+    'link': 'https://www.adf.ly/',
     'name': 'adf'
-}, {
-    'link': 'http://www.adobe.com/',
+}/*, {
+    'link': 'https://www.adobe.com/',
     'name': 'adobe'
 }, {
-    'link': 'http://www.badoo.com/',
+    'link': 'https://www.badoo.com/',
     'name': 'badoo'
 }, {
-    'link': 'http://www.chase.com/',
+    'link': 'https://www.chase.com/',
     'name': 'chase'
 }, {
-    'link': 'http://www.conduit.com/',
+    'link': 'https://www.conduit.com/',
     'name': 'conduit'
 }, {
-    'link': 'http://www.flickr.com',
+    'link': 'https://www.flickr.com',
     'name': 'flickr'
 }, {
     'link': 'http://www.go.com/',
     'name': 'go'
 }, {
-    'link': 'http://www.godaddy.com/',
+    'link': 'https://www.godaddy.com/',
     'name': 'godaddy'
 }, {
-    'link': 'http://www.google.com/',
+    'link': 'https://www.google.com/',
     'name': 'google'
 }, {
-    'link': 'http://www.hootsuite.com/',
+    'link': 'https://www.hootsuite.com/',
     'name': 'hootsuite'
 }, {
-    'link': 'http://www.hostgator.com/',
+    'link': 'https://www.hostgator.com/',
     'name': 'hostgator'
 }, {
-    'link': 'http://www.instagram.com/',
+    'link': 'https://www.instagram.com/',
     'name': 'instagram'
 }, {
-    'link': 'http://www.mailchimp.com/',
+    'link': 'https://www.mailchimp.com/',
     'name': 'mailchimp'
 }, {
-    'link': 'http://www.microsoft.com/',
+    'link': 'https://www.microsoft.com/',
     'name': 'microsoft'
 }, {
-    'link': 'http://www.mozilla.org/',
+    'link': 'https://www.mozilla.org/',
     'name': 'mozilla'
 }, {
-    'link': 'http://www.netflix.com',
+    'link': 'https://www.netflix.com',
     'name': 'netflix'
 }, {
-    'link': 'http://www.outbrain.com/',
+    'link': 'https://www.outbrain.com/',
     'name': 'outbrain'
 }, {
-    'link': 'http://www.paypal.com/home',
+    'link': 'https://www.paypal.com/home',
     'name': 'paypal'
 }, {
-    'link': 'http://www.salesforce.com/',
+    'link': 'https://www.salesforce.com/',
     'name': 'salesforce'
 }, {
-    'link': 'http://www.stackoverflow.com/',
+    'link': 'https://www.stackoverflow.com/',
     'name': 'stackoverflow'
 }, {
-    'link': 'http://www.stumbleupon.com/',
+    'link': 'https://www.stumbleupon.com/',
     'name': 'stumbleupon'
 }, {
-    'link': 'http://www.vimeo.com/',
+    'link': 'https://www.vimeo.com/',
     'name': 'vimeo'
 }, {
     'link': 'http://www.w3schools.com/',
     'name': 'w3schools'
 }, {
-    'link': 'http://www.wikipedia.org/',
+    'link': 'https://www.wikipedia.org/',
     'name': 'wikipedia'
 }, {
-    'link': 'http://www.wordpress.com/',
+    'link': 'https://www.wordpress.com/',
     'name': 'wordpress'
 }, {
-    'link': 'http://www.wordpress.org/',
+    'link': 'https://www.wordpress.org/',
     'name': 'wordpress'
 }, {
     'link': 'http://www.zillow.com/',
     'name': 'zillow'
-}];
+}*/];
 
 var grades = {
     'A': {

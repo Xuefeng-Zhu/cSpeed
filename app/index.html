@@ -11,11 +11,11 @@
     <!-- Information about test -->
     <div id="headerResults" ng-show="status!='Run cSpeed to find out!'">
       <h1>cSpeed</h1>
-      <div ng-show="currentTest">
-        <span style="white-space: pre;"><b>Loading:  <a href="">{{currentTest.link}}</a> </b> </span>
-        <h3 style="display:inline"><timer autostart="false" interval="20"/>{{millis}}</h3> <span>ms</span>
-      </div>
     </div>
+    <div class="loadingWeb" ng-show="currentTest">
+            Loading <a href="">{{currentTest.link}}</a>
+	            <timer autostart="false" interval="20"/>{{millis}} ms
+		          </div>
     <div ng-include="'partials/introduction.html'" ng-hide="status!='Run cSpeed to find out!'"></div>
     <!-- End of Info -->
     <!-- Loading icon -->
@@ -59,7 +59,7 @@
             </div>
             <!-- Feedback -->
             <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form segment" ng-hide="formSubmitted">
-              <h2 class="ui header">Feedback -- help us improve the accuracy of these results!!</h2>
+	     <div class="feedback">Help us improve accuracy by adding the below data</div>
               <div class="three fields">
                 <div class="field">
                   <label>City</label>

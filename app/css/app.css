@@ -35,6 +35,26 @@ body >.segment {
 
 }
 
+.feedback {
+	margin-top: 0.0em;
+	margin-bottom: 0.3em;
+	padding-top: 0.3em;
+	font-size : 1.5em;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+.loadingWeb {
+	margin-top: 0.0em;
+	margin-bottom: 1em;
+	padding-top: 1em;
+	font-size : 1.5em;
+	font-weight: normal;
+	text-align: center;
+}
+
+
 
 #aboutus {
   margin: 0;
@@ -114,7 +134,7 @@ body >.segment {
   margin-bottom: 1em;
   padding-top: 0.3em;
   padding-bottom: 0.3em;
-  font-size : 4em;
+  font-size : 5em;
   font-weight:normal;
   opacity: 1;
 }
