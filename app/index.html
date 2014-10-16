@@ -19,7 +19,7 @@
     <div ng-include="'partials/introduction.html'" ng-hide="status!='Run cSpeed to find out!'"></div>
     <!-- End of Info -->
     <!-- Loading icon -->
-    <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="{{finishedTest.length/tests.length*100|number:1}}" data-progress-text="{{finishedTest.length/tests.length*100|number:1}}%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
+    <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="{{finishedTest.length/(tests.length+1)*100|number:1}}" data-progress-text="{{finishedTest.length/(tests.length+1)*100|number:1}}%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
     <!-- End of Loading icon -->
     <div class="container">
       <!-- Test report -->
