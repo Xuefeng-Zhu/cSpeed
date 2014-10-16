@@ -505,7 +505,7 @@ angular.module('myApp.controllers', [])
             $scope.fb.network = $('input[name="network"]:checked').val();
             $scope.fb.country = $('.selection.dropdown').dropdown('get value');
             entry_point.child('user_info/feedback').set(angular.copy($scope.fb));
-            alert("Thanks for your feedback");
+            $scope.formSubmitted = true;
         }
 
         $scope.$watch('fb.comments', function(){

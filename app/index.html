@@ -19,7 +19,7 @@
     <div ng-include="'partials/introduction.html'" ng-hide="status!='Run cSpeed to find out!'"></div>
     <!-- End of Info -->
     <!-- Loading icon -->
-    <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="{{finishedTest.length/tests.length*100}}" data-progress-text="{{finishedTest.length/tests.length*100}}%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
+    <div ng-show="currentTest" class="pace pace-active"><div class="pace-progress" data-progress="{{finishedTest.length/tests.length*100|number:1}}" data-progress-text="{{finishedTest.length/tests.length*100}}%" style="width: 50%;"><div class="pace-progress-inner"></div></div><div class="pace-activity"></div></div>
     <!-- End of Loading icon -->
     <div class="container">
       <!-- Test report -->
@@ -58,7 +58,7 @@
               </div>
             </div>
             <!-- Feedback -->
-            <div class="ui form segment">
+            <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form segment" ng-hide="formSubmitted">
               <h2 class="ui header">Feedback -- help us improve the accuracy of these results!!</h2>
               <div class="three fields">
                 <div class="field">
@@ -104,6 +104,11 @@
               <div class="ui black submit button" ng-click="submitFeedback()">Submit</div>
             </div>
             <!-- End of feedback -->
+            <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui green message" ng-show="formSubmitted">
+              <div class="header">
+                Thank you for your feedback!
+              </div>
+            </div>
             <div class="">
               <div class="ui black button" style="width:49%" ng-show="history" ng-click="showHistory()">View Previous Test Results</div>
               <div class="ui black button" style="width:50%" ng-click="startTest()">{{status}}</div>
