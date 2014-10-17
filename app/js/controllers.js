@@ -390,7 +390,7 @@ angular.module('myApp.controllers', [])
                 height: d.length * 60,
                 width: window.outerWidth - 200 - 4 * parseInt($(".message").css("padding")),
                 chartArea: {
-                    left: '30%',
+                    left: '35%',
                     width: '60%',
                     height: '50%'
                 },
