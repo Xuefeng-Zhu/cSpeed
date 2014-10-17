@@ -49,7 +49,7 @@
             <div style="text-align:center; font-size:1.5em">
               <div class="ui segment" ng-show="region.count>1">
                 <p ng-show="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network (like yourself) finish the test fastest.</p>
-                <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network finish the test fastest, typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
+                <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network finish the test fastest,<br> typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
                 <div id="chart_isp"></div>
               </div>
               <div class="ui huge warning message" ng-hide="region.count>1">
@@ -82,7 +82,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="three fields">
+                  <div class="three fields" style="margin-top: 2em">
                     <div class="field">
                       <label>Network</label>
                       <input type="radio" name="network" value="WiFi"  checked="true"> WiFi
@@ -116,7 +116,7 @@
               </div>
             </div>
             <div style="margin-top: 3em">
-              <div class="ui black button" style="width:47%; margin-right: 2em" ng-show="history" ng-click="showHistory()">View Previous Test Results</div>
+              <div class="ui black button" style="width:47%; margin-right: 5.6%" ng-show="history" ng-click="showHistory()">View Previous Test Results</div>
               <div class="ui black button" style="width:47%" ng-click="startTest()">{{status}}</div>
             </div>
           </div>
@@ -126,8 +126,8 @@
       <!-- Individual result -->
       
       <div class="test fx-fade-down fx-easing-sine fx-speed-1000" style="cursor: pointer" ng-repeat="test in finishedTest" ng-click="selectTest(test)">
-        <span style="position:relative; bottom:0.6em; float: left;"><b>{{test.name}}</b></span>
-        <div class="number-pb" style="left:4em">
+        <span style="position:relative; bottom:0.6em; float: left;"><b>{{test.showName}}</b></span>
+        <div class="number-pb" style="left:15%; width:75%">
           <!-- User test -->
           <div class="number-pb-shown" style="width: {{test.time / 150}}%; overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 10px; min-height: 0px; max-height: none; padding-left: 0px;"></div>
           <div class="number-pb-num" style="left: {{test.time / 150 - 1.1}}%; overflow: visible; box-sizing: content-box; width: 20px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-hide="test.time >= 15000">{{test.time/1000|number: 1}}s</div>

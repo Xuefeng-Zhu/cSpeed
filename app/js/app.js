@@ -14,97 +14,37 @@ $('.message .close').on('click', function() {
     $(this).closest('.message').fadeOut();
 });
 
-var tests = [{
-    'link': 'http://www.aws.amazon.com/',
-    'name': 'aws'
-}, {
-    'link': 'https://www.adcash.com/en/index.php',
-    'name': 'adcash'
-}, {
-    'link': 'https://www.addthis.com/',
-    'name': 'addthis'
-}, {
-    'link': 'https://www.adf.ly/',
-    'name': 'adf'
-}/*, {
-    'link': 'https://www.adobe.com/',
-    'name': 'adobe'
-}, {
-    'link': 'https://www.badoo.com/',
-    'name': 'badoo'
-}, {
-    'link': 'https://www.chase.com/',
-    'name': 'chase'
-}, {
-    'link': 'https://www.conduit.com/',
-    'name': 'conduit'
-}, {
-    'link': 'https://www.flickr.com',
-    'name': 'flickr'
-}, {
-    'link': 'http://www.go.com/',
-    'name': 'go'
-}, {
-    'link': 'https://www.godaddy.com/',
-    'name': 'godaddy'
-}, {
-    'link': 'https://www.google.com/',
-    'name': 'google'
-}, {
-    'link': 'https://www.hootsuite.com/',
-    'name': 'hootsuite'
-}, {
-    'link': 'https://www.hostgator.com/',
-    'name': 'hostgator'
-}, {
-    'link': 'https://www.instagram.com/',
-    'name': 'instagram'
-}, {
-    'link': 'https://www.mailchimp.com/',
-    'name': 'mailchimp'
-}, {
-    'link': 'https://www.microsoft.com/',
-    'name': 'microsoft'
-}, {
-    'link': 'https://www.mozilla.org/',
-    'name': 'mozilla'
-}, {
-    'link': 'https://www.netflix.com',
-    'name': 'netflix'
-}, {
-    'link': 'https://www.outbrain.com/',
-    'name': 'outbrain'
-}, {
-    'link': 'https://www.paypal.com/home',
-    'name': 'paypal'
-}, {
-    'link': 'https://www.salesforce.com/',
-    'name': 'salesforce'
-}, {
-    'link': 'https://www.stackoverflow.com/',
-    'name': 'stackoverflow'
-}, {
-    'link': 'https://www.stumbleupon.com/',
-    'name': 'stumbleupon'
-}, {
-    'link': 'https://www.vimeo.com/',
-    'name': 'vimeo'
-}, {
-    'link': 'http://www.w3schools.com/',
-    'name': 'w3schools'
-}, {
-    'link': 'https://www.wikipedia.org/',
-    'name': 'wikipedia'
-}, {
-    'link': 'https://www.wordpress.com/',
-    'name': 'wordpress'
-}, {
-    'link': 'https://www.wordpress.org/',
-    'name': 'wordpress'
-}, {
-    'link': 'http://www.zillow.com/',
-    'name': 'zillow'
-}*/];
+var tests = [{'link': 'http://www.aws.amazon.com/', 'name': 'aws', 'showName': 'www.aws.amazon.com'} ,
+{'link': 'http://www.adcash.com/', 'name': 'adcash', 'showName': 'www.adcash.com'} ,
+// {'link': 'http://www.addthis.com/', 'name': 'addthis', 'showName': 'www.addthis.com'} ,
+// {'link': 'http://www.adf.ly/', 'name': 'adf', 'showName': 'www.adf.ly'} ,
+// {'link': 'http://www.adobe.com/', 'name': 'adobe', 'showName': 'www.adobe.com'} ,
+// {'link': 'http://www.badoo.com/', 'name': 'badoo', 'showName': 'www.badoo.com'} ,
+// {'link': 'http://www.bankofamerica.com/', 'name': 'bankofamerica', 'showName': 'www.bankofamerica.com'} ,
+// {'link': 'http://www.chase.com/', 'name': 'chase', 'showName': 'www.chase.com'} ,
+// {'link': 'http://www.conduit.com/', 'name': 'conduit', 'showName': 'www.conduit.com'} ,
+// {'link': 'http://www.flickr.com', 'name': 'flickr', 'showName': 'www.flickr.com'} ,
+// {'link': 'http://www.go.com/', 'name': 'go', 'showName': 'www.go.com'} ,
+// {'link': 'http://www.godaddy.com/', 'name': 'godaddy', 'showName': 'www.godaddy.com'} ,
+// {'link': 'http://www.google.com/', 'name': 'google', 'showName': 'www.google.com'} ,
+// {'link': 'http://www.hootsuite.com/', 'name': 'hootsuite', 'showName': 'www.hootsuite.com'} ,
+// {'link': 'http://www.hostgator.com/', 'name': 'hostgator', 'showName': 'www.hostgator.com'} ,
+// {'link': 'http://www.instagram.com/', 'name': 'instagram', 'showName': 'www.instagram.com'} ,
+// {'link': 'http://www.mailchimp.com/', 'name': 'mailchimp', 'showName': 'www.mailchimp.com'} ,
+// {'link': 'http://www.microsoft.com/', 'name': 'microsoft', 'showName': 'www.microsoft.com'} ,
+// {'link': 'http://www.mozilla.org/', 'name': 'mozilla', 'showName': 'www.mozilla.org'} ,
+// {'link': 'http://www.netflix.com', 'name': 'netflix', 'showName': 'www.netflix.com'} ,
+// {'link': 'http://www.outbrain.com/', 'name': 'outbrain', 'showName': 'www.outbrain.com'} ,
+// {'link': 'http://www.paypal.com/home', 'name': 'paypal', 'showName': 'www.paypal.com/home'} ,
+// {'link': 'http://www.salesforce.com/', 'name': 'salesforce', 'showName': 'www.salesforce.com'} ,
+// {'link': 'http://www.stackoverflow.com/', 'name': 'stackoverflow', 'showName': 'www.stackoverflow.com'} ,
+// {'link': 'http://www.stumbleupon.com/', 'name': 'stumbleupon', 'showName': 'www.stumbleupon.com'} ,
+// {'link': 'http://www.vimeo.com/', 'name': 'vimeo', 'showName': 'www.vimeo.com'} ,
+// {'link': 'http://www.w3schools.com/', 'name': 'w3schools', 'showName': 'www.w3schools.com'} ,
+// {'link': 'http://www.wikipedia.org/', 'name': 'wikipedia', 'showName': 'www.wikipedia.org'} ,
+// {'link': 'http://www.wordpress.com/', 'name': 'wordpress', 'showName': 'www.wordpress.com'} ,
+// {'link': 'http://www.wordpress.org/', 'name': 'wordpress', 'showName': 'www.wordpress.org'} ,
+{'link': 'http://www.zillow.com/', 'name': 'zillow', 'showName': 'www.zillow.com'} ];
 
 var grades = {
     'A': {

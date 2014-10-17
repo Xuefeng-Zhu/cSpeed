@@ -79,7 +79,7 @@ angular.module('myApp.controllers', [])
             $scope.currentTest.time = args.millis;
             $scope.$digest()
             if (args.millis >= 15000) {
-                $scope.currentTest.time = $scope.total[$scope.currentTest["name"]];
+                $scope.currentTest.time = 15000;
                 $scope.upData[$scope.currentTest["name"]] = {
                     time: {
                         status: "timeout",
@@ -112,6 +112,7 @@ angular.module('myApp.controllers', [])
             if (index == $scope.tests.length) {
                 $scope.currentTest = {
                     'name': 'perf',
+                    'showName': 'perf',
                     'link': 'Perfomance test. Please wait.'
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
@@ -375,6 +376,9 @@ angular.module('myApp.controllers', [])
                 legend: {
                     position: "none"
                 },
+                bar: {
+                    groupWidth: '40%'
+                },
                 hAxis: {
                     baseline: 0,
                     textPosition: 'none',
@@ -386,9 +390,9 @@ angular.module('myApp.controllers', [])
                 height: d.length * 60,
                 width: window.outerWidth - 200 - 4 * parseInt($(".message").css("padding")),
                 chartArea: {
-                    left: 200,
-                    width: '100%',
-                    height: '80%'
+                    left: '30%',
+                    width: '60%',
+                    height: '50%'
                 },
                 enableInteractivity: "false",
                 tooltip: {
