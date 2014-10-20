@@ -35,7 +35,7 @@ var tests = [{'link': 'http://www.aws.amazon.com/', 'name': 'aws', 'showName': '
 {'link': 'http://www.mozilla.org/', 'name': 'mozilla', 'showName': 'www.mozilla.org'} ,
 {'link': 'http://www.netflix.com', 'name': 'netflix', 'showName': 'www.netflix.com'} ,
 {'link': 'http://www.outbrain.com/', 'name': 'outbrain', 'showName': 'www.outbrain.com'} ,
-{'link': 'http://www.paypal.com/home', 'name': 'paypal', 'showName': 'www.paypal.com/home'} ,
+{'link': 'http://www.paypal.com/home', 'name': 'paypal', 'showName': 'www.paypal.com'} ,
 {'link': 'http://www.salesforce.com/', 'name': 'salesforce', 'showName': 'www.salesforce.com'} ,
 {'link': 'http://www.stackoverflow.com/', 'name': 'stackoverflow', 'showName': 'www.stackoverflow.com'} ,
 {'link': 'http://www.stumbleupon.com/', 'name': 'stumbleupon', 'showName': 'www.stumbleupon.com'} ,
@@ -65,7 +65,7 @@ var grades = {
     'B1': {
         'letter': 'B',
         'color': 'green',
-        'comment': 'Satisfactory. You might possibly benefit from checking if other ISPs in your area are faster.'
+        'comment': 'Satisfactory. You should check if other ISPs in your area are faster.'
     },
     'C': {
         'letter': 'C',
@@ -75,17 +75,17 @@ var grades = {
     'C1': {
         'letter': 'C',
         'color': 'blue',
-        'comment': 'Meh. Your browsing experience is not quite fast. You might possibly benefit from checking if other ISPs in your area are faster.'
+        'comment': 'Meh. Your browsing experience is not quite fast. You should check if other ISPs in your area are faster.'
     },
     'D1': {
         'letter': 'D',
         'color': 'grey',
-        'comment': 'Pretty slow. Your browsing experience is quite slow. Part of it might be due to your location, but you might possibly benefit from checking if other ISPs in your area are faster.'
+        'comment': 'Pretty slow. Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
     },
     'D': {
         'letter': 'D',
         'color': 'grey',
-        'comment': 'Pretty slow. Your browsing experience is quite slow, possibly just due to your location or your device. There may also be networks in your area with faster test completion times, but we have not seen any so far.'
+        'comment': 'Pretty slow. Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
     }
 }
 

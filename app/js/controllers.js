@@ -343,9 +343,9 @@ angular.module('myApp.controllers', [])
             var globalMedianRatio = uTotal / oTotal;
 
 	    if (isUsingFastestISP) {
-	    	if (globalMedianRatio > 2) $scope.report.grade = 'D';
-	    	else if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
-	        else if (globalMedianRatio > 1.2) $scope.report.grade = 'B';
+	    	if (globalMedianRatio > 2) $scope.report.grade = 'D1';
+	    	else if (globalMedianRatio > 1.5) $scope.report.grade = 'C1';
+	        else if (globalMedianRatio > 1.2) $scope.report.grade = 'B1';
 	        else if (globalMedianRatio > 0.9) $scope.report.grade = 'A';
 	        else $scope.report.grade = 'A1';
 	    } else {
