@@ -198,7 +198,7 @@ angular.module('myApp.controllers', [])
             $scope.history = store.get('history');
             $scope.generateReport();
             $('.test:not(:first)').popup({
-                content: 'Left Click to show more infomation'
+                content: 'Click for more info'
             });
         }
         /**
@@ -253,10 +253,10 @@ angular.module('myApp.controllers', [])
                 }]
             ];
 
-            data1.push(['Your Result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
-            data1.push(['Global Users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
+            data1.push(['Your result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
+            data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s"]);
             data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s"]);
-            data1.push(['Speed Of Light', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
+            data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
 
             //find max data
             for (var i = 1; i < data1.length; i++){
@@ -377,7 +377,7 @@ angular.module('myApp.controllers', [])
                     position: "none"
                 },
                 bar: {
-                    groupWidth: '40%'
+                    groupWidth: '70%'
                 },
                 hAxis: {
                     baseline: 0,
@@ -387,13 +387,13 @@ angular.module('myApp.controllers', [])
                         color: 'transparent'
                     }
                 },
-                height: d.length * 60,
+                height: d.length * 40,
                 width: window.outerWidth - 200 - 4 * parseInt($(".message").css("padding")),
                 chartArea: {
                     top: "5%",
                     left: '35%',
                     width: '60%',
-                    height: '50%'
+                    height: '100%'
                 },
                 enableInteractivity: "false",
                 tooltip: {

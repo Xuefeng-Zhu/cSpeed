@@ -47,8 +47,9 @@ body >.segment {
 
 .loadingWeb {
 	margin-top: 0.0em;
-	margin-bottom: 1em;
-	padding-top: 1em;
+	margin-bottom: 1.5em;
+	padding-top: 0.8em;
+	padding-bottom: 0.6em;
 	font-size : 1.5em;
 	font-weight: normal;
 	text-align: center;
@@ -59,7 +60,7 @@ body >.segment {
 #aboutus {
   margin: 0;
   padding: 10px 30px 10px 30px;
-  font-size: 1em;
+  font-size: 1.35em;
   text-align: justify;
   line-height: 120%;
   margin-bottom: 30px;
@@ -68,7 +69,7 @@ body >.segment {
 #introduction p {
   margin: 0;
   padding: 1pt 0%;
-  font-size: 1.3em;
+  font-size: 1.6em;
   font-weight:lighter;
 }
 
@@ -76,7 +77,7 @@ body >.segment {
   margin-top: 0em;
   margin-bottom: 1em;
   padding-top: 0.8em;
-  font-size : 5em;
+  font-size : 6em;
   font-weight:normal;
 }
 
@@ -84,7 +85,7 @@ body >.segment {
   margin-top: 0em;
   margin-bottom: 0.6em;
   padding-top: 0.6em;
-  font-size : 2em;
+  font-size : 2.3em;
   font-weight:normal;
 }
 

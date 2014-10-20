@@ -28,30 +28,29 @@
           <div class="content">
             <!-- Grade  -->
             <div class="ui grid">
-              <div class="four wide column">
-                <div style="text-align: center; font-size: 6em" ng-style="{color: grades[report.grade].color}">{{grades[report.grade].letter}}</div>
+              <div class="one wide column"></div>
+              <div class="two wide column"></div>
+              <div class="three wide column">
+                <div style="text-align: center; font-size: 7em" ng-style="{color: grades[report.grade].color}">{{grades[report.grade].letter}}</div>
               </div>
-              <div class="twelve wide column">
+              <div class="seven wide column">
                 <h2>{{grades[report.grade].comment}}</h2>
               </div>
             </div>
             <!-- End of Grade -->
             <div style="text-align:center; margin-bottom:10px; font-size:1.5em">
-              <div class="ui">
-                <p>Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical user worldwide, and<br>
-                <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> to finish than the typical user in {{user_ip.city}}.</p>
+                <p>Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide,<br> and <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> to finish than the typical cSpeed user in {{user_ip.city}}.</p>
                 <div id="chart_total"></div>
-              </div>
-            </div>
+            </div><br><br><br>
             <div style="text-align:center; font-size:1.5em">
-              <div class="ui" ng-show="region.count>1">
+              <div ng-show="region.count>1">
                 <p ng-show="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the<br> <b>{{report.region.fastest}}</b> network (like yourself) finish the test fastest.</p>
-                <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network finish the test fastest,<br> typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
+                <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the<br> <b>{{report.region.fastest}}</b> network finish the test fastest,<br> typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
                 <div id="chart_isp"></div>
               </div>
               <div class="ui huge warning message" ng-hide="region.count>1">
                 <p>In {{user_ip.city}}, tests have only been run over the {{user_ip.isp}} network. Ask your friends to run the test for a comparison!!</p>
-              </div>
+              </div><br><br><br>
             </div>
             <!-- Feedback -->
             <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form segment" style="padding: 0 2em" ng-hide="formSubmitted">
@@ -143,7 +142,7 @@
             <i class="tasks icon"></i> View Timeline
           </a>
           <a class="item" ng-click="showResource(test)">
-            <i class="signal icon"></i> Take <b style="color:red">{{test.speed|number:1}}</b>ms Speed of Light to transmit
+            <i class="signal icon"></i><b style="color:red">{{test.speed|number:1}}ms</b> over a speed-of-light Internet
           </a>
         </div>
       </div>
