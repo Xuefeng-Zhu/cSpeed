@@ -16,7 +16,7 @@ $('.message .close').on('click', function() {
 
 var tests = [{'link': 'http://www.aws.amazon.com/', 'name': 'aws', 'showName': 'www.aws.amazon.com'} ,
 {'link': 'http://www.adcash.com/', 'name': 'adcash', 'showName': 'www.adcash.com'} ,
-/*{'link': 'http://www.addthis.com/', 'name': 'addthis', 'showName': 'www.addthis.com'} ,
+{'link': 'http://www.addthis.com/', 'name': 'addthis', 'showName': 'www.addthis.com'} ,
 {'link': 'http://www.adf.ly/', 'name': 'adf', 'showName': 'www.adf.ly'} ,
 {'link': 'http://www.adobe.com/', 'name': 'adobe', 'showName': 'www.adobe.com'} ,
 {'link': 'http://www.badoo.com/', 'name': 'badoo', 'showName': 'www.badoo.com'} ,
@@ -44,7 +44,7 @@ var tests = [{'link': 'http://www.aws.amazon.com/', 'name': 'aws', 'showName': '
 {'link': 'http://www.wikipedia.org/', 'name': 'wikipedia', 'showName': 'www.wikipedia.org'} ,
 {'link': 'http://www.wordpress.com/', 'name': 'wordpress', 'showName': 'www.wordpress.com'} ,
 {'link': 'http://www.wordpress.org/', 'name': 'wordpress', 'showName': 'www.wordpress.org'} ,
-{'link': 'http://www.zillow.com/', 'name': 'zillow', 'showName': 'www.zillow.com'} */];
+{'link': 'http://www.zillow.com/', 'name': 'zillow', 'showName': 'www.zillow.com'}];
 
 var grades = {
     'A': {
