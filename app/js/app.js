@@ -44,7 +44,7 @@ var tests = [{'link': 'http://www.aws.amazon.com/', 'name': 'aws', 'showName': '
 {'link': 'http://www.wikipedia.org/', 'name': 'wikipedia', 'showName': 'www.wikipedia.org'} ,
 {'link': 'http://www.wordpress.com/', 'name': 'wordpress', 'showName': 'www.wordpress.com'} ,
 {'link': 'http://www.wordpress.org/', 'name': 'wordpress', 'showName': 'www.wordpress.org'} ,
-{'link': 'http://www.zillow.com/', 'name': 'zillow', 'showName': 'www.zillow.com'} ];
+{'link': 'http://www.zillow.com/', 'name': 'zillow', 'showName': 'www.zillow.com'}];
 
 var grades = {
     'A': {

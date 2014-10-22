@@ -69,8 +69,8 @@ body >.segment {
 #introduction p {
   margin: 0;
   padding: 1pt 0%;
-  font-size: 1.6em;
-  font-weight:lighter;
+  font-size: 1.4em;
+  font-weight:200;
 }
 
 #introduction h1 {
