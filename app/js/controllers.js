@@ -2,7 +2,7 @@
 /* Controllers */
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference
+        var fb = new Firebase("https://speedtes2.firebaseio.com"); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
         var entry_point = null;
@@ -76,7 +76,7 @@ angular.module('myApp.controllers', [])
         }
         //update individual timer in real time
         $scope.$on('timer-tick', function(event, args) {
-            $scope.currentTest.time = args.millis;
+            $scope.currentTest.time = args.millis / 1.5;
             $scope.$digest()
             if (args.millis >= 15000) {
                 $scope.currentTest.time = 15000;

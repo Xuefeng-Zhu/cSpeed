@@ -23,7 +23,7 @@
     <!-- End of Loading icon -->
     <div class="container">
       <!-- Test report -->
-      <div class="fx-zoom-normal fx-easing-sine fx-speed-500" ng-show="report.summary">
+      <div class="fx-zoom-normal fx-easing-sine fx-speed-500" style="margin-bottom: 10em;" ng-show="report.summary">
         <div class="item">
           <div class="content">
             <!-- Grade  -->
@@ -54,7 +54,7 @@
               </div><br><br><br>
             </div>
             <!-- Feedback -->
-            <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form segment" style="padding: 0 2em" ng-hide="formSubmitted">
+            <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form" style="padding: 0 2em" ng-hide="formSubmitted">
               <div class="feedback">Help us improve accuracy by adding the below data</div>
               <div class="ui grid">
                 <div class="ten wide column">
@@ -131,8 +131,8 @@
           <div class="number-pb-num" style="left: 96%; overflow: visible; box-sizing: content-box; width: 50px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-show="test.time >= 15000">Time out</div>
           <!-- End of user test -->
           <!-- Other test -->
-          <div class="number-pb-shown" style="width: 1%; left: {{total[test.name] / 150}}%;overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 10px; min-height: 0px; max-height: none; padding-left: 0px;background-color: red;z-index: 100;"></div>
-          <div class="number-pb-num" style="left: {{total[test.name] / 150 - 2}}%; overflow: visible; box-sizing: content-box; width: 80px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-show="absDiff(total[test.name], test.time)">avg: {{total[test.name]/1000|number: 1}}s</div>
+          <div class="number-pb-shown" style="width: 1%; left: {{total[test.name] / 150}}%;overflow: visible; box-sizing: content-box; min-width: 0px; max-width: none; height: 10px; min-height: 0px; max-height: none; padding-left: 0px;background-color: red;z-index: 100;" ng-show="currentTest!=test"></div>
+          <div class="number-pb-num" style="left: {{total[test.name] / 150 - 2}}%; overflow: visible; box-sizing: content-box; width: 80px; min-width: 20px; max-width: none; height: 19px; min-height: 0px; max-height: none; padding-left: 5px;z-index: 200;" ng-show="currentTest!=test && absDiff(total[test.name], test.time)">avg: {{total[test.name]/1000|number: 1}}s</div>
           <!-- End of other test -->
         </div>
         <div class="ui compact pointing menu" ng-show="test==selectedTest">
