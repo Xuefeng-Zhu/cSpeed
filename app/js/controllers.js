@@ -112,7 +112,7 @@ angular.module('myApp.controllers', [])
             if (index == $scope.tests.length) {
                 $scope.currentTest = {
                     'name': 'perf',
-                    'showName': 'perf',
+                    'showName': 'Javascript compute test',
                     'link': 'Perfomance test. Please wait.'
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
