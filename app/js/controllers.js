@@ -32,19 +32,21 @@ angular.module('myApp.controllers', [])
             user_info.windowSize = {
                 height: window.outerHeight,
                 width: window.outerWidth
-            };
-
+            }
             $scope.user_ip = response;
             fb.child("region/" + response.city).once("value", function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
             });
-        })
+        }).error(function() {
+            alert("Problem connecting with our geolocation service. Disabling other extensions or trying again later might help.")
+        });
         $scope.startTest = function() {
             if ($scope.currentTest) {
                 return;
             }
             index = 0;
+            $scope.currentTest = $scope.tests[index];
             performance.webkitClearResourceTimings(); //clear perfomance statics
             $scope.upData = {};
             $scope.report = {};
@@ -58,7 +60,6 @@ angular.module('myApp.controllers', [])
                     "protectedWeb": true
                 }
             }, function() {
-                $scope.currentTest = $scope.tests[index];
                 $scope.$broadcast('timer-start');
                 $scope.finishedTest.push($scope.currentTest);
                 $scope.$digest();
@@ -103,6 +104,12 @@ angular.module('myApp.controllers', [])
                 $scope.currentTest.ip = request.details.ip;
                 return;
             }
+
+            if (request.ipList){
+                console.log(request);
+                return;
+            }
+
             chrome.tabs.remove(sender.tab.id);
             loadResult(index, request);
             loadNextTest();
@@ -207,8 +214,8 @@ angular.module('myApp.controllers', [])
          *generate report based on your test result and others' result
          *@param
          *  uTotal: User total loading time
-         *  oTotal: Global users loading time 
-         *  speedOfLight: User speed of light  
+         *  oTotal: Global users loading time
+         *  speedOfLight: User speed of light
          */
         $scope.generateReport = function() {
             //User total loading time
@@ -261,7 +268,7 @@ angular.module('myApp.controllers', [])
             data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
 
             //find max data
-            for (var i = 1; i < data1.length; i++){
+            for (var i = 1; i < data1.length; i++) {
                 maxRange = Math.max(maxRange, data1[i][1]);
             }
 
@@ -312,7 +319,7 @@ angular.module('myApp.controllers', [])
             });
 
             //find max data
-            for (var i = 1; i < data2.length; i++){
+            for (var i = 1; i < data2.length; i++) {
                 maxRange = Math.max(maxRange, data2[i][1]);
             }
             maxRange = Math.ceil(maxRange);
@@ -338,34 +345,36 @@ angular.module('myApp.controllers', [])
             $('.selection.dropdown').dropdown();
 
             //Evaluate the grade for network
-	
+            if (fastest == null) {
+
+            }
             var isUsingFastestISP = user_info.ip.isp == fastest;
             var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
             var regionMedianRatio = uTotal / fastestISPMedian;
             var globalMedianRatio = uTotal / oTotal;
 
-	    if (isUsingFastestISP) {
-	    	if (globalMedianRatio > 2) $scope.report.grade = 'D1';
-	    	else if (globalMedianRatio > 1.5) $scope.report.grade = 'C1';
-	        else if (globalMedianRatio > 1.2) $scope.report.grade = 'B1';
-	        else if (globalMedianRatio > 0.9) $scope.report.grade = 'A';
-	        else $scope.report.grade = 'A1';
-	    } else {
-	            if (regionMedianRatio > 1.5) {
-	                if (globalMedianRatio > 1.5) $scope.report.grade = 'D1';
-	                else $scope.report.grade = 'C1'; // C1 means switching ISP could help (while C => probably not)
-	            } else if (regionMedianRatio > 1.15 && regionMedianRatio <= 1.5) {
-	                if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
-	                else $scope.report.grade = 'B1'; // B1 means switching ISP could help (while B => probably not)
-	            } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.15) {
-	                if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
-	                else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
-	                else $scope.report.grade = 'A';
-	            } else {
-	                if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
-	                else $scope.report.grade = 'A';
-	            }
-	    }
+            if (isUsingFastestISP) {
+                if (globalMedianRatio > 2) $scope.report.grade = 'D1';
+                else if (globalMedianRatio > 1.5) $scope.report.grade = 'C1';
+                else if (globalMedianRatio > 1.2) $scope.report.grade = 'B1';
+                else if (globalMedianRatio > 0.9) $scope.report.grade = 'A';
+                else $scope.report.grade = 'A1';
+            } else {
+                if (regionMedianRatio > 1.5) {
+                    if (globalMedianRatio > 1.5) $scope.report.grade = 'D1';
+                    else $scope.report.grade = 'C1'; // C1 means switching ISP could help (while C => probably not)
+                } else if (regionMedianRatio > 1.15 && regionMedianRatio <= 1.5) {
+                    if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
+                    else $scope.report.grade = 'B1'; // B1 means switching ISP could help (while B => probably not)
+                } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.15) {
+                    if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
+                    else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
+                    else $scope.report.grade = 'A';
+                } else {
+                    if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
+                    else $scope.report.grade = 'A';
+                }
+            }
         }
 
         //draw bar graph for speed comparasion 
@@ -508,15 +517,15 @@ angular.module('myApp.controllers', [])
             });
         }
 
-        $scope.submitFeedback = function(){
+        $scope.submitFeedback = function() {
             $scope.fb.network = $('input[name="network"]:checked').val();
             $scope.fb.country = $('.selection.dropdown').dropdown('get value');
             entry_point.child('user_info/feedback').set(angular.copy($scope.fb));
             $scope.formSubmitted = true;
         }
 
-        $scope.$watch('fb.comments', function(){
-            if ($scope.fb && $scope.fb.comments.length > 1000){
+        $scope.$watch('fb.comments', function() {
+            if ($scope.fb && $scope.fb.comments.length > 1000) {
                 $scope.fb.comments = $scope.fb.comments.slice(0, 1000);
             }
         })
