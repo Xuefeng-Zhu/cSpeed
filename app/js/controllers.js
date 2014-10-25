@@ -95,6 +95,7 @@ angular.module('myApp.controllers', [])
                 loadNextTest();
             }
         });
+
         /*
         get message including ip, timing and resource data
         when receive timing data, the current test site has been fullly loaded, and move to next test
@@ -105,8 +106,8 @@ angular.module('myApp.controllers', [])
                 return;
             }
 
-            if (request.ipList){
-                console.log(request);
+            if (request.ipList) {
+                processIPs(request.ipList, index - 1);
                 return;
             }
 
@@ -114,6 +115,26 @@ angular.module('myApp.controllers', [])
             loadResult(index, request);
             loadNextTest();
         });
+
+        function processIPs(ipList, index) {
+            for (var ip in ipList) {
+                $http.get('http://ip-api.com/json/' + ip)
+                    .success(function(response) {
+                        ipList[ip] = distanceOnUnitSphere(response.lat, response.lon, user_info.ip.lat, user_info.ip.lon);
+                    });
+            }
+
+            $timeout(function(){
+                var maxDistance = 0;
+                for (var ip in ipList){
+                    if (ipList[ip] > maxDistance){
+                        maxDistance = ipList[ip];
+                    }
+                }
+                $scope.finishedTest[index].speed += 2 * maxDistance / 299792458 * 1000;
+            }, 1000);
+        }
+
         //move to next test
         function loadNextTest() {
             index++;

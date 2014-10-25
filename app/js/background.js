@@ -9,9 +9,11 @@ chrome.webRequest.onResponseStarted.addListener(
                 details: details
             });
         } else {
-            if (!details.ip in ipList) {
-                ipList[ip] = true;
+            if (!(details.ip in ipList)) {
+                ipList[details.ip] = true;
+                console.log(details);
             }
+
         }
     }, {
         urls: ["<all_urls>"]
@@ -19,11 +21,11 @@ chrome.webRequest.onResponseStarted.addListener(
 );
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.details == undefined) {
+    if (request.details == undefined && request.ipList == undefined) {
         if (timer){
-            clearSetTimeout(timer);
+            clearTimeout(timer);
         }
-        setTimeout(sendIpList, 15000);
+        timer = setTimeout(sendIpList, 15000);
         sendIpList();
     }
 })
