@@ -135,7 +135,7 @@
 .ui.form input[type="url"],
 .ui.form input[type="tel"] {
   margin: 0em;
-  padding: 0.65em 1em;
+  padding: 0.2em 0.3em;
   font-size: 1em;
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -11083,8 +11083,8 @@ body.ui.dimmed.dimmable > :not(.dimmer){
   word-wrap: break-word;
   white-space: normal;
   background-color: #FFFFFF;
-  padding: 0.65em 1em;
-  line-height: 1.33;
+  padding: 0.2em 0.3em;
+  line-height: 1.2;
   color: rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) !important;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) !important;
