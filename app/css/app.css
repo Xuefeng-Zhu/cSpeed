@@ -102,6 +102,7 @@ body >.segment {
   background-color: #7d7e7d; 
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7d7e7d), to(#0e0e0e));
   background-image: -webkit-linear-gradient(top, #7d7e7d, #000000);
+  opacity: 0.75;
   transition: opacity 0.25s ease, background-color 0.25s ease, color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 };
 
@@ -110,11 +111,12 @@ body >.segment {
   ---------------*/
 .introbutton.active:hover {
   background-image: none;
+  opacity: 0.1;
   cursor: pointer; cursor: hand;
 }
 
 .introbutton:hover {
-  opacity: 0.75;
+  opacity: 1;
   cursor: pointer; cursor: hand;
 }
 
