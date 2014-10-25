@@ -2,7 +2,7 @@
 /* Controllers */
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference
+        var fb = new Firebase("https://speedtes2.firebaseio.com"); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
         var entry_point = null;
