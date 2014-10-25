@@ -76,7 +76,9 @@ angular.module('myApp.controllers', [])
         }
         //update individual timer in real time
         $scope.$on('timer-tick', function(event, args) {
-            $scope.currentTest.time = args.millis / 1.5;
+            //$scope.currentTest.time = args.millis / 1.5;
+            if (args.millis < 1000) $scope.currentTest.time = 0;
+            else $scope.currentTest.time = args.millis - 1000;
             $scope.$digest()
             if (args.millis >= 15000) {
                 $scope.currentTest.time = 15000;
