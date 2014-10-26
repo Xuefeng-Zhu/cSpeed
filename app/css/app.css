@@ -34,6 +34,20 @@ body >.segment {
   text-align: center;
 }
 
+.faqq{
+  /*margin-top: 1em;*/
+  margin-bottom: 0.2em;
+  padding-top: 1em;
+  font-size : 1.3em;
+  font-weight:bold;
+  }
+
+.faqa{
+  /*margin-top: 1em;*/
+  margin-bottom: 0.5em;
+  text-align: justify;
+  }
+
 .feedback {
 	margin-top: 0.0em;
 	margin-bottom: 0.5em;
