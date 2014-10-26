@@ -124,10 +124,10 @@ angular.module('myApp.controllers', [])
                     });
             }
 
-            $timeout(function(){
+            $timeout(function() {
                 var maxDistance = 0;
-                for (var ip in ipList){
-                    if (ipList[ip] > maxDistance){
+                for (var ip in ipList) {
+                    if (ipList[ip] > maxDistance) {
                         maxDistance = ipList[ip];
                     }
                 }
@@ -367,11 +367,13 @@ angular.module('myApp.controllers', [])
 
             //Evaluate the grade for network
             if (fastest == null) {
-
+                var isUsingFastestISP = true;
+                var regionMedianRatio  = 1;
+            } else {
+                var isUsingFastestISP = user_info.ip.isp == fastest;
+                var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
+                var regionMedianRatio = uTotal / fastestISPMedian;
             }
-            var isUsingFastestISP = user_info.ip.isp == fastest;
-            var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
-            var regionMedianRatio = uTotal / fastestISPMedian;
             var globalMedianRatio = uTotal / oTotal;
 
             if (isUsingFastestISP) {
