@@ -39,9 +39,9 @@
             </div>
             <!-- End of Grade -->
             <div style="text-align:center; margin-bottom:10px; font-size:1.5em">
-                <p ng-show="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide,<br> and <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> to finish than the typical cSpeed user in {{user_ip.city}}.</p>
-                <p ng-hide="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide.</p>
-                <div id="chart_total" ng-show="report.summary" ng-hide="!report.summary"></div><br>
+              <p ng-show="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide,<br> and <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> to finish than the typical cSpeed user in {{user_ip.city}}.</p>
+              <p ng-hide="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide.</p>
+              <div id="chart_total" ng-show="report.summary" ng-hide="!report.summary"></div><br>
             </div><br><br><br>
             <div style="text-align:center; font-size:1.5em">
               <div ng-show="region.count>1">
@@ -55,7 +55,7 @@
             </div>
             <!-- Feedback -->
             <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form" style="padding: 0 2em" ng-hide="formSubmitted">
-    		<div ng-include="'partials/feedback.html'"></div>
+              <div ng-include="'partials/feedback.html'"></div>
             </div>
             <!-- End of feedback -->
             <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui green message" ng-show="formSubmitted">

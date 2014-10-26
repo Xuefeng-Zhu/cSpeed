@@ -1,6 +1,4 @@
 <div class="feedback">Help us improve accuracy by adding the below data</div>
-              <div class="ui grid">
-                <div class="ten wide column">
                   <div class="three fields">
                     <div class="field">
                       <label>City</label>
@@ -17,7 +15,7 @@
                         <i class="dropdown icon"></i>
                         <input type="hidden" name="country">
                         <div class="menu">
-			<div ng-include="'partials/countrylist.html'"></div>
+			                       <div ng-include="'partials/countrylist.html'"></div>
                         </div>
                       </div>
                     </div>
@@ -38,12 +36,5 @@
                       <input placeholder="Advertised Speed (in Mbps)" type="text" ng-model="fb.speed">
                     </div>
                   </div>
-                </div>
-                <div class="six column wide">
-                  <div class="field">
-                    <label>Comments</label>
-                    <textarea ng-model="fb.comments" style="min-height:5.8em; height:5.8em"></textarea>
-                  </div>
+
                   <div class="ui fluid black submit button" ng-click="submitFeedback()">Submit</div>
-                </div>
-              </div>

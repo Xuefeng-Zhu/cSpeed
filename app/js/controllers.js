@@ -107,7 +107,7 @@ angular.module('myApp.controllers', [])
             }
 
             if (request.ipList) {
-                processIPs(request.ipList, index - 1);
+               // processIPs(request.ipList, index - 1);
                 return;
             }
 
@@ -197,7 +197,7 @@ angular.module('myApp.controllers', [])
             var testRef = $scope.finishedTest[0];
             $http.get('http://ip-api.com/json/' + testRef.ip).success(function(response) {
                 var distance = distanceOnUnitSphere(response.lat, response.lon, user_info.ip.lat, user_info.ip.lon);
-                testRef.speed = 2 * distance / 299792458 * 1000;
+                testRef.speed = 4 * distance / 299792458 * 1000;
 
             });
         }

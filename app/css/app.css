@@ -129,6 +129,8 @@ body >.segment {
   opacity: 0.6;
   color: white;
   text-align: center;
+  background: #000000 url('/images/start.jpg') no-repeat center;
+  background-size: 100%;
 }
 
 #headerResults h1{
