@@ -53,48 +53,51 @@ var grades = {
     'A': {
         'letter': 'A',
         'color': 'red',
-        'comment': 'Fast! Your browsing experience is fast in comparison to both users globally, and in your city.'
+        'comment': 'Pretty fast. Your browsing experience compares favorably to both users globally, and in your city.'
     },
     'A1': {
-        'letter': 'A+',
+        'letter': 'A',
         'color': 'red',
-        'comment': 'Super-fast! Your browsing experience is fast in comparison to both users globally, and in your city.'
+        'comment': 'Pretty fast. Your browsing experience compares favorably to users globally. We have not seen tests run from any network other than yours in your city, though.'
     },
     'B': {
         'letter': 'B',
         'color': 'green',
-        'comment': 'Satisfactory. While your browsing experience is not spectacularly fast, users in your city may not have much choice.'
+        'comment': 'Satisfactory. You should still run the test over other networks in your area for comparison.'
     },
     'B1': {
         'letter': 'B',
         'color': 'green',
-        'comment': 'Satisfactory. You should check if other ISPs in your area are faster.'
-    },
-    'C': {
-        'letter': 'C',
-        'color': 'blue',
-        'comment': 'Meh. Your browsing experience is not quite fast. Unfortunately, you might not have much choice; this is probably just about your location.'
+        'comment': 'Satisfactory. You should also run the test over other networks, although we have not seen typical users of other networks in your city finish the test much faster.'
     },
     'C1': {
         'letter': 'C',
         'color': 'blue',
-        'comment': 'Meh. Your browsing experience is not quite fast. You should check if other ISPs in your area are faster.'
+        'comment': 'Meh. Your browsing experience is not quite fast. However, so far, we have not seen typical users of other networks in your city finish the test much faster. Try running the test over other networks.'
     },
-    'D1': {
-        'letter': 'D',
-        'color': 'grey',
-        'comment': 'Pretty slow. Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
+    'C': {
+        'letter': 'C',
+        'color': 'blue',
+        'comment': 'Meh. Your browsing experience is not quite fast. A variety of factors could be involved, but you should check if other networks in your area are faster.'
     },
     'D': {
         'letter': 'D',
         'color': 'grey',
-        'comment': 'Pretty slow. Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
+        'comment': 'Pretty slow. Your browsing experience is quite slow. A variety of factors could be involved, but you should check if other networks in your area are faster.'
     }
 }
 
 var sisterCity = {
     "Urbana": "Champaign-Urbana",
-    "Champaign": "Champaign-Urbana"
+    "Champaign": "Champaign-Urbana",
+    //"Minneapolis": "Minneapolis-Saint Paul",
+    //"Saint Paul": "Minneapolis-Saint Paul",
+    "Dallas": "Dallas-Fort Worth",
+    "Fort Worth": "Dallas-Fort Worth",
+    "Bloomington": "Bloomington-Normal",
+    "Normal": "Bloomington-Normal",
+    "Boston": "Boston-Cambridge",
+    "Cambridge": "Boston-Cambridge"	// How do we differentiate this Cambridge from Cambridge, UK?
 }
 
 google.load("visualization", "1", {
