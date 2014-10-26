@@ -39,7 +39,7 @@ angular.module('myApp.controllers', [])
                 $scope.$digest();
             });
         }).error(function() {
-            alert("Problem connecting with our geolocation service. Disabling other extensions or trying again later might help.")
+            alert("Failed to launch correctly: (a) check your network connectivity; (b) try disabling other extensions; (c) try again later.")
         });
         $scope.startTest = function() {
             if ($scope.currentTest) {
@@ -284,8 +284,8 @@ angular.module('myApp.controllers', [])
             ];
 
             data1.push(['Your result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
-            data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + " users)"]);
-            data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " users)"]);
+            data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + " tests)"]);
+            data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " tests)"]);
             data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
 
             //find max data
@@ -335,7 +335,7 @@ angular.module('myApp.controllers', [])
                         fastest = key;
                     }
                     $scope.region.count += 1;
-                    data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s (" + value.count + " users)"]);
+                    data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s (" + value.count + " tests)"]);
                 }
             });
 
