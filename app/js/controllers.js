@@ -246,6 +246,7 @@ angular.module('myApp.controllers', [])
             //User speed of light 
             var speedOfLight = 0;
 
+
             var temp = [];
             angular.forEach($scope.finishedTest, function(value, key){
                 if (value.name == "perf"){
@@ -256,7 +257,7 @@ angular.module('myApp.controllers', [])
                 }
             });
             temp.sort();
-            var timeoutRatio = temp[temp.length() / 2];
+            var timeoutRatio = temp[Math.floor(temp.length/2)];
 
             angular.forEach($scope.finishedTest, function(value, key) {
                 if (value.name == "perf") {
@@ -273,6 +274,7 @@ angular.module('myApp.controllers', [])
                     speedOfLight += value.speed;
                 }
             });
+
             entry_point.child('user_info/totaltime').set(uTotal);
 
 
