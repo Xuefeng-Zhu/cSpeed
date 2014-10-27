@@ -39,9 +39,9 @@
             </div>
             <!-- End of Grade -->
             <div style="text-align:center; margin-bottom:10px; font-size:1.5em">
-                <p ng-show="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide,<br> and <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> to finish than the typical cSpeed user in {{user_ip.city}}.</p>
-                <p ng-hide="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide.</p>
-                <div id="chart_total" ng-show="report.summary" ng-hide="!report.summary"></div><br>
+              <p ng-show="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide,<br> and <b>{{report.region.comparation.value}}% {{report.region.comparation.key}}</b> to finish than the typical cSpeed user in {{user_ip.city}}.</p>
+              <p ng-hide="region.count>1">Your test took <b>{{report.summary.comparation.value}}% {{report.summary.comparation.key}}</b> to finish than the typical cSpeed user worldwide.</p>
+              <div id="chart_total" ng-show="report.summary" ng-hide="!report.summary"></div><br>
             </div><br><br><br>
             <div style="text-align:center; font-size:1.5em">
               <div ng-show="region.count>1">
@@ -49,13 +49,13 @@
                 <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network<br> finish the test fastest, typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
                 <div id="chart_isp"></div>
               </div>
-              <div class="ui huge warning message" ng-hide="region.count>1">
+              <div class="ui huge warning message" style="margin: 0 5em" ng-hide="region.count>1">
                 <p>In {{user_ip.city}}, tests have only been run over the {{user_ip.isp}} network. Ask your friends to run the test for a comparison!!</p>
               </div><br><br><br>
             </div>
             <!-- Feedback -->
-            <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form" style="padding: 0 2em" ng-hide="formSubmitted">
-    		<div ng-include="'partials/feedback.html'"></div>
+            <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui form" style="padding: 0 10em" ng-hide="formSubmitted">
+              <div ng-include="'partials/feedback.html'"></div>
             </div>
             <!-- End of feedback -->
             <div class="fx-fade-normal fx-easing-sine fx-speed-500 ui green message" ng-show="formSubmitted">
@@ -63,9 +63,9 @@
                 Thank you for your feedback!
               </div>
             </div>
-            <div style="margin-top: 3em">
+            <div class="ui form" style="margin-top: 3em">
               <!--div class="ui black button" style="width:47%; margin-right: 5.6%" ng-show="history" ng-click="showHistory()">View Previous Test Results</div-->
-              <div class="ui black button" style="width:47%" ng-click="startTest()">{{status}}</div>
+              <div class="introbutton" style="width:70%; margin-left: 10%; text-align: center" ng-click="startTest()">{{status}}</div>
             </div>
           </div>
         </div>

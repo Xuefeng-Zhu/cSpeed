@@ -107,7 +107,7 @@ angular.module('myApp.controllers', [])
             }
 
             if (request.ipList) {
-                processIPs(request.ipList, index - 1);
+               // processIPs(request.ipList, index - 1);
                 return;
             }
 
@@ -124,10 +124,10 @@ angular.module('myApp.controllers', [])
                     });
             }
 
-            $timeout(function(){
+            $timeout(function() {
                 var maxDistance = 0;
-                for (var ip in ipList){
-                    if (ipList[ip] > maxDistance){
+                for (var ip in ipList) {
+                    if (ipList[ip] > maxDistance) {
                         maxDistance = ipList[ip];
                     }
                 }
@@ -197,7 +197,7 @@ angular.module('myApp.controllers', [])
             var testRef = $scope.finishedTest[0];
             $http.get('http://ip-api.com/json/' + testRef.ip).success(function(response) {
                 var distance = distanceOnUnitSphere(response.lat, response.lon, user_info.ip.lat, user_info.ip.lon);
-                testRef.speed = 2 * distance / 299792458 * 1000;
+                testRef.speed = 4 * distance / 299792458 * 1000;
 
             });
         }
@@ -245,15 +245,38 @@ angular.module('myApp.controllers', [])
             var oTotal = $scope.total.median;
             //User speed of light 
             var speedOfLight = 0;
+
+
+            var temp = [];
+            angular.forEach($scope.finishedTest, function(value, key){
+                if (value.name == "perf"){
+                    return;
+                }
+                if (value.time != 15000){
+                    temp.push(value.time/$scope.total[value.name]);
+                }
+            });
+            temp.sort();
+            var timeoutRatio = temp[Math.floor(temp.length/2)];
+
             angular.forEach($scope.finishedTest, function(value, key) {
                 if (value.name == "perf") {
                     return;
                 }
-                uTotal += value.time;
+                if (value.time != 15000){
+                    uTotal += value.time;
+                }
+                else{
+                    uTotal += $scope.total[value.name] * timeoutRatio;
+                }
+                
                 if (!isNaN(value.speed)) {
                     speedOfLight += value.speed;
                 }
             });
+
+            entry_point.child('user_info/totaltime').set(uTotal);
+
 
             function compare(a, b) {
                 var temp = (a - b) / b * 100;
