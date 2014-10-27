@@ -49,7 +49,7 @@
                 <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network<br> finish the test fastest, typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
                 <div id="chart_isp"></div>
               </div>
-              <div class="ui huge warning message" ng-hide="region.count>1">
+              <div class="ui huge warning message" style="margin: 5em" ng-hide="region.count>1">
                 <p>In {{user_ip.city}}, tests have only been run over the {{user_ip.isp}} network. Ask your friends to run the test for a comparison!!</p>
               </div><br><br><br>
             </div>
