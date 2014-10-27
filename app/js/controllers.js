@@ -245,36 +245,15 @@ angular.module('myApp.controllers', [])
             var oTotal = $scope.total.median;
             //User speed of light 
             var speedOfLight = 0;
-
-            var temp = [];
-            angular.forEach($scope.finishedTest, function(value, key){
-                if (value.name == "perf"){
-                    return;
-                }
-                if (value.time != 15000){
-                    temp.push(value.time/$scope.total[value.name]);
-                }
-            });
-            temp.sort();
-            var timeoutRatio = temp[temp.length() / 2];
-
             angular.forEach($scope.finishedTest, function(value, key) {
                 if (value.name == "perf") {
                     return;
                 }
-                if (value.time != 15000){
-                    uTotal += value.time;
-                }
-                else{
-                    uTotal += $scope.total[value.name] * timeoutRatio;
-                }
-                
+                uTotal += value.time;
                 if (!isNaN(value.speed)) {
                     speedOfLight += value.speed;
                 }
             });
-            entry_point.child('user_info/totaltime').set(uTotal);
-
 
             function compare(a, b) {
                 var temp = (a - b) / b * 100;
