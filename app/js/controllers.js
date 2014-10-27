@@ -157,7 +157,7 @@ angular.module('myApp.controllers', [])
                     $scope.currentTest = undefined;
                     $("#currentTest").text("Finish");
                     $scope.$broadcast('timer-stop');
-                    $scope.status = "Run Again";
+                    $scope.status = "Run cSpeed again";
                     finalizeTest();
                 });
                 // Run the tests
