@@ -53,17 +53,17 @@ var grades = {
     'A': {
         'letter': 'A',
         'color': 'red',
-        'comment': 'Fast! Your browsing experience is fast in comparison to both users globally, and in your city.'
+        'comment': 'Pretty fast. Your browsing experience is fast in comparison to both users globally, and in your city.'
     },
     'A1': {
         'letter': 'A+',
         'color': 'red',
-        'comment': 'Super-fast! Your browsing experience is fast in comparison to both users globally, and in your city.'
+        'comment': 'Spiffy! Your browsing experience is fast in comparison to both users globally, and in your city.'
     },
     'B': {
         'letter': 'B',
         'color': 'green',
-        'comment': 'Satisfactory. While your browsing experience is not spectacularly fast, users in your city may not have much choice.'
+        'comment': 'Satisfactory.'
     },
     'B1': {
         'letter': 'B',
@@ -73,7 +73,7 @@ var grades = {
     'C': {
         'letter': 'C',
         'color': 'blue',
-        'comment': 'Meh. Your browsing experience is not quite fast. Unfortunately, you might not have much choice; this is probably just about your location.'
+        'comment': 'Meh. Your browsing experience is not quite fast.'
     },
     'C1': {
         'letter': 'C',
@@ -83,12 +83,12 @@ var grades = {
     'D1': {
         'letter': 'D',
         'color': 'grey',
-        'comment': 'Pretty slow. Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
+        'comment': 'Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
     },
     'D': {
         'letter': 'D',
         'color': 'grey',
-        'comment': 'Pretty slow. Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
+        'comment': 'Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
     }
 }
 
