@@ -322,7 +322,7 @@ angular.module('myApp.controllers', [])
                 temp = [];
             }
             if (temp.length == 10) {
-                a.shift();
+                temp.shift();
             }
             temp.push({
                 user_info: user_info,
