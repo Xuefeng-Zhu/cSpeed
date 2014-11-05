@@ -2,7 +2,7 @@
 /* Controllers */
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase("https://speedtes2.firebaseio.com"); //firebase reference
+        var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
         var entry_point = null;
@@ -39,7 +39,7 @@ angular.module('myApp.controllers', [])
                 $scope.$digest();
             });
         }).error(function() {
-            alert("Problem connecting with our geolocation service. Disabling other extensions or trying again later might help.")
+            alert("Failed to launch correctly: (a) check your network connectivity; (b) try disabling other extensions; (c) try again later.")
         });
         $scope.startTest = function() {
             if ($scope.currentTest) {
@@ -157,7 +157,7 @@ angular.module('myApp.controllers', [])
                     $scope.currentTest = undefined;
                     $("#currentTest").text("Finish");
                     $scope.$broadcast('timer-stop');
-                    $scope.status = "Run Again";
+                    $scope.status = "Run cSpeed again";
                     finalizeTest();
                 });
                 // Run the tests
@@ -307,8 +307,8 @@ angular.module('myApp.controllers', [])
             ];
 
             data1.push(['Your result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
-            data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + " users)"]);
-            data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " users)"]);
+            data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + " tests)"]);
+            data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " tests)"]);
             data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
 
             //find max data
@@ -322,7 +322,7 @@ angular.module('myApp.controllers', [])
                 temp = [];
             }
             if (temp.length == 10) {
-                a.shift();
+                temp.shift();
             }
             temp.push({
                 user_info: user_info,
@@ -358,7 +358,7 @@ angular.module('myApp.controllers', [])
                         fastest = key;
                     }
                     $scope.region.count += 1;
-                    data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s (" + value.count + " users)"]);
+                    data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s (" + value.count + " tests)"]);
                 }
             });
 
@@ -389,38 +389,36 @@ angular.module('myApp.controllers', [])
             $('.selection.dropdown').dropdown();
 
             //Evaluate the grade for network
-            if (fastest == null) {
-                var isUsingFastestISP = true;
-                var regionMedianRatio  = 1;
-            } else {
-                var isUsingFastestISP = user_info.ip.isp == fastest;
-                var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
-                var regionMedianRatio = uTotal / fastestISPMedian;
-            }
             var globalMedianRatio = uTotal / oTotal;
-
-            if (isUsingFastestISP) {
-                if (globalMedianRatio > 2) $scope.report.grade = 'D1';
+            if (fastest == null) {
+                if (globalMedianRatio > 2) $scope.report.grade = 'D';
                 else if (globalMedianRatio > 1.5) $scope.report.grade = 'C1';
-                else if (globalMedianRatio > 1.2) $scope.report.grade = 'B1';
-                else if (globalMedianRatio > 0.9) $scope.report.grade = 'A';
+                else if (globalMedianRatio > 0.95) $scope.report.grade = 'B1';
                 else $scope.report.grade = 'A1';
             } else {
-                if (regionMedianRatio > 1.5) {
-                    if (globalMedianRatio > 1.5) $scope.report.grade = 'D1';
-                    else $scope.report.grade = 'C1'; // C1 means switching ISP could help (while C => probably not)
-                } else if (regionMedianRatio > 1.15 && regionMedianRatio <= 1.5) {
-                    if (globalMedianRatio > 1.25) $scope.report.grade = 'C1';
-                    else $scope.report.grade = 'B1'; // B1 means switching ISP could help (while B => probably not)
-                } else if (regionMedianRatio > 0.9 && regionMedianRatio <= 1.15) {
-                    if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
-                    else if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
-                    else $scope.report.grade = 'A';
-                } else {
-                    if (globalMedianRatio > 1.25) $scope.report.grade = 'B';
-                    else $scope.report.grade = 'A';
-                }
-            }
+		    var isUsingFastestISP = user_info.ip.isp == fastest;
+		    var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
+		    var regionMedianRatio = uTotal / fastestISPMedian;
+
+		    if (isUsingFastestISP) {
+			    if (globalMedianRatio > 2) $scope.report.grade = 'D';
+			    else if (globalMedianRatio > 1.5) $scope.report.grade = 'C1';
+			    else if (globalMedianRatio > 0.95) $scope.report.grade = 'B1';
+			    else $scope.report.grade = 'A';
+		    } else {
+			    if (regionMedianRatio > 1.5) {
+				    if (globalMedianRatio > 1.5) $scope.report.grade = 'D';
+				    else $scope.report.grade = 'C'; 
+			    } else if (regionMedianRatio > 1.05 && regionMedianRatio <= 1.5) {
+				    if (globalMedianRatio > 1.2) $scope.report.grade = 'C';
+				    else $scope.report.grade = 'B';
+			    } else {
+				    if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
+				    else if (globalMedianRatio > 1) $scope.report.grade = 'B';
+				    else $scope.report.grade = 'A';
+			    }
+		    }
+	    }
         }
 
         //draw bar graph for speed comparasion 
