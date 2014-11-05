@@ -2,7 +2,7 @@
 /* Controllers */
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase("https://speedtes2.firebaseio.com"); //firebase reference
+        var fb = new Firebase('https://speedtes2.firebaseio.com'); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
         var entry_point = null;
@@ -11,17 +11,17 @@ angular.module('myApp.controllers', [])
         $scope.grades = grades;
         $scope.total = null; //total speed statics
         $scope.region = null; //speed statics in same region
-        $scope.status = "Run cSpeed to find out!";
+        $scope.status = 'Run cSpeed to find out!';
         //load statics to total
-        fb.child("total").once("value", function(dataSnapshot) {
+        fb.child('total').once('value', function(dataSnapshot) {
             $scope.total = dataSnapshot.val();
             $scope.$digest();
         });
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             //map city
-            if (response.city == "") {
-                response.city = prompt("We cannot locate your city. Please input manually");
+            if (response.city == '') {
+                response.city = prompt('We cannot locate your city. Please input manually');
             }
             if (sisterCity[response.city]) {
                 response.city = sisterCity[response.city];
@@ -34,12 +34,12 @@ angular.module('myApp.controllers', [])
                 width: window.outerWidth
             }
             $scope.user_ip = response;
-            fb.child("region/" + response.city).once("value", function(dataSnapshot) {
+            fb.child('region/' + response.city).once('value', function(dataSnapshot) {
                 $scope.region = dataSnapshot.val();
                 $scope.$digest();
             });
         }).error(function() {
-            alert("Failed to launch correctly: (a) check your network connectivity; (b) try disabling other extensions; (c) try again later.")
+            alert('Failed to launch correctly: (a) check your network connectivity; (b) try disabling other extensions; (c) try again later.')
         });
         $scope.startTest = function() {
             if ($scope.currentTest) {
@@ -60,10 +60,10 @@ angular.module('myApp.controllers', [])
             }, function(tab) {
                 $scope.currentTest.tab = tab;
                 chrome.tabs.executeScript(tab.id, {
-                    file: "js/helper.js"
+                    file: 'js/helper.js'
                 })
             });
-            $scope.status = "Test is running"
+            $scope.status = 'Test is running';
         }
         //update individual timer in real time
         $scope.$on('timer-tick', function(event, args) {
@@ -73,10 +73,13 @@ angular.module('myApp.controllers', [])
             $scope.$digest()
             if (args.millis >= 15000) {
                 $scope.currentTest.time = 15000;
-                $scope.upData[$scope.currentTest["name"]] = {
+                if ($scope.currentTest['name'] == 'perf'){
+                    return;
+                }
+                $scope.upData[$scope.currentTest['name']] = {
                     time: {
-                        status: "timeout",
-                        loadEventEnd: $scope.total[$scope.currentTest["name"]],
+                        status: 'timeout',
+                        loadEventEnd: $scope.total[$scope.currentTest['name']],
                         navigationStart: 0
                     },
                     ip: $scope.finishedTest[index].ip
@@ -131,9 +134,9 @@ angular.module('myApp.controllers', [])
             //check if the test is at the end
             if (index == $scope.tests.length) {
                 $scope.currentTest = {
-                    'name': 'perf',
-                    'showName': 'Javascript compute test',
-                    'link': 'Perfomance test. Please wait.'
+                    name: 'perf',
+                    showName: 'Javascript compute test',
+                    link: 'Perfomance test. Please wait.'
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
                 $scope.$broadcast('timer-start');
@@ -145,9 +148,9 @@ angular.module('myApp.controllers', [])
                     $scope.currentTest.time = test.time * 1000;
                     user_info.performance = test.time * 1000;
                     $scope.currentTest = undefined;
-                    $("#currentTest").text("Finish");
+                    $('#currentTest').text('Finish');
                     $scope.$broadcast('timer-stop');
-                    $scope.status = "Run cSpeed again";
+                    $scope.status = 'Run cSpeed again';
                     finalizeTest();
                 });
                 // Run the tests
@@ -165,7 +168,7 @@ angular.module('myApp.controllers', [])
             }, function(tab) {
                 $scope.currentTest.tab = tab;
                 chrome.tabs.executeScript(tab.id, {
-                    file: "js/helper.js"
+                    file: 'js/helper.js'
                 })
             });
             $scope.$digest();
@@ -177,7 +180,7 @@ angular.module('myApp.controllers', [])
                 data: object containing timing and resource
         */
         function loadResult(index, data) {
-            $scope.upData[$scope.tests[index]["name"]] = {
+            $scope.upData[$scope.tests[index]['name']] = {
                 time: data.time,
                 ip: $scope.finishedTest[index].ip
             };
@@ -239,7 +242,7 @@ angular.module('myApp.controllers', [])
 
             var temp = [];
             angular.forEach($scope.finishedTest, function(value, key){
-                if (value.name == "perf"){
+                if (value.name == 'perf'){
                     return;
                 }
                 if (value.time != 15000){
@@ -250,7 +253,7 @@ angular.module('myApp.controllers', [])
             var timeoutRatio = temp[Math.floor(temp.length/2)];
 
             angular.forEach($scope.finishedTest, function(value, key) {
-                if (value.name == "perf") {
+                if (value.name == 'perf') {
                     return;
                 }
                 if (value.time != 15000){
@@ -272,18 +275,18 @@ angular.module('myApp.controllers', [])
                 var temp = (a - b) / b * 100;
                 temp = Math.round(temp);
                 return temp >= 0 ? {
-                    "key": "more time",
-                    "value": temp
+                    key: 'more time',
+                    value: temp
                 } : {
-                    "key": "less time",
-                    "value": -temp
+                    key: "less time",
+                    value: -temp
                 }
             }
             var comparation = compare(uTotal, oTotal);
-            $scope.report["summary"] = {
-                "uTotal": Math.round(uTotal) / 1000,
-                "oTotal": Math.round(oTotal) / 1000,
-                "comparation": comparation,
+            $scope.report['summary'] = {
+                uTotal: Math.round(uTotal) / 1000,
+                oTotal: Math.round(oTotal) / 1000,
+                comparation: comparation,
             }
 
             //draw overview graph
@@ -296,12 +299,12 @@ angular.module('myApp.controllers', [])
                 }]
             ];
 
-            data1.push(['Your result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
-            data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + " tests)"]);
+            data1.push(['Your result', parseFloat($filter('number')(uTotal / 1000, 1)), 'blueviolet', parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
+            data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), 'lightGray', parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + ' tests)']);
             if ($scope.region){
-                data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " tests)"]);
+                data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), 'lightGray', parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " tests)"]);
             }
-            data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
+            data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), 'lightGray', parseFloat($filter('number')(speedOfLight / 1000, 3)) + 's']);
 
             //find max data
             for (var i = 1; i < data1.length; i++) {
@@ -333,8 +336,8 @@ angular.module('myApp.controllers', [])
 
             if ($scope.region && $scope.region[user_info.ip.isp] == undefined) {
                 $scope.region[user_info.ip.isp] = {
-                    "median": uTotal,
-                    "count": 1
+                    median: uTotal,
+                    count: 1
                 }
             }
 
@@ -342,13 +345,13 @@ angular.module('myApp.controllers', [])
             var fastest = null;
 
             angular.forEach($scope.region, function(value, key) {
-                if (key != "count" && key != "median") {
+                if (key != 'count' && key != 'median') {
                     if (fastest == null) {
                         fastest = key;
                     } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
-                    data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s (" + value.count + " tests)"]);
+                    data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? 'blueviolet' : 'lightGray', parseFloat($filter('number')(value.median / 1000, 1)) + 's (' + value.count + ' tests)']);
                 }
             });
 
@@ -364,7 +367,7 @@ angular.module('myApp.controllers', [])
             //Get speed comparation value 
             comparation = compare(uTotal, $scope.region.median);
             var fastestComparation = compare($scope.region[fastest].median, uTotal);
-            $scope.report["region"] = {
+            $scope.report['region'] = {
                 fastest: fastest,
                 comparation: comparation,
                 fastestComparation: fastestComparation,
@@ -419,7 +422,7 @@ angular.module('myApp.controllers', [])
             var options = {
                 title: title,
                 legend: {
-                    position: "none"
+                    position: 'none'
                 },
                 bar: {
                     groupWidth: '70%'
@@ -433,14 +436,14 @@ angular.module('myApp.controllers', [])
                     }
                 },
                 height: d.length * 40,
-                width: window.outerWidth - 200 - 4 * parseInt($(".message").css("padding")),
+                width: window.outerWidth - 200 - 4 * parseInt($('.message').css('padding')),
                 chartArea: {
-                    top: "5%",
+                    top: '5%',
                     left: '35%',
                     width: '60%',
                     height: '100%'
                 },
-                enableInteractivity: "false",
+                enableInteractivity: 'false',
                 tooltip: {
                     trigger: 'none'
                 },
@@ -454,7 +457,7 @@ angular.module('myApp.controllers', [])
 
         //show past results
         $scope.showHistory = function() {
-            $scope.modal = "partials/history.html";
+            $scope.modal = 'partials/history.html';
             $timeout(function() {
                 $('.history.modal').modal('show');
                 var isps = {};
@@ -467,7 +470,7 @@ angular.module('myApp.controllers', [])
                         ]
                     }
                 });
-                var columns = ["time"];
+                var columns = ['time'];
                 for (var isp in isps) {
                     columns.push(isp);
                 }
@@ -520,28 +523,28 @@ angular.module('myApp.controllers', [])
 
         //show timeline for individual test result
         $scope.showResource = function(test) {
-            if (test.name == "perf") {
+            if (test.name == 'perf') {
                 return;
             }
             chrome.tabs.create({
-                url: "timeline.html",
+                url: 'timeline.html',
                 active: true
             }, function(tab) {
                 var message = [{
-                    "label": "Network Requests",
-                    "start": 0,
-                    "end": test.data.time.loadEventEnd - test.data.time.navigationStart,
-                    "className": "network"
+                    label: 'Network Requests',
+                    start: 0,
+                    end: test.data.time.loadEventEnd - test.data.time.navigationStart,
+                    className: 'network'
                 }];
                 var resource = test.data.resource;
                 for (var i in resource) {
                     var temp = purl(resource[i].name);
                     var data = {
-                        "label": temp.attr('file') == "" ? temp.attr("path") : temp.attr('file'),
-                        "start": Math.round(resource[i].fetchStart),
-                        "end": Math.round(resource[i].responseEnd),
-                        "className": resource[i].initiatorType,
-                        "parent": 0
+                        label: temp.attr('file') == "" ? temp.attr('path') : temp.attr('file'),
+                        start: Math.round(resource[i].fetchStart),
+                        end: Math.round(resource[i].responseEnd),
+                        className: resource[i].initiatorType,
+                        parent: 0
                     }
                     message.push(data);
                 }
