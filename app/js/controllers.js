@@ -73,9 +73,6 @@ angular.module('myApp.controllers', [])
             $scope.$digest()
             if (args.millis >= 15000) {
                 $scope.currentTest.time = 15000;
-                if ($scope.currentTest['name'] == 'perf'){
-                    return;
-                }
                 $scope.upData[$scope.currentTest['name']] = {
                     time: {
                         status: 'timeout',
@@ -133,13 +130,13 @@ angular.module('myApp.controllers', [])
             index++;
             //check if the test is at the end
             if (index == $scope.tests.length) {
+                $scope.$broadcast('timer-stop');
                 $scope.currentTest = {
                     name: 'perf',
                     showName: 'Javascript compute test',
                     link: 'Perfomance test. Please wait.'
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
-                $scope.$broadcast('timer-start');
                 var a50m = new Array(5e7);
                 jslitmus.test('Join 50M', function() {
                     a50m.join(' ');
@@ -149,7 +146,6 @@ angular.module('myApp.controllers', [])
                     user_info.performance = test.time * 1000;
                     $scope.currentTest = undefined;
                     $('#currentTest').text('Finish');
-                    $scope.$broadcast('timer-stop');
                     $scope.status = 'Run cSpeed again';
                     finalizeTest();
                 });
