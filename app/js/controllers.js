@@ -51,29 +51,19 @@ angular.module('myApp.controllers', [])
             $scope.upData = {};
             $scope.report = {};
             $scope.finishedTest = [];
-            //clear cache and open new tab for test site
-            var millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
-            var oneWeekAgo = (new Date()).getTime() - millisecondsPerWeek;
-            chrome.browsingData.removeCache({
-                "since": oneWeekAgo,
-                "originTypes": {
-                    "protectedWeb": true
-                }
-            }, function() {
-                $scope.$broadcast('timer-start');
-                $scope.finishedTest.push($scope.currentTest);
-                $scope.$digest();
-                chrome.tabs.create({
-                    url: $scope.currentTest.link,
-                    active: false
-                }, function(tab) {
-                    $scope.currentTest.tab = tab;
-                    chrome.tabs.executeScript(tab.id, {
-                        file: "js/helper.js"
-                    })
-                });
-                $scope.status = "Test is running"
+
+            $scope.$broadcast('timer-start');
+            $scope.finishedTest.push($scope.currentTest);
+            chrome.tabs.create({
+                url: $scope.currentTest.link,
+                active: false
+            }, function(tab) {
+                $scope.currentTest.tab = tab;
+                chrome.tabs.executeScript(tab.id, {
+                    file: "js/helper.js"
+                })
             });
+            $scope.status = "Test is running"
         }
         //update individual timer in real time
         $scope.$on('timer-tick', function(event, args) {
