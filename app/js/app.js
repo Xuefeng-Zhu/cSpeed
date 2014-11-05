@@ -24,27 +24,27 @@ var tests = [
 //{'link': 'https://www.bankofamerica.com/', 'name': 'bankofamerica', 'showName': 'www.bankofamerica.com'} ,
 //{'link': 'https://www.chase.com/', 'name': 'chase', 'showName': 'www.chase.com'} ,
 //{'link': 'https://www.conduit.com/', 'name': 'conduit', 'showName': 'www.conduit.com'} ,
-{'link': 'http://coccoc.com/', 'name': 'coccoc', 'showName': 'coccoc.com'} ,
-//{'link': 'https://www.flickr.com/', 'name': 'flickr', 'showName': 'www.flickr.com'} ,
-//{'link': 'https://www.go.com/', 'name': 'go', 'showName': 'www.go.com'} ,
-{'link': 'https://www.godaddy.com/', 'name': 'godaddy', 'showName': 'www.godaddy.com'} ,
-{'link': 'https://www.google.com/', 'name': 'google', 'showName': 'www.google.com'} ,
-//{'link': 'https://www.hootsuite.com/', 'name': 'hootsuite', 'showName': 'www.hootsuite.com'} ,
- {'link': 'https://www.hostgator.com/', 'name': 'hostgator', 'showName': 'www.hostgator.com'} ,
- {'link': 'https://www.instagram.com/', 'name': 'instagram', 'showName': 'www.instagram.com'} ,
- {'link': 'https://www.mailchimp.com/', 'name': 'mailchimp', 'showName': 'www.mailchimp.com'} ,
- {'link': 'https://www.microsoft.com/', 'name': 'microsoft', 'showName': 'www.microsoft.com'} ,
- {'link': 'https://www.mozilla.org/', 'name': 'mozilla', 'showName': 'www.mozilla.org'} ,
- {'link': 'https://www.netflix.com', 'name': 'netflix', 'showName': 'www.netflix.com'} ,
- {'link': 'https://www.outbrain.com/', 'name': 'outbrain', 'showName': 'www.outbrain.com'} ,
-//{'link': 'https://www.paypal.com/home', 'name': 'paypal', 'showName': 'www.paypal.com'} ,
- {'link': 'https://www.salesforce.com/', 'name': 'salesforce', 'showName': 'www.salesforce.com'} ,
-//{'link': 'https://www.stackoverflow.com/', 'name': 'stackoverflow', 'showName': 'www.stackoverflow.com'} ,
-{'link': 'https://www.stumbleupon.com/', 'name': 'stumbleupon', 'showName': 'www.stumbleupon.com'} ,
-{'link': 'https://www.vimeo.com/', 'name': 'vimeo', 'showName': 'www.vimeo.com'} ,
-//{'link': 'https://www.w3schools.com/', 'name': 'w3schools', 'showName': 'www.w3schools.com'} ,
-{'link': 'https://www.wikipedia.org/', 'name': 'wikipedia', 'showName': 'www.wikipedia.org'} ,
-{'link': 'https://www.wordpress.com/', 'name': 'wordpress', 'showName': 'www.wordpress.com'}
+// {'link': 'http://coccoc.com/', 'name': 'coccoc', 'showName': 'coccoc.com'} ,
+// //{'link': 'https://www.flickr.com/', 'name': 'flickr', 'showName': 'www.flickr.com'} ,
+// //{'link': 'https://www.go.com/', 'name': 'go', 'showName': 'www.go.com'} ,
+// {'link': 'https://www.godaddy.com/', 'name': 'godaddy', 'showName': 'www.godaddy.com'} ,
+// {'link': 'https://www.google.com/', 'name': 'google', 'showName': 'www.google.com'} ,
+// //{'link': 'https://www.hootsuite.com/', 'name': 'hootsuite', 'showName': 'www.hootsuite.com'} ,
+//  {'link': 'https://www.hostgator.com/', 'name': 'hostgator', 'showName': 'www.hostgator.com'} ,
+//  {'link': 'https://www.instagram.com/', 'name': 'instagram', 'showName': 'www.instagram.com'} ,
+//  {'link': 'https://www.mailchimp.com/', 'name': 'mailchimp', 'showName': 'www.mailchimp.com'} ,
+//  {'link': 'https://www.microsoft.com/', 'name': 'microsoft', 'showName': 'www.microsoft.com'} ,
+//  {'link': 'https://www.mozilla.org/', 'name': 'mozilla', 'showName': 'www.mozilla.org'} ,
+//  {'link': 'https://www.netflix.com', 'name': 'netflix', 'showName': 'www.netflix.com'} ,
+//  {'link': 'https://www.outbrain.com/', 'name': 'outbrain', 'showName': 'www.outbrain.com'} ,
+// //{'link': 'https://www.paypal.com/home', 'name': 'paypal', 'showName': 'www.paypal.com'} ,
+//  {'link': 'https://www.salesforce.com/', 'name': 'salesforce', 'showName': 'www.salesforce.com'} ,
+// //{'link': 'https://www.stackoverflow.com/', 'name': 'stackoverflow', 'showName': 'www.stackoverflow.com'} ,
+// {'link': 'https://www.stumbleupon.com/', 'name': 'stumbleupon', 'showName': 'www.stumbleupon.com'} ,
+// {'link': 'https://www.vimeo.com/', 'name': 'vimeo', 'showName': 'www.vimeo.com'} ,
+// //{'link': 'https://www.w3schools.com/', 'name': 'w3schools', 'showName': 'www.w3schools.com'} ,
+// {'link': 'https://www.wikipedia.org/', 'name': 'wikipedia', 'showName': 'www.wikipedia.org'} ,
+// {'link': 'https://www.wordpress.com/', 'name': 'wordpress', 'showName': 'www.wordpress.com'}
 //{'link': 'https://www.wordpress.org/', 'name': 'wordpress', 'showName': 'www.wordpress.org'} ,
 //{'link': 'https://www.zillow.com/', 'name': 'zillow', 'showName': 'www.zillow.com'}
 ];
@@ -53,29 +53,17 @@ var grades = {
     'A': {
         'letter': 'A',
         'color': 'red',
-<<<<<<< HEAD
-        'comment': 'Pretty fast. Your browsing experience is fast in comparison to both users globally, and in your city.'
-=======
         'comment': 'Pretty fast. Your browsing experience compares favorably to both users globally, and in your city.'
->>>>>>> 7044218bc218a354dc3948b8db10752902522845
     },
     'A1': {
         'letter': 'A',
         'color': 'red',
-<<<<<<< HEAD
-        'comment': 'Spiffy! Your browsing experience is fast in comparison to both users globally, and in your city.'
-=======
         'comment': 'Pretty fast. Your browsing experience compares favorably to users globally. We have not seen tests run from any network other than yours in your city, though.'
->>>>>>> 7044218bc218a354dc3948b8db10752902522845
     },
     'B': {
         'letter': 'B',
         'color': 'green',
-<<<<<<< HEAD
-        'comment': 'Satisfactory.'
-=======
         'comment': 'Satisfactory. You should still run the test over other networks in your area for comparison.'
->>>>>>> 7044218bc218a354dc3948b8db10752902522845
     },
     'B1': {
         'letter': 'B',
@@ -85,34 +73,17 @@ var grades = {
     'C1': {
         'letter': 'C',
         'color': 'blue',
-<<<<<<< HEAD
-        'comment': 'Meh. Your browsing experience is not quite fast.'
-=======
         'comment': 'Meh. Your browsing experience is not quite fast. However, so far, we have not seen typical users of other networks in your city finish the test much faster. Try running the test over other networks.'
->>>>>>> 7044218bc218a354dc3948b8db10752902522845
     },
     'C': {
         'letter': 'C',
         'color': 'blue',
-<<<<<<< HEAD
-        'comment': 'Meh. Your browsing experience is not quite fast. You should check if other ISPs in your area are faster.'
-    },
-    'D1': {
-        'letter': 'D',
-        'color': 'grey',
-        'comment': 'Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
-=======
         'comment': 'Meh. Your browsing experience is not quite fast. A variety of factors could be involved, but you should check if other networks in your area are faster.'
->>>>>>> 7044218bc218a354dc3948b8db10752902522845
     },
     'D': {
         'letter': 'D',
         'color': 'grey',
-<<<<<<< HEAD
-        'comment': 'Your browsing experience is quite slow. Some of it might be due to your location, but you should check if other ISPs in your area are faster.'
-=======
         'comment': 'Pretty slow. Your browsing experience is quite slow. A variety of factors could be involved, but you should check if other networks in your area are faster.'
->>>>>>> 7044218bc218a354dc3948b8db10752902522845
     }
 }
 
@@ -126,7 +97,7 @@ var sisterCity = {
     "Bloomington": "Bloomington-Normal",
     "Normal": "Bloomington-Normal",
     "Boston": "Boston-Cambridge",
-    "Cambridge": "Boston-Cambridge"	// How do we differentiate this Cambridge from Cambridge, UK?
+    "Cambridge": "Boston-Cambridge" // How do we differentiate this Cambridge from Cambridge, UK?
 }
 
 google.load("visualization", "1", {

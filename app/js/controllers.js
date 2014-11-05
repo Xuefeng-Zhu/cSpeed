@@ -2,7 +2,7 @@
 /* Controllers */
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase("https://speedtest.firebaseio.com"); //firebase reference
+        var fb = new Firebase("https://speedtes2.firebaseio.com"); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
         var entry_point = null;
@@ -308,7 +308,9 @@ angular.module('myApp.controllers', [])
 
             data1.push(['Your result', parseFloat($filter('number')(uTotal / 1000, 1)), "blueviolet", parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
             data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), "lightGray", parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + " tests)"]);
-            data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " tests)"]);
+            if ($scope.region){
+                data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), "lightGray", parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " tests)"]);
+            }
             data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), "lightGray", parseFloat($filter('number')(speedOfLight / 1000, 3)) + "s"]);
 
             //find max data
@@ -339,7 +341,7 @@ angular.module('myApp.controllers', [])
                 }]
             ];
 
-            if ($scope.region[user_info.ip.isp] == undefined) {
+            if ($scope.region && $scope.region[user_info.ip.isp] == undefined) {
                 $scope.region[user_info.ip.isp] = {
                     "median": uTotal,
                     "count": 1
@@ -348,7 +350,6 @@ angular.module('myApp.controllers', [])
 
             //the fastest ip in user region
             var fastest = null;
-            $scope.region.count = 0;
 
             angular.forEach($scope.region, function(value, key) {
                 if (key != "count" && key != "median") {
@@ -357,7 +358,6 @@ angular.module('myApp.controllers', [])
                     } else if ($scope.region[fastest].median > value.median) {
                         fastest = key;
                     }
-                    $scope.region.count += 1;
                     data2.push([key, parseFloat($filter('number')(value.median / 1000, 1)), user_info.ip.isp == key ? "blueviolet" : "lightGray", parseFloat($filter('number')(value.median / 1000, 1)) + "s (" + value.count + " tests)"]);
                 }
             });
