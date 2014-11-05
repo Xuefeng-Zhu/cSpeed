@@ -70,7 +70,9 @@ angular.module('myApp.controllers', [])
             //$scope.currentTest.time = args.millis / 1.5;
             if (args.millis < 1000) $scope.currentTest.time = 0;
             else $scope.currentTest.time = args.millis - 1000;
-            $scope.$digest()
+            if (!$scope.$$phase) {
+                $scope.$digest();
+            }
             if (args.millis >= 15000) {
                 $scope.currentTest.time = 15000;
                 $scope.upData[$scope.currentTest['name']] = {
@@ -97,7 +99,7 @@ angular.module('myApp.controllers', [])
             }
 
             if (request.ipList) {
-               // processIPs(request.ipList, index - 1);
+                // processIPs(request.ipList, index - 1);
                 return;
             }
 
@@ -237,28 +239,27 @@ angular.module('myApp.controllers', [])
 
 
             var temp = [];
-            angular.forEach($scope.finishedTest, function(value, key){
-                if (value.name == 'perf'){
+            angular.forEach($scope.finishedTest, function(value, key) {
+                if (value.name == 'perf') {
                     return;
                 }
-                if (value.time != 15000){
-                    temp.push(value.time/$scope.total[value.name]);
+                if (value.time != 15000) {
+                    temp.push(value.time / $scope.total[value.name]);
                 }
             });
             temp.sort();
-            var timeoutRatio = temp[Math.floor(temp.length/2)];
+            var timeoutRatio = temp[Math.floor(temp.length / 2)];
 
             angular.forEach($scope.finishedTest, function(value, key) {
                 if (value.name == 'perf') {
                     return;
                 }
-                if (value.time != 15000){
+                if (value.time != 15000) {
                     uTotal += value.time;
-                }
-                else{
+                } else {
                     uTotal += $scope.total[value.name] * timeoutRatio;
                 }
-                
+
                 if (!isNaN(value.speed)) {
                     speedOfLight += value.speed;
                 }
@@ -297,7 +298,7 @@ angular.module('myApp.controllers', [])
 
             data1.push(['Your result', parseFloat($filter('number')(uTotal / 1000, 1)), 'blueviolet', parseFloat($filter('number')(uTotal / 1000, 1)) + "s"]);
             data1.push(['Global users', parseFloat($filter('number')(oTotal / 1000, 1)), 'lightGray', parseFloat($filter('number')(oTotal / 1000, 1)) + "s (" + $scope.total.count + ' tests)']);
-            if ($scope.region){
+            if ($scope.region) {
                 data1.push([user_info.ip.city + " users", parseFloat($filter('number')($scope.region.median / 1000, 1)), 'lightGray', parseFloat($filter('number')($scope.region.median / 1000, 1)) + "s (" + $scope.region.count + " tests)"]);
             }
             data1.push(['Hypothetical speed-of-light Internet', parseFloat($filter('number')(speedOfLight / 1000, 3)), 'lightGray', parseFloat($filter('number')(speedOfLight / 1000, 3)) + 's']);
@@ -385,29 +386,29 @@ angular.module('myApp.controllers', [])
                 else if (globalMedianRatio > 0.95) $scope.report.grade = 'B1';
                 else $scope.report.grade = 'A1';
             } else {
-		    var isUsingFastestISP = user_info.ip.isp == fastest;
-		    var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
-		    var regionMedianRatio = uTotal / fastestISPMedian;
+                var isUsingFastestISP = user_info.ip.isp == fastest;
+                var fastestISPMedian = $scope.region[fastest].median; // use the fastest ISP in the region to compare
+                var regionMedianRatio = uTotal / fastestISPMedian;
 
-		    if (isUsingFastestISP) {
-			    if (globalMedianRatio > 2) $scope.report.grade = 'D';
-			    else if (globalMedianRatio > 1.5) $scope.report.grade = 'C1';
-			    else if (globalMedianRatio > 0.95) $scope.report.grade = 'B1';
-			    else $scope.report.grade = 'A';
-		    } else {
-			    if (regionMedianRatio > 1.5) {
-				    if (globalMedianRatio > 1.5) $scope.report.grade = 'D';
-				    else $scope.report.grade = 'C'; 
-			    } else if (regionMedianRatio > 1.05 && regionMedianRatio <= 1.5) {
-				    if (globalMedianRatio > 1.2) $scope.report.grade = 'C';
-				    else $scope.report.grade = 'B';
-			    } else {
-				    if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
-				    else if (globalMedianRatio > 1) $scope.report.grade = 'B';
-				    else $scope.report.grade = 'A';
-			    }
-		    }
-	    }
+                if (isUsingFastestISP) {
+                    if (globalMedianRatio > 2) $scope.report.grade = 'D';
+                    else if (globalMedianRatio > 1.5) $scope.report.grade = 'C1';
+                    else if (globalMedianRatio > 0.95) $scope.report.grade = 'B1';
+                    else $scope.report.grade = 'A';
+                } else {
+                    if (regionMedianRatio > 1.5) {
+                        if (globalMedianRatio > 1.5) $scope.report.grade = 'D';
+                        else $scope.report.grade = 'C';
+                    } else if (regionMedianRatio > 1.05 && regionMedianRatio <= 1.5) {
+                        if (globalMedianRatio > 1.2) $scope.report.grade = 'C';
+                        else $scope.report.grade = 'B';
+                    } else {
+                        if (globalMedianRatio > 1.5) $scope.report.grade = 'C';
+                        else if (globalMedianRatio > 1) $scope.report.grade = 'B';
+                        else $scope.report.grade = 'A';
+                    }
+                }
+            }
         }
 
         //draw bar graph for speed comparasion 
