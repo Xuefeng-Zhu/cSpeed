@@ -1218,7 +1218,7 @@
             sibling = null;
             script.text = code;
         }
-        parent.insertBefore(script, sibling);
+        // parent.insertBefore(script, sibling);
         delete anchor[prop];
     }
 
