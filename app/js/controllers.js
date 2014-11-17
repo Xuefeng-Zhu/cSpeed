@@ -139,21 +139,24 @@ angular.module('myApp.controllers', [])
                     link: 'Perfomance test. Please wait.'
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
-                var a50m = new Array(5e7);
-                jslitmus.test('Join 50M', function() {
-                    a50m.join(' ');
-                });
-                jslitmus.on('complete', function(test) {
-                    $scope.currentTest.time = test.time * 1000;
-                    user_info.performance = test.time * 1000;
+                var bench = new Benchmark({
+                    // benchmark name
+                    'name': 'join test',
+                    // benchmark test as a string
+                    'fn': 'new Array(5e7).join(" ")'
+                })
+                .on('complete', function(){
+                    $scope.currentTest.time = this.times.elapsed * 1000;
+                    user_info.performance = this.times.elapsed * 1000;
                     $scope.currentTest = undefined;
                     $('#currentTest').text('Finish');
                     $scope.status = 'Run cSpeed again';
+                    $scope.$digest();
                     finalizeTest();
                 });
                 // Run the tests
                 $timeout(function() {
-                    jslitmus.runAll();
+                    bench.run();
                 }, 100);
                 return;
             }
