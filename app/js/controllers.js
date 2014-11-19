@@ -23,7 +23,7 @@ angular.module('myApp.controllers', [])
             if ($scope.total == undefined){
                 alert("Sorry, our cloud database service is suffering an outage; please try again later");
             }
-        }, 1000)
+        }, 5000)
 
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
