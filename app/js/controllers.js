@@ -453,7 +453,7 @@ angular.module('myApp.controllers', [])
                 chartArea: {
                     top: '5%',
                     left: '35%',
-                    width: '60%',
+                    width: '50%',
                     height: '100%'
                 },
                 enableInteractivity: 'false',
