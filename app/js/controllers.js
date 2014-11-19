@@ -59,6 +59,7 @@ angular.module('myApp.controllers', [])
             $scope.upData = {};
             $scope.report = {};
             $scope.finishedTest = [];
+            $scope.selectedTest = null;
 
             $scope.$broadcast('timer-start');
             $scope.finishedTest.push($scope.currentTest);
