@@ -11,6 +11,7 @@ angular.module('myApp.controllers', [])
         $scope.grades = grades;
         $scope.total = null; //total speed statics
         $scope.region = null; //speed statics in same region
+        $scope.num_fail = 0; //number of tests time out 
         $scope.status = 'Run cSpeed to find out!';
         //load statics to total
         fb.child('total').once('value', function(dataSnapshot) {
@@ -81,6 +82,7 @@ angular.module('myApp.controllers', [])
                 $scope.$digest();
             }
             if (args.millis >= 15000) {
+                $scope.num_fail += 1
                 $scope.currentTest.time = 15000;
                 $scope.upData[$scope.currentTest['name']] = {
                     time: {
@@ -418,6 +420,10 @@ angular.module('myApp.controllers', [])
                         else $scope.report.grade = 'A';
                     }
                 }
+            }
+
+            if ($scope.num_fail / $scope.tests.length > 0.5){
+                $scope.report.grade = 'F';
             }
         }
 

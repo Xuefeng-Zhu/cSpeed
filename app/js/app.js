@@ -84,6 +84,11 @@ var grades = {
         'letter': 'D',
         'color': 'grey',
         'comment': 'Pretty slow. Your browsing experience is quite slow. A variety of factors could be involved, but you should check if other networks in your area are faster.'
+    },
+    'F': {
+        'letter': 'F',
+        'color': 'grey',
+        'comment': 'Indeterminate. too many timeouts!'
     }
 }
 
