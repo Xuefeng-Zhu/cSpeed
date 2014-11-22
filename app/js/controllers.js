@@ -375,7 +375,7 @@ angular.module('myApp.controllers', [])
             drawChart('chart_isp', '', data2, maxRange);
 
             //Get speed comparation value 
-            comparation = compare(uTotal, $scope.region.median);
+            comparation = compare(uTotal, $scope.region.median);	// TODO: Fix bug when median is undefined (no other tests in region)
             var fastestComparation = compare($scope.region[fastest].median, uTotal);
             $scope.report['region'] = {
                 fastest: fastest,
