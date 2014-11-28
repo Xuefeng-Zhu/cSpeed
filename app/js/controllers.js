@@ -280,6 +280,7 @@ angular.module('myApp.controllers', [])
                     uTotal += value.time;
                 } else {
                     uTotal += $scope.total[value.name] * timeoutRatio;
+                    entry_point.child([value.name, 'time', 'loadEventEnd'].join('/')).set($scope.total[value.name] * timeoutRatio);
                 }
 
                 if (!isNaN(value.speed)) {
