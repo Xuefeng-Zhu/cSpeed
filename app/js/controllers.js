@@ -475,105 +475,6 @@ angular.module('myApp.controllers', [])
             chart.draw(view, options);
         };
 
-        //show past results
-        $scope.showHistory = function() {
-            $scope.modal = 'partials/history.html';
-            $timeout(function() {
-                $('.history.modal').modal('show');
-                var isps = {};
-                angular.forEach($scope.history, function(value, key) {
-                    if (isps[value.user_info.ip.isp]) {
-                        isps[value.user_info.ip.isp].push([value.user_info.date, value.time]);
-                    } else {
-                        isps[value.user_info.ip.isp] = [
-                            [value.user_info.date, value.time]
-                        ]
-                    }
-                });
-                var columns = ['time'];
-                for (var isp in isps) {
-                    columns.push(isp);
-                }
-                var rows = [columns];
-                var count = 0;
-                for (var isp in isps) {
-                    var value = isps[isp];
-                    for (var test in value) {
-                        var temp = new Date(value[test][0]);
-                        var time;
-                        if (temp.getDay() < 10) {
-                            time = temp.getMonth() + 1 + '.0' + temp.getDay();
-                        } else {
-                            time = temp.getMonth() + 1 + '.' + temp.getDay();
-                        }
-                        var row = [parseFloat(time)];
-                        for (var i = 0; i < count; i++) {
-                            row.push(null);
-                        }
-                        row.push(value[test][1]);
-                        for (var i = 0; i < columns.length - count - 2; i++) {
-                            row.push(null);
-                        }
-                        rows.push(row);
-                    }
-                    count++;
-                }
-
-                //draw the scatter chart 
-                var data = google.visualization.arrayToDataTable(rows);
-                var options = {
-                    title: 'Previous Test Performance',
-                    hAxis: {
-                        title: 'Date'
-                    },
-                    vAxis: {
-                        title: 'Finish Time(seconds)'
-                    }
-                };
-
-                var chart = new google.visualization.ScatterChart(document.getElementById('chart_history'));
-                chart.draw(data, options);
-            }, 100);
-        };
-
-        //select individual test for showing menu 
-        // $scope.selectTest = function(test) {
-        //     $scope.selectedTest = $scope.selectedTest == test ? null : test;
-        // }
-
-        //show timeline for individual test result
-        $scope.showResource = function(test) {
-            if (test.name == 'perf') {
-                return;
-            }
-            chrome.tabs.create({
-                url: 'timeline.html',
-                active: true
-            }, function(tab) {
-                var message = [{
-                    label: 'Network Requests',
-                    start: 0,
-                    end: test.data.time.loadEventEnd - test.data.time.navigationStart,
-                    className: 'network'
-                }];
-                var resource = test.data.resource;
-                for (var i in resource) {
-                    var temp = purl(resource[i].name);
-                    var data = {
-                        label: temp.attr('file') == "" ? temp.attr('path') : temp.attr('file'),
-                        start: Math.round(resource[i].fetchStart),
-                        end: Math.round(resource[i].responseEnd),
-                        className: resource[i].initiatorType,
-                        parent: 0
-                    }
-                    message.push(data);
-                }
-                $timeout(function() {
-                    chrome.tabs.sendMessage(tab.id, message);
-                }, 100);
-            });
-        }
-
         $scope.submitFeedback = function() {
             $scope.fb.network = $('input[name="network"]:checked').val();
             $scope.fb.country = $('.selection.dropdown').dropdown('get value');
@@ -587,7 +488,4 @@ angular.module('myApp.controllers', [])
             }
         })
 
-        $scope.absDiff = function(t1, t2) {
-            return Math.abs(t1 - t2) > 1000
-        }
     });
