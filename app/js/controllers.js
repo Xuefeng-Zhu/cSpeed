@@ -230,7 +230,16 @@ angular.module('myApp.controllers', [])
             });
             //retrieve previous test result from localstorage
             $scope.history = store.get('history');
+
+            $scope.fb = {
+                city: user_info.ip.city,
+                region: user_info.ip.region,
+                country: user_info.ip.country
+            }
+            $('.selection.dropdown').dropdown();
+
             $scope.generateReport();
+
             // $('.test:not(:first)').popup({
             //     content: 'Click for more info'
             // });
@@ -383,13 +392,6 @@ angular.module('myApp.controllers', [])
                 fastestComparation: fastestComparation,
 
             }
-
-            $scope.fb = {
-                city: user_info.ip.city,
-                region: user_info.ip.region,
-                country: user_info.ip.country
-            }
-            $('.selection.dropdown').dropdown();
 
             //Evaluate the grade for network
             var globalMedianRatio = uTotal / oTotal;
