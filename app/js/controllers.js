@@ -363,9 +363,10 @@ angular.module('myApp.controllers', [])
 
             //the fastest ip in user region
             var fastest = null;
-
+            var count = 0;
             angular.forEach($scope.region, function(value, key) {
                 if (key != 'count' && key != 'median') {
+                    count += 1;
                     if (fastest == null) {
                         fastest = key;
                     } else if ($scope.region[fastest].median > value.median) {
@@ -394,7 +395,7 @@ angular.module('myApp.controllers', [])
                 fastest: fastest,
                 comparation: comparation,
                 fastestComparation: fastestComparation,
-
+                count: count
             }
 
             //Evaluate the grade for network
