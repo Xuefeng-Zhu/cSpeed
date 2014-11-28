@@ -88,13 +88,13 @@
         </div>
         <div class="ui compact pointing menu" ng-show="test==selectedTest">
           <a class="item" href={{test.link}} target="_blank">
-            <i class="url icon"></i> Acess Website
+            <i class="url icon"></i> Access Website
           </a>
           <a class="item" ng-click="showResource(test)">
             <i class="tasks icon"></i> View Timeline
           </a>
           <a class="item" ng-click="showResource(test)">
-            <i class="signal icon"></i><b style="color:red">{{test.speed|number:1}}ms</b> over a speed-of-light Internet
+            <i class="signal icon"></i><b style="color:red"><span ng-show="test.speed">{{test.speed|number:1}}ms</span><span ng-hide="test.speed">Unknown time</span></b> over a speed-of-light Internet
           </a>
         </div>
       </div>
@@ -108,7 +108,7 @@
     <script src="lib/TweenMax.min.js"></script>
     <script src="lib/firebase.js"></script>
     <script src="lib/purl.js"></script>
-    <script src="lib/jslitmus.js"></script>
+    <script src="lib/benchmark.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>
     <script src="lib/angular/angular-animate.js"></script>
