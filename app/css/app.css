@@ -180,7 +180,7 @@ body >.segment {
   position: absolute;
   /*background-color: #fff;*/
   left: 0;
-  top: -1.7em;
+  top: -0.1em;
   padding: 0 5px;
   min-width: 20px;
 }
