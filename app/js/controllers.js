@@ -85,6 +85,14 @@ angular.module('myApp.controllers', [])
             if (args.millis >= 15000) {
                 $scope.num_fail += 1
                 $scope.currentTest.time = 15000;
+                if ($scope.currentTest.ip) {
+                    var testRef = $scope.currentTest;
+                    $http.get('http://ip-api.com/json/' + testRef.ip).success(function(response) {
+                        var distance = distanceOnUnitSphere(response.lat, response.lon, user_info.ip.lat, user_info.ip.lon);
+                        testRef.speed = 4 * distance / 299792458 * 1000;
+                    });
+                }
+
                 $scope.upData[$scope.currentTest['name']] = {
                     time: {
                         status: 'timeout',
@@ -108,34 +116,10 @@ angular.module('myApp.controllers', [])
                 return;
             }
 
-            if (request.ipList) {
-                // processIPs(request.ipList, index - 1);
-                return;
-            }
-
             chrome.tabs.remove(sender.tab.id);
             loadResult(index, request);
             loadNextTest();
         });
-
-        function processIPs(ipList, index) {
-            for (var ip in ipList) {
-                $http.get('http://ip-api.com/json/' + ip)
-                    .success(function(response) {
-                        ipList[ip] = distanceOnUnitSphere(response.lat, response.lon, user_info.ip.lat, user_info.ip.lon);
-                    });
-            }
-
-            $timeout(function() {
-                var maxDistance = 0;
-                for (var ip in ipList) {
-                    if (ipList[ip] > maxDistance) {
-                        maxDistance = ipList[ip];
-                    }
-                }
-                $scope.finishedTest[index].speed += 2 * maxDistance / 299792458 * 1000;
-            }, 1000);
-        }
 
         //move to next test
         function loadNextTest() {
@@ -150,20 +134,20 @@ angular.module('myApp.controllers', [])
                 };
                 $scope.finishedTest.unshift($scope.currentTest);
                 var bench = new Benchmark({
-                    // benchmark name
-                    'name': 'join test',
-                    // benchmark test as a string
-                    'fn': 'new Array(5e7).join(" ")'
-                })
-                .on('complete', function(){
-                    $scope.currentTest.time = this.times.elapsed * 1000;
-                    user_info.performance = this.times.elapsed * 1000;
-                    $scope.currentTest = undefined;
-                    $('#currentTest').text('Finish');
-                    $scope.status = 'Run cSpeed again';
-                    $scope.$digest();
-                    finalizeTest();
-                });
+                        // benchmark name
+                        'name': 'join test',
+                        // benchmark test as a string
+                        'fn': 'new Array(5e7).join(" ")'
+                    })
+                    .on('complete', function() {
+                        $scope.currentTest.time = this.times.elapsed * 1000;
+                        user_info.performance = this.times.elapsed * 1000;
+                        $scope.currentTest = undefined;
+                        $('#currentTest').text('Finish');
+                        $scope.status = 'Run cSpeed again';
+                        $scope.$digest();
+                        finalizeTest();
+                    });
                 // Run the tests
                 $timeout(function() {
                     bench.run();
@@ -386,10 +370,10 @@ angular.module('myApp.controllers', [])
             drawChart('chart_isp', '', data2, maxRange);
 
             //Get speed comparation value 
-            if ($scope.region){
+            if ($scope.region) {
                 comparation = compare(uTotal, $scope.region.median);
             }
-            
+
             var fastestComparation = compare($scope.region[fastest].median, uTotal);
             $scope.report['region'] = {
                 fastest: fastest,
@@ -430,7 +414,7 @@ angular.module('myApp.controllers', [])
                 }
             }
 
-            if ($scope.num_fail / $scope.tests.length > 0.5){
+            if ($scope.num_fail / $scope.tests.length > 0.5) {
                 $scope.report.grade = 'F';
             }
         }
