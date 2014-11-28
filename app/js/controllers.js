@@ -28,6 +28,8 @@ angular.module('myApp.controllers', [])
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             //map city
+            response.city = prompt('We geo-located you to '+ response.city +'. If not, please enter your location below.');
+
             if (response.city == '') {
                 response.city = prompt('We cannot locate your city. Please input manually');
             }
