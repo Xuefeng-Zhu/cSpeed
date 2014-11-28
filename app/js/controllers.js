@@ -231,9 +231,9 @@ angular.module('myApp.controllers', [])
             //retrieve previous test result from localstorage
             $scope.history = store.get('history');
             $scope.generateReport();
-            $('.test:not(:first)').popup({
-                content: 'Click for more info'
-            });
+            // $('.test:not(:first)').popup({
+            //     content: 'Click for more info'
+            // });
         }
         /**
          *generate report based on your test result and others' result
@@ -531,9 +531,9 @@ angular.module('myApp.controllers', [])
         };
 
         //select individual test for showing menu 
-        $scope.selectTest = function(test) {
-            $scope.selectedTest = $scope.selectedTest == test ? null : test;
-        }
+        // $scope.selectTest = function(test) {
+        //     $scope.selectedTest = $scope.selectedTest == test ? null : test;
+        // }
 
         //show timeline for individual test result
         $scope.showResource = function(test) {
