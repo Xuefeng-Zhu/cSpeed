@@ -64,8 +64,6 @@ angular.module('myApp.controllers', [])
 
             function loadGeoData(){
                 user_info.ip = angular.copy(response);
-                console.log(user_info.ip);
-                console.log(user_info.ip_api);
                 $scope.user_ip = response;
                 fb.child('region/' + response.city).once('value', function(dataSnapshot) {
                     $scope.region = dataSnapshot.val();
