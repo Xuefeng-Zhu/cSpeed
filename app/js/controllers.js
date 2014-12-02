@@ -28,26 +28,51 @@ angular.module('myApp.controllers', [])
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
             //map city
-            response.city = prompt('We geo-located you to '+ response.city +'. If not, please enter your location below.');
-
-            if (response.city == '') {
-                response.city = prompt('We cannot locate your city. Please input manually');
-            }
             if (sisterCity[response.city]) {
                 response.city = sisterCity[response.city];
             }
-            user_info.ip = response;
+
+            var user_city = prompt('We geo-located you to ' + response.city + ' ,' + 
+                response.region + ' ,' + response.country + '. If not, please enter your location below.');
+
+
+            user_info.ip_api = angular.copy(response);
             user_info.browser = navigator.appVersion;
             user_info.date = Date();
             user_info.windowSize = {
                 height: window.outerHeight,
                 width: window.outerWidth
             }
-            $scope.user_ip = response;
-            fb.child('region/' + response.city).once('value', function(dataSnapshot) {
-                $scope.region = dataSnapshot.val();
-                $scope.$digest();
-            });
+
+            if (response.city == user_city){
+                loadGeoData();
+            }
+            else{
+                $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + user_city)
+                    .success(function(data){
+                        var result = data.results[0];
+                        var address = result.formatted_address.split(',');
+                        var geometry = result.geometry.location;
+                        response.city = address[0];
+                        response.region = address[1];
+                        response.country = address[2];
+                        response.lat = geometry.lat;
+                        response.lon = geometry.lng;
+                        loadGeoData();
+                    });
+            }
+
+            function loadGeoData(){
+                user_info.ip = angular.copy(response);
+                console.log(user_info.ip);
+                console.log(user_info.ip_api);
+                $scope.user_ip = response;
+                fb.child('region/' + response.city).once('value', function(dataSnapshot) {
+                    $scope.region = dataSnapshot.val();
+                    $scope.$digest();
+                });
+            }
+
         }).error(function() {
             alert('Failed to launch correctly: (a) check your network connectivity; (b) try disabling other extensions; (c) try again later.')
         });
