@@ -44,7 +44,7 @@ angular.module('myApp.controllers', [])
                 width: window.outerWidth
             }
 
-            if (user_city == "" || response.city == user_city){
+            if (user_city == undefined || response.city == user_city){
                 loadGeoData();
             }
             else{
