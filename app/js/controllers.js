@@ -32,8 +32,9 @@ angular.module('myApp.controllers', [])
                 response.city = sisterCity[response.city];
             }
 
-            var user_city = prompt('We geo-located you to ' + response.city + ' ,' + 
-                response.region + ' ,' + response.country + '. If not, please enter your location below.');
+            var user_city = prompt('We geo-located you to ' + response.city + ', ' + 
+                response.region + ', ' + response.country + '. If not, please enter your location below.',
+                response.city + ', ' + response.region + ', ' + response.country);
 
 
             user_info.ip_api = angular.copy(response);
