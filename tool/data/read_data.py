@@ -11,5 +11,5 @@ for test in individuals.values():
 	google_time = test['google']['time']
 	google.append(google_time['loadEventEnd'] - google_time['navigationStart'])
 
-
+print sorted(google)
 print sum(google) / len(google)
