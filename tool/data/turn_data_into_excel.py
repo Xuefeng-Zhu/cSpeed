@@ -1,21 +1,27 @@
 import json
 import csv
 
-fieldnames = ["city" ,"adcash", "stumbleupon", "google", "adobe", "instagram", "netflix", "outbrain", "vimeo", "mozilla", "salesforce", "addthis", "mailchimp", "adf", "user_info", "godaddy", "wordpress", "coccoc", "hostgator", "microsoft", "badoo", "wikipedia", "total", "hadTimeouts", "isp"]
+fieldnames = ["city" ,"adcash", "stumbleupon", "google", "adobe", "instagram", "netflix", "outbrain", "vimeo", "mozilla", "salesforce", "addthis", "mailchimp", "adf", "godaddy", "wordpress", "coccoc", "hostgator", "microsoft", "badoo", "wikipedia", "total", "hadTimeouts", "isp"]
 
-def process_test(test, writer):
+def process_test(key, test, writer):
 	timeout_flag = False 
 	total_time = 0
 	data_row = {}
 	for field in fieldnames:
 		if field == "city":
-			data_row[field] = test["user_info"]["ip"]["city"]
+			try:
+				data_row[field] = test["user_info"]["ip"]["city"]
+			except:
+				print key
 		elif field == "total":
 			data_row[field] = total_time
 		elif field == "hadTimeouts":
 			data_row[field] = timeout_flag
 		elif field == "isp":
-			data_row[field] = test["user_info"]["ip"]["isp"]
+			try:
+				data_row[field] = test["user_info"]["ip"]["isp"]
+			except:
+				print key
 		else:
 			time_data = test[field]["time"]
 			if time_data.get("status") == "timeout":
@@ -27,12 +33,12 @@ def process_test(test, writer):
 
 
 if __name__ == '__main__':
+	with open('speedtest-export.json') as f:
+		data = json.load(f)
+	
 	with open('data_matrix.csv', 'w') as f:
 		writer = csv.DictWriter(f, fieldnames)
 
-	with open('speedtest-export.json') as f:
-		data = json.load(f)
-
-	individuals = data['individuals']
-	for test in individuals.values():
-		process_test(test, writer)
+		individuals = data['individuals']
+		for (key, test) in individuals.items():
+			process_test(key, test, writer)
