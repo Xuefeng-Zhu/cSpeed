@@ -1,3 +1,8 @@
+# This scrip will turn firebase json onject into csv file. 
+# It will print out key id of test, which has some issues 
+# Author: Xuefeng Zhu
+# Date: Dec. 6th, 2014 
+
 import json
 import csv
 
