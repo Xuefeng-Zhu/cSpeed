@@ -36,6 +36,8 @@ angular.module('myApp.controllers', [])
                 response.region + ', ' + response.country + '. If not, please enter your location below.',
                 response.city + ', ' + response.region + ', ' + response.country);
 
+	    // TODO: What if the user clicks on cancel? Just use whatever ip-api.com gave, BUT record the user-entered data as 'null' in the database; for the results etc., proceed with ip-api.com's geolocation. 
+
 
             user_info.ip_api = angular.copy(response);
             user_info.browser = navigator.appVersion;
@@ -59,8 +61,37 @@ angular.module('myApp.controllers', [])
                         response.country = address[2];
                         response.lat = geometry.lat;
                         response.lon = geometry.lng;
-                        loadGeoData();
+			
+			// If the Google Maps API returns multiple locations, we need disambiguation
+			if (data.results.length > 1) {
+		            user_city = prompt('Multiple cities named ' + response.city + '; perhaps ' + response.city + ',' +
+		                response.region + ',' + response.country + '? If not, please re-enter your location:',
+		                response.city + ', ' + response.region + ', ' + response.country);
+			    if (user_city == undefined || user_city == response.city + ', ' + response.region + ', ' + response.country){
+			    	loadGeoData();
+			    }
+			    else{
+			    	$http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + user_city)
+			    	.success(function(data){
+				    result = data.results[0];
+				    address = result.formatted_address.split(',');
+				    geometry = result.geometry.location;
+				    response.city = address[0];
+				    response.region = address[1];
+				    response.country = address[2];
+				    response.lat = geometry.lat;
+				    response.lon = geometry.lng;
+			    	    loadGeoData();
+				});
+	    		    }
+			}
+
+                        else {
+				loadGeoData();
+			}
                     });
+
+		    // TODO: What happens if the response fails? I suggest giving up and just using whatever ip-api.com gave, BUT record the user-entered data as 'null' in the database; for the results etc., proceed with ip-api.com's geolocation.
             }
 
             function loadGeoData(){
