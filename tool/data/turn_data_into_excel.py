@@ -18,6 +18,7 @@ def process_test(key, test, writer):
 				data_row[field] = test["user_info"]["ip"]["city"]
 			except:
 				print key
+				return
 		elif field == "total":
 			data_row[field] = total_time
 		elif field == "hadTimeouts":
@@ -27,6 +28,7 @@ def process_test(key, test, writer):
 				data_row[field] = test["user_info"]["ip"]["isp"]
 			except:
 				print key
+				return
 		else:
 			time_data = test[field]["time"]
 			if time_data.get("status") == "timeout":
