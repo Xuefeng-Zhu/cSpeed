@@ -14,6 +14,7 @@ $('.message .close').on('click', function() {
     $(this).closest('.message').fadeOut();
 });
 
+
 var tests = [
 //{'link': 'https://www.aws.amazon.com/', 'name': 'aws', 'showName': 'www.aws.amazon.com'} ,
  {'link': 'https://www.adcash.com/', 'name': 'adcash', 'showName': 'www.adcash.com'} ,

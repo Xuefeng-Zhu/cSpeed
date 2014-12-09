@@ -39,6 +39,7 @@ angular.module('myApp.controllers', [])
                 height: window.outerHeight,
                 width: window.outerWidth
             }
+            user_info.version = chrome.app.getDetails().version;
 
             if (user_city == undefined || user_city == response.city + ', ' + response.region + ', ' + response.country) {
                 if (user_city == undefined) {
