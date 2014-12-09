@@ -43,7 +43,7 @@ angular.module('myApp.controllers', [])
 
             if (user_city == undefined || user_city == response.city + ', ' + response.region + ', ' + response.country) {
                 if (user_city == undefined) {
-                    response.isDataValid = 0;
+                    invalidData();
                 } else {
                     response.isDataValid = 1;
                 }
@@ -52,7 +52,7 @@ angular.module('myApp.controllers', [])
                 $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + user_city)
                     .success(function(data) {
                         if (data.results.length == 0) {
-                            response.isDataValid = 0;
+                            invalidData();
                         } else {
                             response.isDataValid = 1;
                             var result = data.results[0];
@@ -72,7 +72,7 @@ angular.module('myApp.controllers', [])
                                 response.city + ', ' + response.region + ', ' + response.country);
                             if (user_city == undefined || user_city == response.city + ', ' + response.region + ', ' + response.country) {
                                 if (user_city == undefined) {
-                                    response.isDataValid = 0;
+                                    invalidData();
                                 } else {
                                     response.isDataValid = 1;
                                 }
@@ -81,7 +81,7 @@ angular.module('myApp.controllers', [])
                                 $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + user_city)
                                     .success(function(data) {
                                         if (data.results.length == 0) {
-                                            response.isDataValid = 0;
+                                            invalidData();
                                         } else {
                                             response.isDataValid = 1;
                                             result = data.results[0];
@@ -109,6 +109,11 @@ angular.module('myApp.controllers', [])
                     $scope.region = dataSnapshot.val();
                     $scope.$digest();
                 });
+            };
+
+            function invalidData(){
+                response.isDataValid = 0;
+                alert( "Sorry, didn't understand your input; using city, region, country where the geolocation comes from ip-api");
             }
 
         }).error(function() {
