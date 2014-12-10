@@ -51,7 +51,7 @@ angular.module('myApp.controllers', [])
             } else {
                 $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + user_city)
                     .success(function(data) {
-                        if (data.results.length == 0) {
+                        if (data.status != "OK") {
                             invalidData();
                         } else {
                             response.isDataValid = 1;
@@ -114,7 +114,7 @@ angular.module('myApp.controllers', [])
 
             function invalidData(){
                 response.isDataValid = 0;
-                alert( "Sorry, didn't understand your input; using city, region, country where the geolocation comes from ip-api");
+                alert( "Sorry, cSpeed did not understand your input; using location information from our geo-location service instead.");
             }
 
         }).error(function() {
