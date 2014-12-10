@@ -2,7 +2,7 @@
 /* Controllers */
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase('https://speedtest.firebaseio.com'); //firebase reference
+        var fb = new Firebase('https://speedtes2.firebaseio.com'); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
         var entry_point = null;
@@ -13,12 +13,12 @@ angular.module('myApp.controllers', [])
         $scope.region = null; //speed statics in same region
         $scope.num_fail = 0; //number of tests time out 
         $scope.status = 'Run cSpeed to find out!';
+
         //load statics to total
         fb.child('total').once('value', function(dataSnapshot) {
             $scope.total = dataSnapshot.val();
             $scope.$digest();
         });
-
 
         //get user ip address and load statics to isp and region
         $http.get('http://ip-api.com/json').success(function(response) {
@@ -105,7 +105,8 @@ angular.module('myApp.controllers', [])
             function loadGeoData() {
                 user_info.ip = angular.copy(response);
                 $scope.user_ip = response;
-                fb.child('region/' + response.city).once('value', function(dataSnapshot) {
+                var location = [response.city, response.region, response.country].join('_');
+                fb.child('region/' + location).once('value', function(dataSnapshot) {
                     $scope.region = dataSnapshot.val();
                     $scope.$digest();
                 });
