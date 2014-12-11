@@ -63,6 +63,9 @@ angular.module('myApp.controllers', [])
                             response.country = address[2];
                             response.lat = geometry.lat;
                             response.lon = geometry.lng;
+                            if (sisterCity[response.city]) {
+                                response.city = sisterCity[response.city];
+                            }
                         }
 
                         // If the Google Maps API returns multiple locations, we need disambiguation
@@ -92,6 +95,9 @@ angular.module('myApp.controllers', [])
                                             response.country = address[2];
                                             response.lat = geometry.lat;
                                             response.lon = geometry.lng;
+                                            if (sisterCity[response.city]) {
+                                                response.city = sisterCity[response.city];
+                                            }
                                         }
                                         loadGeoData();
                                     });
@@ -112,9 +118,9 @@ angular.module('myApp.controllers', [])
                 });
             };
 
-            function invalidData(){
+            function invalidData() {
                 response.isDataValid = 0;
-                alert( "Sorry, cSpeed did not understand your input; using location information from our geo-location service instead.");
+                alert("Sorry, cSpeed did not understand your input; using location information from our geo-location service instead.");
             }
 
         }).error(function() {
