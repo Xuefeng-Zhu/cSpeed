@@ -452,7 +452,7 @@ angular.module('myApp.controllers', [])
                 comparation = compare(uTotal, $scope.region.median);
             }
 
-            var fastestComparation = compare($scope.region[fastest].median, uTotal);
+            var fastestComparation = compare($scope.region[fastest].median, $scope.region[user_info.ip.isp].median);
             $scope.report['region'] = {
                 fastest: fastest,
                 comparation: comparation,

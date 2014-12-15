@@ -46,7 +46,7 @@
             <div style="text-align:center; font-size:1.5em">
               <div ng-show="report.region.count>1">
                 <p ng-show="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network<br>(like yourself) finish the test fastest.</p>
-                <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network<br> finish the test fastest, typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than you.</p>
+                <p ng-hide="user_ip.isp==report.region.fastest">Across tests run in {{user_ip.city}}, those using the <b>{{report.region.fastest}}</b> network<br> finish the test fastest, typically finishing <b>{{report.region.fastestComparation.value}}% faster</b> than {{user_ip.isp}} users.</p>
                 <div id="chart_isp"></div>
               </div>
               <div class="ui huge warning message" style="margin: 0 3em" ng-hide="report.region.count>1">
