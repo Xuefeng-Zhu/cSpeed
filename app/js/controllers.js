@@ -28,7 +28,7 @@ angular.module('myApp.controllers', [])
             }
 
             var user_city = prompt('We geo-located you to ' + response.city + ', ' +
-                response.region + ', ' + response.country + '. If not, please enter your location below.',
+                response.region + ', ' + response.country + '. If not, please enter your location below. \n\nWe use your location to compare your results to others in the area, as well as to a hypothetical speed-of-light Internet. You can decline to refine location information by clicking "cancel".',
                 response.city + ', ' + response.region + ', ' + response.country);
 
 
