@@ -78038,6 +78038,7 @@
           "unloadEventStart" : 0
         }
       }
+<<<<<<< HEAD
     },
     "-JdDONwZx2Ole-3rI9WU" : {
       "adcash" : {
@@ -107820,6 +107821,8 @@
           "unloadEventStart" : 0
         }
       }
+=======
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
     }
   },
   "region" : {
@@ -107867,6 +107870,7 @@
       "count" : 4,
       "median" : 49944
     },
+<<<<<<< HEAD
     "Buenos Aires_C_Argentina" : {
       "Red Intercable Digital S-A-" : {
         "count" : 1,
@@ -107883,6 +107887,12 @@
       "Cogent Communications" : {
         "count" : 1,
         "median" : 35612.917866870645
+=======
+    "Champaign-Urbana_IL_United States" : {
+      "AT&T U-verse" : {
+        "count" : 38,
+        "median" : 55146
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
       },
       "Comcast Business Communications" : {
         "count" : 2,
@@ -107912,9 +107922,23 @@
         "count" : 1,
         "median" : 70037.48893418605
       },
+<<<<<<< HEAD
       "count" : 1,
       "median" : 70037.48893418605
     },
+=======
+      "count" : 60,
+      "median" : 51663
+    },
+    "Chandigarh_ Chandigarh_ India" : {
+      "Airtel Broadband" : {
+        "count" : 1,
+        "median" : 70037.48893418605
+      },
+      "count" : 1,
+      "median" : 70037.48893418605
+    },
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
     "Chandigarh_CH_India" : {
       "Airtel Broadband" : {
         "count" : 7,
@@ -107951,6 +107975,7 @@
       "count" : 2,
       "median" : 65418
     },
+<<<<<<< HEAD
     "Decatur_IL_United States" : {
       "Comcast Cable" : {
         "count" : 1,
@@ -107959,6 +107984,8 @@
       "count" : 1,
       "median" : 85216.58368696901
     },
+=======
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
     "Dehradun_UL_India" : {
       "Bharti Broadband" : {
         "count" : 5,
@@ -108023,6 +108050,7 @@
       "count" : 1,
       "median" : 64055
     },
+<<<<<<< HEAD
     "Irvine_CA_United States" : {
       "University of California, Irvine" : {
         "count" : 1,
@@ -108031,6 +108059,8 @@
       "count" : 1,
       "median" : 51750.26423123065
     },
+=======
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
     "Jalandhar_PB_India" : {
       "Airtel Broadband" : {
         "count" : 3,
@@ -108151,6 +108181,7 @@
       "count" : 1,
       "median" : 35233
     },
+<<<<<<< HEAD
     "Nuremberg_BY_Germany" : {
       "Kabel Deutschland" : {
         "count" : 2,
@@ -108159,6 +108190,8 @@
       "count" : 2,
       "median" : 89901
     },
+=======
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
     "Santarcangelo di Romagna_45_Italy" : {
       "Made Network Srl" : {
         "count" : 1,
@@ -108183,6 +108216,7 @@
       "count" : 1,
       "median" : 47532
     },
+<<<<<<< HEAD
     "Seoul_11_Republic of Korea" : {
       "Seoul National University" : {
         "count" : 1,
@@ -108191,6 +108225,8 @@
       "count" : 1,
       "median" : 77756
     },
+=======
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
     "Somerville_MA_United States" : {
       "RCN" : {
         "count" : 1,
@@ -108199,6 +108235,7 @@
       "count" : 1,
       "median" : 39648
     },
+<<<<<<< HEAD
     "Tewksbury_ MA_ USA" : {
       "Comcast Cable" : {
         "count" : 1,
@@ -108207,6 +108244,8 @@
       "count" : 1,
       "median" : 38423.98790742941
     },
+=======
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
     "Thane_MH_India" : {
       "In2cable (India) Ltd-" : {
         "count" : 1,
@@ -108269,6 +108308,7 @@
     }
   },
   "total" : {
+<<<<<<< HEAD
     "adcash" : 3058.3995120668865,
     "addthis" : 3367.4926653206726,
     "adf" : 3869.2416635209706,
@@ -108292,5 +108332,30 @@
     "vimeo" : 4145.782740877945,
     "wikipedia" : 2232.565608875129,
     "wordpress" : 2297.6239938080494
+=======
+    "adcash" : 3183.4765100671143,
+    "addthis" : 3444.397593632699,
+    "adf" : 4139.765100671141,
+    "adobe" : 5199.194630872483,
+    "badoo" : 3752.7595610186454,
+    "coccoc" : 5234.90178115065,
+    "count" : 149,
+    "godaddy" : 4094.8859060402683,
+    "google" : 1966.5637583892617,
+    "hostgator" : 3354.5637583892617,
+    "instagram" : 3039.841866581786,
+    "mailchimp" : 2920.1951942200776,
+    "median" : 64055,
+    "microsoft" : 4486.114093959732,
+    "mozilla" : 4446.48322147651,
+    "netflix" : 4324.845637583892,
+    "outbrain" : 3007.0738255033557,
+    "perf" : 7899.281879194631,
+    "salesforce" : 4411.830539397359,
+    "stumbleupon" : 3408.8389261744965,
+    "vimeo" : 4329.61744966443,
+    "wikipedia" : 2389.771812080537,
+    "wordpress" : 2602.228187919463
+>>>>>>> c2c49972f1abc748664e83d19344b369f60579d3
   }
 }
