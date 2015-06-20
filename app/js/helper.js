@@ -5,9 +5,27 @@ function measure() {
         return;
     }
     chrome.runtime.sendMessage({
-        time: performance.timing,
-        resource: performance.getEntries()
+        time: getTiming(performance.timing),
+        resource: getResource()
     });
 }
 
 measure();
+
+function getResource() {
+	result = [];
+	resource = performance.getEntries();
+	for (i in resource) {
+		result.push(resource[i]);
+	}
+	return result;
+	console.log(result)
+}
+
+function getTiming(object){
+	result = {};
+	for (key in object) {
+		result[key] = object[key];
+	}
+	return result;
+}

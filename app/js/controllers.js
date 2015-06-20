@@ -2,7 +2,7 @@
 /* Controllers */
 angular.module('myApp.controllers', [])
     .controller('TimerCtrl', function($scope, $timeout, $http, $q, $filter) {
-        var fb = new Firebase('https://speedtest.firebaseio.com'); //firebase reference
+        var fb = new Firebase('https://speedtest.firebaseio.com/'); //firebase reference
         var index = 0; //index for test
         var user_info = {}; //user information like ip address, web browser, and date
         var entry_point = null;
@@ -193,8 +193,9 @@ angular.module('myApp.controllers', [])
                 $scope.currentTest.ip = request.details.ip;
                 return;
             }
-
+            
             chrome.tabs.remove(sender.tab.id);
+            console.log(request);
             loadResult(index, request);
             loadNextTest();
         });
@@ -350,6 +351,7 @@ angular.module('myApp.controllers', [])
                 }
             });
 
+            console.log(uTotal);
             entry_point.child('user_info/totaltime').set(uTotal);
 
 
