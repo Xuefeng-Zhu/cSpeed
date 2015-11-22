@@ -133,7 +133,7 @@ angular.module('myApp.controllers', [])
             }
             index = 0;
             $scope.currentTest = $scope.tests[index];
-            performance.webkitClearResourceTimings(); //clear perfomance statics
+            performance.clearResourceTimings(); //clear perfomance statics
             $scope.upData = {};
             $scope.report = {};
             $scope.finishedTest = [];
@@ -194,6 +194,7 @@ angular.module('myApp.controllers', [])
                 return;
             }
             
+            console.log(request)
             chrome.tabs.remove(sender.tab.id);
             console.log(request);
             loadResult(index, request);

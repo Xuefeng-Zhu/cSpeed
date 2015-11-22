@@ -5,7 +5,7 @@ function measure() {
         return;
     }
     chrome.runtime.sendMessage({
-        time: getTiming(performance.timing),
+        time: performance.timing,
         resource: getResource()
     });
 }
@@ -19,7 +19,6 @@ function getResource() {
 		result.push(resource[i]);
 	}
 	return result;
-	console.log(result)
 }
 
 function getTiming(object){
